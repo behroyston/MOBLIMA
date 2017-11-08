@@ -7,7 +7,7 @@ public class Main {
         MovieGoerUI mMovieGoerUI = MovieGoerUI.getInstance();
 
         Scanner scanner = new Scanner(System.in);
-        mMovieGoerUI.bookTicket();
+        mMovieGoerUI.showSeatsAvailability();
     }
 
 }
