@@ -1,12 +1,15 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 public class MovieGoerUI {
 
-    private static MovieGoerUI Instance = null;
+    ArrayList<Movie> movieList = MovieController.getMovieList();
 
-    private Seat[][] seats;
+    Scanner sc = new Scanner(System.in);
+
+    private static MovieGoerUI Instance = null;
 
     public static MovieGoerUI getInstance() {
         if (Instance == null) {
@@ -15,105 +18,43 @@ public class MovieGoerUI {
         return Instance;
     }
 
-    // traverses through MovieController.getCineplex(position).getCinema(position).getMovieScreening(position).getSeatsForThisMovie
-    public void showSeatsAvailability(){
-        if (seats == null)
-            setDummySeats();
-        int x;
-        int y;
-        String order[] = {"A","B","C","D","E","F","G","H"};
-        System.out.print("   ");
-
-        // Construct 1 to 15 for horizontal label;
-        for (int i = 1; i < 16; i++) {
-            if (i == 8) {
-                System.out.print("   " + i);
-            }
-            else if (i < 10) {
-                System.out.print(" " + i);
-            }
-            else System.out.print(i);
-        }
-
-        System.out.println();
-
-        for (y = 7; y > -1; y--) {
-            // Construct the label A - H for the Vertical Label
-            System.out.print(order[y]);
-            System.out.print("   ");
-
-            for (x = 0; x < 7; x++) {
-                showIsBooked(x,y);
-            }
-            System.out.print("  ");
-            for (x = 7 ; x < 15; x++) {
-                showIsBooked(x,y);
-            }
-
-            System.out.print("  ");
-            System.out.println(order[y]);
-        }
-        Scanner sc = new Scanner(System.in);
-        System.out.println("1. Book Seat\n2. Go Back to Main Menu");
-        int choice = sc.nextInt();
-        switch (choice) {
-            case (1): bookTickets();
-                break;
-            case (2): //TODO: Add in the show main menu function
-                break;
-        }
+    public void loginValidation(){
+        System.out.println("-----------------------USER LOGIN------------------------");
+        if (MovieGoer.login())
+                System.out.println("Login Successfully!");
+        System.out.println("-------------------"+MovieGoer.getCusID()+"-----------------");
     }
 
-    private void bookTickets(){
-        Scanner sc = new Scanner(System.in);
-        List<String> stringList = Arrays.asList("A", "B", "C", "D", "E", "F", "G", "H");
-        String alphabet;
-        int number;
-        System.out.println("\"Please enter the Seat Alphabet you wished to book!");
-        while (!sc.hasNext("[ABCDEFGHabcdefgh]")) {
-            System.out.println("That's not an Alphabet");
-            sc.next(); // this is important!
-        }
-        alphabet = sc.next();
-
-        do {
-            System.out.println("Please enter a valid number!");
-            while (!sc.hasNextInt()) {
-                System.out.println("That's not a number!");
-                sc.next(); // this is important!
-            }
-            number = sc.nextInt();
-        } while (number <= 0);
-
-        int verticalIndex = stringList.indexOf(alphabet);
-
-        Seat selectedSeat = seats[number-1][verticalIndex];
-        if (!selectedSeat.getIsBooked()) {
-            //TODO AddBooking through the BookingManager
-            //BookingController.getInstance().addBooking(//user,);
-            seats[number - 1][verticalIndex].setIsBooked(true);
-        }
-        else
-            System.out.println("The seat is booked! Please select another seat.");
-        showSeatsAvailability();
+    public void listMovies(){
+        System.out.println("Now showing: ");
+        for (Movie movie : movieList)
+            if (movie.getIsShowing())
+                System.out.println("ID: "+ movie.getId()+ " Name: "+ movie.getMovieName());
     }
 
-    private void showIsBooked(int horizontalLabel, int verticalLabel){
-
-        if (seats[horizontalLabel][verticalLabel].getIsBooked())
-            System.out.print("X ");
-        else
-            System.out.print("O ");
+    public void viewMovieDetail(){
+        System.out.println("Enter movie ID for viewing detail: ");
+        int movieId = sc.nextInt();
+        for (Movie movie : movieList)
+            if (movie.getId() == movieId)
+                System.out.println("ID: "+ movie.getId()+ " Name: "+ movie.getMovieName()+ " Synopsis: "+ movie.getSynopsis()+ " Director: " + movie.getDirector() + " Cast: " + movie.getCast());
+    }
+    /**
+     * print out booking history
+     */
+    public void viewBookingHistory(){
+        System.out.println("This is your booking history: ");
+        for (Booking booking : BookingController.getBookingList())
+            System.out.println(booking.transactionID + booking.cinemaID + booking.movieScreening);
     }
 
-    private void setDummySeats(){
-        seats = new Seat[15][8];
-        for (int y = 0; y < 8; y++){
-            for (int x = 0; x < 15; x++){
-                Seat newSeat = new Seat((x+1)*(y+1));
-                seats[x][y] = newSeat;
-            }
-        }
+    /**
+     * ask the user to enter a review
+     */
+    public void enterReviewRating(){
+        System.out.println("Please enter your review: ");
+        String newReview = sc.next();
+        Movie.addReviews(Movie.reviews) = newReview;
     }
 
 }
