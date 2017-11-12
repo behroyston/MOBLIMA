@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class BookingController {
+public class BookingController extends DatabaseController{
 
     private String DIR = "booking/";
 
@@ -14,6 +14,16 @@ public class BookingController {
         if (Instance == null)
             Instance = new BookingController();
         return Instance;
+    }
+
+    @Override
+    public void readDB() {
+
+    }
+
+    @Override
+    public void writeDB() {
+
     }
 
     // exposes the private directory to initialize the retrieval of data.

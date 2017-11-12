@@ -111,19 +111,27 @@ public class TestApp {
 		}
 	}
 
+	public static ArrayList<MovieScreening> createSampleForMovieScreening(){
+//		    public MovieScreening(Calendar startTime, Calendar endTime,
+//		int cinemaId, int movieID, String movieType){
+		ArrayList<MovieScreening> movieScreeningList = new ArrayList<>();
+		Calendar aDate, startTime, endTime;
+		aDate = new GregorianCalendar(2013, 3, 5, 8, 00);
+		startTime = (Calendar) aDate.clone();
+		endTime = (Calendar) (new GregorianCalendar(2013, 3, 5, 8, 30)).clone();
+		addMovieScreening(startTime, endTime, "2D", 1);
+		ArrayList<MovieScreening> at = cin.get(0).getMovieScreenings();
+		printMovieTimings(at);
+
+
+	}
+
 	public static ArrayList<Cineplex> createSample(){
 		ArrayList<Cineplex> cineplexList = new ArrayList<>();
 		ArrayList<Cinema> cin = new ArrayList<>();
 		cin.add(new Cinema(1, "Regular"));
 		cin.add(new Cinema(2, "Regular"));
 
-		Calendar aDate, startTime, endTime;
-		aDate = new GregorianCalendar(2013, 3, 5, 8, 00);
-		startTime = (Calendar) aDate.clone();
-		endTime = (Calendar) (new GregorianCalendar(2013, 3, 5, 8, 30)).clone();
-		cin.get(0).addMovieScreening(startTime, endTime, "2D", 1);
-		ArrayList<MovieScreening> at = cin.get(0).getMovieScreenings();
-		printMovieTimings(at);
 
 		System.out.println("LOL!~~~~~~~~~~");
 		startTime = (Calendar) (new GregorianCalendar(2013, 3, 5, 7, 51)).clone();

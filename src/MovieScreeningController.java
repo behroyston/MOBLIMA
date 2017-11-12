@@ -1,7 +1,14 @@
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
+import java.util.StringTokenizer;
 
-public class MovieScreeningController {
+/**
+ *
+ */
+public class MovieScreeningController extends DatabaseController {
 
     private String DIR = "moviescreening/";
     private MovieScreeningController instance = null;
@@ -15,9 +22,44 @@ public class MovieScreeningController {
         return instance;
     }
 
-    protected void readDB(){}
+    @Override
+    public void readDB(){
+        movieScreenings.clear();
+        if (checkDirectoryExist(BASEDIR + DIR)) {
+            File folder = new File(BASEDIR + DIR);
+            File[] listOfFiles = folder.listFiles();
+            try{
+                for (File f : listOfFiles) {
+                    if (f.isFile()){
+                        List<String> text = retrieveData(BASEDIR + DIR + f.getName());
 
-    protected void writeDB(){}
+                        // MovieScreening Attributes
+                        StringTokenizer aStr = new StringTokenizer(text.get(0), DELIMTER);
+                        String  = aStr.nextToken();			// Name
+                        String cineplexLocation = aStr.nextToken();		// Location
+
+                        Calendar startTime = Calendar.getInstance();
+                        startTime.setTimeInMillis(Long.parseLong(aStr.nextToken()));	// Start Time
+                        Calendar endTime = Calendar.getInstance();
+                        endTime.setTimeInMillis(Long.parseLong(aStr.nextToken()));		// End Time
+
+                        String movieType = aStr.nextToken();							// Movie Type
+                        int movieID = Integer.parseInt(aStr.nextToken());				// Movie ID
+
+                    }
+                }
+            }
+            catch (IOException io){
+                System.out.println("Error! Unable to retrieve data from file.");
+            }
+
+        } else {
+            System.out.println("Error, Directory not found! Database for Cineplex is not loaded!");
+        }
+    }
+
+    @Override
+    public void writeDB(){}
 
     public ArrayList<MovieScreening> getMovieScreenings(){
         return movieScreenings;
@@ -32,7 +74,23 @@ public class MovieScreeningController {
      * @return
      */
     public boolean addMovieScreening(int cinemaID, int movieID, Calendar startTime)
-    {}
+    {
+        Calendar endTime = startTime;
+        endTime.add(Calendar.MINUTE, MovieController.getInstance().getMovie(movieID).getDuration());
+        for (int i = 0; i < movieScreenings.size() - 1 ; i ++){
+            MovieScreening movieScreening = movieScreenings.get(i);
+            if (movieScreening.getCinemaID() == cinemaID){
+                // if startTime is lesser than one of the moviescreening's endTime
+                if (startTime.compareTo(movieScreening.getEndTime()) == -1) {
+                    System.out.println("This moviescreening's timing clashes with another moviescreening's timing!");
+                    return false;
+                }
+            }
+        }
+        MovieScreening newMovieScreening = new MovieScreening(startTime, endTime, cinemaID,movieID);
+        movieScreenings.add(newMovieScreening);
+        return true;
+    }
 
     /**
      * update the movieScreening given the new CinemaID, movieID and startTime
@@ -43,14 +101,27 @@ public class MovieScreeningController {
      * @return
      */
     public boolean updateMovieScreening(int movieScreeningID, int newCinemaID, int newMovieID, Calendar newStartTime)
-    {}
+    {
+        MovieScreening oldMovieScreening = removeMovieScreening(movieScreeningID);
+        if (addMovieScreening(newCinemaID,newMovieID,newStartTime))
+            return true;
+        else {
+            addMovieScreening(oldMovieScreening.getCinemaID(),oldMovieScreening.getMovieID(),oldMovieScreening.getStartTime());
+            return false;
+        }
+    }
 
     /**
      * removes the movieScreening based on its unique ID.
      * @param movieScreeningID
      * @return
      */
-    public boolean removeMovieScreening(int movieScreeningID){}
+    public MovieScreening removeMovieScreening(int movieScreeningID){
+        for (int i = 0; i < movieScreenings.size() - 1; i++)
+        {
+            if (movieScreenings.get(i).get)
+        }
+    }
 
     public boolean updateExpiry(){}
 

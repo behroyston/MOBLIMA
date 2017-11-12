@@ -12,7 +12,7 @@ public class Movie{
     private ArrayList<Double> ratingList;
     private boolean isShowing;
     private double ticketSales;
-    private double duration;
+    private int duration;
 
 
     public Movie(int movieId, String movieName, String synosis, String director, String cast){
@@ -67,7 +67,7 @@ public class Movie{
         return ticketSales;
     }
 
-    public double getDuration() {
+    public int getDuration() {
         return duration;
     }
 
@@ -83,7 +83,7 @@ public class Movie{
         isShowing = showing;
     }
 
-    public void setDuration(double duration) {
+    public void setDuration(int duration) {
         this.duration = duration;
     }
 

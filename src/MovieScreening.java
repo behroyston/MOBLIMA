@@ -17,11 +17,11 @@ public class MovieScreening {
     private boolean isExpired;
 
     public MovieScreening(Calendar startTime, Calendar endTime,
-                          int cinemaId, int movieID, String movieType){
+                          int cinemaId, int movieID){
         this.startTime = startTime;
         this.endTime = endTime;
         this.cinemaID = cinemaId;
-        this.movieType = movieType;
+        //this.movieType = movieType;
         this.movieID = movieID;
         isExpired = false;
 
