@@ -2,26 +2,31 @@ import java.util.Calendar;
 
 public class MovieScreening {
 
-    private Calendar dateTime;
+    private Calendar startTime;
+
+    private Calendar endTime;
+    
+    private int cinemaID;
 
     private String movieType;
 
-    private int movieId;
+    private int movieID;
 
-    private Seat[][] seatsForThisMovie;
+    private Seat[][] seats;
 
-    public MovieScreening(int i){
-        movieId = i;
-        dateTime = Calendar.getInstance();
+    private boolean isExpired;
+
+    public MovieScreening(Calendar startTime, Calendar endTime,
+                          int cinemaId, int movieID, String movieType){
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.cinemaID = cinemaId;
+        this.movieType = movieType;
+        this.movieID = movieID;
+        isExpired = false;
+
         // now it's 15 by 8 for this movie.
-        seatsForThisMovie = new Seat[15][8];
-    }
-    public Calendar getDateTime() {
-        return dateTime;
-    }
-
-    public void setDateTime(Calendar dateTime) {
-        this.dateTime = dateTime;
+        seats = new Seat[15][8];
     }
 
     public String getMovieType() {
@@ -33,14 +38,61 @@ public class MovieScreening {
     }
 
     public int getMovieId() {
-        return movieId;
+        return movieID;
     }
 
-    public void setMovieId(int movieId) {
-        this.movieId = movieId;
+    public void setMovieId(int movieID) {
+        this.movieID = movieID;
     }
 
-    public Seat[][] getSeatsForThisMovie() {
-        return seatsForThisMovie;
+    public Calendar getStartTime() {
+        return startTime;
     }
+
+    public void setStartTime(Calendar startTime) {
+        this.startTime = startTime;
+    }
+
+    public Calendar getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Calendar endTime) {
+        this.endTime = endTime;
+    }
+
+    public int getCinemaID() {
+        return cinemaID;
+    }
+
+    public void setCinemaID(int cinemaID) {
+        this.cinemaID = cinemaID;
+    }
+
+    public int getMovieID() {
+        return movieID;
+    }
+
+    public void setMovieID(int movieID) {
+        this.movieID = movieID;
+    }
+
+    public void setSeats(Seat[][] seatsForThisMovie) {
+        this.seats = seatsForThisMovie;
+    }
+
+    public boolean isExpired() {
+        return isExpired;
+    }
+
+    public void setExpired(boolean expired) {
+        isExpired = expired;
+    }
+
+    public Seat[][] getSeats() {
+        return seats;
+    }
+
+
+
 }

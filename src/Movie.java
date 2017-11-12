@@ -12,6 +12,7 @@ public class Movie{
     private ArrayList<Double> ratingList;
     private boolean isShowing;
     private double ticketSales;
+    private double duration;
 
 
     public Movie(int movieId, String movieName, String synosis, String director, String cast){
@@ -22,7 +23,7 @@ public class Movie{
         this.cast = cast;
     }
 
-    public int getId(){
+    public int getMovieId() {
         return movieId;
     }
 
@@ -32,10 +33,6 @@ public class Movie{
 
     public String getStatus() {
         return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     public String getSynopsis() {
@@ -50,6 +47,46 @@ public class Movie{
         return cast;
     }
 
+    public double getAvg_rating() {
+        return avg_rating;
+    }
+
+    public ArrayList<String> getReviews() {
+        return reviews;
+    }
+
+    public ArrayList<Double> getRatingList() {
+        return ratingList;
+    }
+
+    public boolean isShowing() {
+        return isShowing;
+    }
+
+    public double getTicketSales() {
+        return ticketSales;
+    }
+
+    public double getDuration() {
+        return duration;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setAvg_rating(double avg_rating) {
+        this.avg_rating = avg_rating;
+    }
+
+    public void setShowing(boolean showing) {
+        isShowing = showing;
+    }
+
+    public void setDuration(double duration) {
+        this.duration = duration;
+    }
+
     /**
      * @return average rating
      */
@@ -57,52 +94,27 @@ public class Movie{
         return avg_rating;
     }
 
-    //change parameter in class diagram
     /**
      * calculate and update average rating
-     * @param ratingList
      */
-    public void setRating(ArrayList<Double> ratingList){
+    private void setAvgRating(){
         double sum = 0;
         for (double rating : ratingList)
             sum += rating;
         avg_rating = sum/ratingList.size();
     }
 
-    public ArrayList<String> getReviews() {
-        return reviews;
+    public void addReview(String review){
+        reviews.add(review);
     }
 
-    //change the name for this method in class diagram
-    /**
-     * add a new review
-     * @param reviews
-     */
-    public void addReviews(ArrayList<String> reviews) {
-        this.reviews = reviews;
-    }
-
-    public ArrayList<Double> getRatingList() {
-        return ratingList;
-    }
-
-    /**
-     * add a new rating to radingList
-     * @param rating
-     */
-    public void addRating(double rating) {
+    public void addRating(double rating){
         ratingList.add(rating);
     }
 
-    public double getTicketSales() {
-        return ticketSales;
+    public void addTicketSales(double sales){
+        ticketSales += sales;
     }
 
-    public void addTicketSales(double ticketSales){
-        ticketSales++;
-    }
 
-    public boolean getIsShowing(boolean isShowing){
-        return isShowing;
-    }
 }
