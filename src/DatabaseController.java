@@ -1,4 +1,3 @@
-import java.io.FileInputStream;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.BufferedReader;
@@ -9,39 +8,69 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A controller to perform storing and retrieval of data to/from database.
+ * @author Wong Jing Lun
+ * @version 1.0
+ * @since 2017-11-06
+ */
 public abstract class DatabaseController {
-	protected static final String DELIMTER = ";";
+	/**
+	 * Delimiter to seperate data in the database
+	 */
+	protected static final String DELIMITER = ";";
+	
+	/**
+	 * Root Directory of the Database
+	 */
 	protected static final String BASEDIR = "database/";
+	
+	/**
+	 * Buffer in database for retrieval of data
+	 */
 	private static List<String> data;
 
 	public DatabaseController(){
 		data = new ArrayList<>();
 	}
 
+	/**
+	 * Method to allow specialized controllers to handle the structure
+	 * of the data file during data retrieval
+	 */
 	public abstract void readDB();
+	
+	/**
+	 * Method to allow specialized controllers to handle the structure of 
+	 * data file during data storing 
+	 */
 	public abstract void writeDB();
 
-	public boolean checkDirectoryExist(String filepath) {
-		File f = new File(filepath);
-		if (!f.exists()) {
-			try {
-				f.mkdirs();
-			} catch (Exception ex) {
-				System.out.println("Error! Unable to create new directory!");
-				return false;
-			}
-		}
+	/**
+	 * Check if the directory in database exists.
+	 * Create the directory if it does not exists.
+	 * @param dirPath	Directory path of the database
+	 * @return			True if it the directory exists or created successfully. False otherwise.
+	 */
+	public boolean checkDirectoryExist(String dirPath) {
+		File f = new File(dirPath);
+		if (!f.exists()) 
+			f.mkdirs();
 		return f.exists();
 	}
 	
-	public void saveData(String fileName, List<String> data) {
+	/**
+	 * Store a specified data into database
+	 * @param fileName	Name of the data file to store data
+	 * @param dat		Data to store into the database
+	 */
+	public void saveData(String fileName, List<String> dat) {
 		try {
 			FileWriter fwStream = new FileWriter(fileName);
 			BufferedWriter bwStream = new BufferedWriter(fwStream);
 			PrintWriter pwStream = new PrintWriter(bwStream);
-			for (String aData : data) {
-				pwStream.println(aData);
-			}
+			for (String aDat : dat) 
+				pwStream.println(aDat);
 			pwStream.close();
 		} 
 		catch (Exception io) {
@@ -49,6 +78,12 @@ public abstract class DatabaseController {
 		}
 	}
 
+	/**
+	 * Retrieve a specified data from database
+	 * @param fileName		Name of the data file
+	 * @return				Retrieved data in the file
+	 * @throws IOException	File do not exists
+	 */
 	public List<String> retrieveData(String fileName) throws IOException{
 		data.clear();
 		FileReader frStream = new FileReader(fileName);

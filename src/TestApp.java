@@ -9,17 +9,17 @@ import java.util.Date;
 import java.util.Calendar;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
+import java.util.StringTokenizer;
 
 public class TestApp {
 	public static void main(String[] args) {
 		// Manual text format - preferred here because it simulates the allowance of staff to add new cineplex/cinema to DB
-		
 		CineplexController control = CineplexController.getInstance();
 		ArrayList<Cineplex> cineplexList ;
-		/*cineplexList = createSample();
-		control.setCineplexList(cineplexList);*/
-
-		control.readDB();
+		cineplexList = createSample();
+		control.setCineplexList(cineplexList);
+		control.writeDB();
+		//control.readDB();
 		cineplexList = control.getCineplexList();
 		System.out.println("---------------------------------------");
 		printCineplex(cineplexList);
@@ -27,7 +27,7 @@ public class TestApp {
 		/*control.writeDB();
 		System.out.println("---------------------------------------");
 		printCineplex(control.getCineplexList());*/
-		
+		/*
 		
 		// Test the functionality of create movie screening of Cineplex Controller
 		System.out.println("---------------------------------------");
@@ -53,7 +53,7 @@ public class TestApp {
 		System.out.println("---------------------------------------");
 		control.removeMovieScreening(2, cinemaID, screeningID);
 		printCineplex(control.getCineplexList());
-		
+		*/
 		
 		// Using Serializable
 		/*
@@ -114,10 +114,21 @@ public class TestApp {
 	public static ArrayList<Cineplex> createSample(){
 		ArrayList<Cineplex> cineplexList = new ArrayList<>();
 		ArrayList<Cinema> cin = new ArrayList<>();
-		cin.add(new Cinema(1, "Regular"));
-		cin.add(new Cinema(2, "Regular"));
+		int [][] seatsLayout = new int[15][8];
+		for (int i = 0; i < seatsLayout.length; i++)
+			for (int j = 0; j < seatsLayout[i].length && i != 6; j++)
+				seatsLayout[i][j] = 1;
+		for (int i = 0; i < seatsLayout.length; i++){
+			for (int j = 0; j < seatsLayout[i].length ; j++)
+				System.out.print(seatsLayout[i][j]);
+			System.out.println();
+		}
+		
+		cin.add(new Cinema(1, "Regular", seatsLayout));
+		seatsLayout[14][7] = 0;
+		cin.add(new Cinema(2, "Regular", seatsLayout));
 
-		Calendar aDate, startTime, endTime;
+		/*Calendar aDate, startTime, endTime;
 		aDate = new GregorianCalendar(2013, 3, 5, 8, 00);
 		startTime = (Calendar) aDate.clone();
 		endTime = (Calendar) (new GregorianCalendar(2013, 3, 5, 8, 30)).clone();
@@ -135,15 +146,17 @@ public class TestApp {
 		startTime = (Calendar) (new GregorianCalendar(2013, 3, 5, 7, 40)).clone();
 		endTime = (Calendar) (new GregorianCalendar(2013, 3, 5, 7, 50)).clone();
 		System.out.println(cin.get(1).addMovieScreening(startTime, endTime, "2D", 3));
-		printMovieTimings(at);
+		printMovieTimings(at);*/
 
 		cineplexList.add(new Cineplex("Bugis Cineplex", "Bugis", cin));
 		System.out.println("LOL3!~~~~~~~~~~");
 		ArrayList<Cinema> cin2 = new ArrayList<>();
-		cin2.add(new Cinema(3, "Regular"));
-		cin2.add(new Cinema(4, "Regular"));
+		seatsLayout[12][6] = 0;
+		cin2.add(new Cinema(3, "Platinum Suites", seatsLayout));
+		seatsLayout[12][6] = 1;
+		cin2.add(new Cinema(4, "Regular", seatsLayout));
 
-		aDate = new GregorianCalendar(2017, 3, 5, 8, 00);
+		/*aDate = new GregorianCalendar(2017, 3, 5, 8, 00);
 		startTime = (Calendar) aDate.clone();
 		endTime = (Calendar) (new GregorianCalendar(2017, 3, 5, 8, 30)).clone();
 		cin2.get(0).addMovieScreening(startTime, endTime, "2D", 10);
@@ -160,7 +173,7 @@ public class TestApp {
 		startTime = (Calendar) (new GregorianCalendar(2017, 3, 5, 7, 40)).clone();
 		endTime = (Calendar) (new GregorianCalendar(2017, 3, 5, 7, 50)).clone();
 		System.out.println(cin2.get(1).addMovieScreening(startTime, endTime, "2D", 30));
-		printMovieTimings(at2);
+		printMovieTimings(at2);*/
 
 		cineplexList.add(new Cineplex("Bishan Cineplex", "Bishan", cin2));
 		return cineplexList;
@@ -185,16 +198,24 @@ public class TestApp {
 		for (Cinema cinema : cinemaList){
 			System.out.print("CinemaID: " + cinema.getCinemaID());
 			System.out.println(" (Class Type: " + cinema.getClassType() + ")");
-			System.out.println("MovieScreenings: ");
-			printMovieTimings(cinema.getMovieScreenings());
+			System.out.println("Seat Layout: ");
+			int[][] seatLayout = cinema.getSeatLayout();
+			for (int i = 0; i < seatLayout.length; i++){
+				for (int j = 0; j < seatLayout[i].length; j++)
+					if (seatLayout[i][j] == 1)
+						System.out.print("O");
+					else
+						System.out.print(" ");
+				System.out.println();
+			}
 		}
 	}
 
-	public static void printMovieTimings(ArrayList<MovieScreening> at){
+	/*public static void printMovieTimings(ArrayList<MovieScreening> at){
 		for (MovieScreening movie: at){
 			System.out.print("MovieID: " + movie.getMovieID() + " - ");
 			System.out.print(movie.getStartTime().getTime() + " to ");
 			System.out.println(movie.getEndTime().getTime());
 		}
-	}
+	}*/
 }

@@ -3,7 +3,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 import java.io.IOException;
-import java.util.Calendar;
 
 /**
  * A controller to perform storing and retrieval of Cineplex data to/from database.
@@ -17,12 +16,12 @@ public class CineplexController extends DatabaseController {
 	 * The sub-directory of Cineplex Controller.
 	 */
 	private final String DIR = "cineplex/";
-	
+
 	/**
 	 * Instance of the cineplex controller.
 	 */
 	private static CineplexController instance = null;
-	
+
 	/**
 	 * List of the cineplex.
 	 */
@@ -36,17 +35,25 @@ public class CineplexController extends DatabaseController {
 		cineplexList = new ArrayList<>();
 	}
 
-	// Temporarily for testing purpose - remove after no use
-	public void setCineplexList(ArrayList<Cineplex> cineplexList){
-		this.cineplexList = cineplexList;
-	}
-	
 	/**
 	 * Get the list of cineplex owned by the vendor
 	 * @return List of cineplex
 	 */
 	public ArrayList<Cineplex> getCineplexList(){
 		return cineplexList;
+	}
+
+	/**
+	 * Find the cinema with the corresponding cinemaID from all the cineplex
+	 * @param cinemaID	Cinema ID of the cinema to find
+	 * @return			Cinema corresponding to the cinemaID if it exists. Returns null if cannot find such cinema.
+	 */
+	public Cinema getCinema(int cinemaID){
+		for (Cineplex cineplex : cineplexList)
+			for (Cinema cinema : cineplex.getCinemaList())
+				if (cinema.getCinemaID() == cinemaID)
+					return cinema;
+		return null;
 	}
 
 	/**
@@ -65,29 +72,27 @@ public class CineplexController extends DatabaseController {
 						List<String> text = retrieveData(BASEDIR + DIR + f.getName());
 
 						// Cineplex Attributes
-						StringTokenizer aStr = new StringTokenizer(text.get(0), DELIMTER);
+						StringTokenizer aStr = new StringTokenizer(text.get(0), DELIMITER);
 						String cineplexName = aStr.nextToken();			// Name
 						String cineplexLocation = aStr.nextToken();		// Location
 
 						// Cinema Attributes
 						ArrayList<Cinema> cinemaList = new ArrayList<>();
 						for (String line : text.subList(1, text.size())){
-							aStr = new StringTokenizer(line, DELIMTER);
+							aStr = new StringTokenizer(line, DELIMITER);
 							int cinemaID = Integer.parseInt(aStr.nextToken());	// CinemaID
 							String classType = aStr.nextToken();				// Type of Cinema
-							cinemaList.add(new Cinema(cinemaID, classType));
 
-							// Movie Screening Attributes
+							// Seat Layout
+							int[][] seatLayout = new int[15][8];
+							int i = 0;
 							while (aStr.hasMoreTokens()) {
-								Calendar startTime = Calendar.getInstance();
-								startTime.setTimeInMillis(Long.parseLong(aStr.nextToken()));	// Start Time
-								Calendar endTime = Calendar.getInstance();
-								endTime.setTimeInMillis(Long.parseLong(aStr.nextToken()));		// End Time
-
-								String movieType = aStr.nextToken();							// Movie Type
-								int movieID = Integer.parseInt(aStr.nextToken());				// Movie ID
-								cinemaList.get(cinemaList.size()-1).addMovieScreening(startTime, endTime, movieType, movieID);
+								String col = aStr.nextToken();
+								for (int j = 0; j < col.length(); j++)
+									seatLayout[i][j] = col.charAt(j) - '0';
+								i++;
 							}
+							cinemaList.add(new Cinema(cinemaID, classType, seatLayout));
 						}
 						cineplexList.add(new Cineplex(cineplexName, cineplexLocation, cinemaList));
 					}
@@ -110,35 +115,36 @@ public class CineplexController extends DatabaseController {
 	public void writeDB() {
 		List<String> text = new ArrayList<>();
 		StringBuilder str = new StringBuilder();
+		/* Summary: 1st line of the file will be the cineplex attributes
+		 * All following line will be the Cineplex's cinemas attributes
+		 * The seat layout will be divided by column by column for storage.
+		 */
 		for (Cineplex cineplex : cineplexList){
 			text.clear();
 			if (checkDirectoryExist(BASEDIR + DIR)) {
 				// Cineplex Attributes
 				str.setLength(0); // Reset Buffer
 				str.append(cineplex.getName());		// Name
-				str.append(DELIMTER);
+				str.append(DELIMITER);
 				str.append(cineplex.getLocation()); // Location
-				str.append(DELIMTER);
+				str.append(DELIMITER);
 				text.add(str.toString());			// Write to line
 
 				// Cinema attributes
 				for (Cinema cinema : cineplex.getCinemaList()){	// Cinemas
 					str.setLength(0); // Reset Buffer
 					str.append(cinema.getCinemaID());	// Cinema ID
-					str.append(DELIMTER);
+					str.append(DELIMITER);
 					str.append(cinema.getClassType());	// Cinema Class type
-					str.append(DELIMTER);
+					str.append(DELIMITER);
 
-					// MovieScreening attributes
-					for (MovieScreening screening : cinema.getMovieScreenings()){
-						str.append(screening.getStartTime().getTimeInMillis());	// Start Time
-						str.append(DELIMTER);
-						str.append(screening.getEndTime().getTimeInMillis());	// End Time
-						str.append(DELIMTER);
-						str.append(screening.getMovieType());					// Movie Type
-						str.append(DELIMTER);
-						str.append(screening.getMovieID());						// Movie ID
-						str.append(DELIMTER);
+					// Seat layout of the cinema
+					int [][] seatLayout = cinema.getSeatLayout();
+					for (int i = 0; i < seatLayout.length; i++){
+						for (int j = 0; j < seatLayout[i].length; j++){
+							str.append(seatLayout[i][j]);
+						}
+						str.append(DELIMITER);
 					}
 					text.add(str.toString());			// Write to line
 				}
@@ -156,6 +162,24 @@ public class CineplexController extends DatabaseController {
 	}
 
 	/**
+	 * Gets the channel reference of the CineplexController.
+	 * Creates the channel reference if it do not exists.
+	 * @return Instance of the Cineplex Controller
+	 */
+	public static CineplexController getInstance(){
+		if (instance == null)
+			instance = new CineplexController();
+		return instance;
+	}
+
+	// Below are the old code pending removal
+
+	// Temporarily for testing purpose - remove after no use
+	public void setCineplexList(ArrayList<Cineplex> cineplexList){
+		this.cineplexList = cineplexList;
+	}
+
+	/**
 	 * Adds a new movie screening to a specified Cineplex's Cinema.
 	 * Commits the change to database only if it is successfuly added.
 	 * @param cineplexID	ID of the cineplex to add new movie screening.
@@ -165,7 +189,7 @@ public class CineplexController extends DatabaseController {
 	 * @param startTime		Starting time of the screening.
 	 * @param endTime		Ending time of the screening.
 	 */
-	public void addMovieScreening(int cineplexID, int cinemaID, int movieID, String movieType, Calendar startTime, Calendar endTime){
+	/*public void addMovieScreening(int cineplexID, int cinemaID, int movieID, String movieType, Calendar startTime, Calendar endTime){
 		if (cineplexID >= cineplexList.size() || cineplexID < 0){
 			System.out.println("Error! Invalid Cineplex!");
 			return;
@@ -177,8 +201,8 @@ public class CineplexController extends DatabaseController {
 					return;
 				}
 		System.out.println("Error! Failed to add movie screening!");
-	}
-	
+	}*.
+
 	/**
 	 * Update a movie screening of a specified Cineplex's Cinema to a new value.
 	 * Commits the change to database only if it is successfully updated.
@@ -190,7 +214,7 @@ public class CineplexController extends DatabaseController {
 	 * @param startTime		New starting time of the screening.
 	 * @param endTime		Old starting time of the screening.
 	 */
-	public void updateMovieScreening(int cineplexID, int cinemaID, int screeningID, int movieID, String movieType, Calendar startTime, Calendar endTime){
+	/*public void updateMovieScreening(int cineplexID, int cinemaID, int screeningID, int movieID, String movieType, Calendar startTime, Calendar endTime){
 		if (cineplexID >= cineplexList.size() || cineplexID < 0){
 			System.out.println("Error! Invalid Cineplex!");
 			return;
@@ -202,7 +226,7 @@ public class CineplexController extends DatabaseController {
 					return;
 				}
 		System.out.println("Error! Failed to update movie screening!");
-	}
+	}*/
 
 	/**
 	 * Remove a movie screening of a specified Cineplex's Cinema.
@@ -210,7 +234,7 @@ public class CineplexController extends DatabaseController {
 	 * @param cinemaID		ID of the cinema to remove movie screening from.
 	 * @param screeningID	ID of the movie screening to be removed.
 	 */
-	public void removeMovieScreening(int cineplexID, int cinemaID, int screeningID){
+	/*public void removeMovieScreening(int cineplexID, int cinemaID, int screeningID){
 		if (cineplexID >= cineplexList.size() || cineplexID < 0){
 			System.out.println("Error! Invalid Cineplex!");
 			return;
@@ -222,17 +246,6 @@ public class CineplexController extends DatabaseController {
 					return;
 				}
 		System.out.println("Error! Failed to add movie screening!");
-	}
-
-	/**
-	 * Gets the channel reference of the CineplexController.
-	 * Creates the channel reference if it do not exists.
-	 * @return Instance of the Cineplex Controller
-	 */
-	public static CineplexController getInstance(){
-		if (instance == null)
-			instance = new CineplexController();
-		return instance;
-	}
+	}*/
 
 }
