@@ -1,4 +1,5 @@
 //import java.util.Scanner;
+package model;
 
 public abstract class Person {
 

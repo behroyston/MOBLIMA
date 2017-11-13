@@ -30,15 +30,9 @@ public class MovieScreeningController extends DatabaseController {
     public void readDB(){
         movieScreenings.clear();
         if (checkDirectoryExist(BASEDIR + DIR)) {
-            File folder = new File(BASEDIR + DIR);
-            File[] listOfFiles = folder.listFiles();
-            /* Summary: Text in order:  int movieScreening_ID, int cinemaID, int movieID, Calendar startTime, Calendar endTime ,
-            String movieType, isExpired, Seat[][] seats;
-            **/
             try{
-                for (File f : listOfFiles) {
-                    if (f.isFile() && f.getName().equals("MovieScreening.dat")) {
-                        List<String> text = retrieveData(BASEDIR + DIR + "MovieScreenings.dat");
+                for (File f : getListofFiles(BASEDIR + DIR)) {
+                    List<String> text = retrieveData(BASEDIR + DIR + "MovieScreenings.dat");
                         StringTokenizer aStr;
                         MovieScreening movieScreening;
 
@@ -54,7 +48,6 @@ public class MovieScreeningController extends DatabaseController {
                             endTime.setTimeInMillis(Long.parseLong(aStr.nextToken()));        // End Time
                             String movieType = aStr.nextToken();                            // movieType
                             boolean isExpired = Boolean.parseBoolean(aStr.nextToken()); // isExpired
-<<<<<<< HEAD
 
                             Seat[][] mSeats = new Seat[8][15];
                             char[][] seatLayout = new char[8][15];
@@ -67,48 +60,6 @@ public class MovieScreeningController extends DatabaseController {
                                         mSeats[i][j] = new Seat(j * i + (j + 1));
                                     else if (c == 'X') {
                                         Seat movieSeat = new Seat(j * i + (j + 1));
-||||||| merged common ancestors
-                            String[][] seats = new String[20][20];
-                            String[] seat;
-                            String[][] movieSeats;
-                            int x = 0;
-                            do {
-                                seat = aStr.nextToken().split("");
-                                seats[x] = seat;
-                                x++;
-                            } while (seat != null);
-                            int y = seats[0].length;
-                            Seat[][] movieScreeningSeats = new Seat[x+1][y];
-                            for (int i = 0; i < y-1; i ++) {
-                                for (int j = 0; j < x; j++) {
-                                    Seat movieSeat = new Seat(j*i+(j+1));
-                                    if (seats[j][i].equals("X")) {
-=======
-                            // model.Seat Layout
-                            char[][] seatLayout = new char[8][15];
-                            int i = 0;
-                            while (aStr.hasMoreTokens()) {
-                                String col = aStr.nextToken();
-                                for (int j = 0; j < col.length(); j++)
-                                    seatLayout[i][j] = col.charAt(j);
-                                i++;
-                            }
-                            String[][] seats = new String[20][20];
-                            String[] seat;
-                            String[][] movieSeats;
-                            int x = 0;
-                            do {
-                                seat = aStr.nextToken().split("");
-                                seats[x] = seat;
-                                x++;
-                            } while (seat != null);
-                            int y = seats[0].length;
-                            Seat[][] movieScreeningSeats = new Seat[x+1][y];
-                            for (int i = 0; i < y-1; i ++) {
-                                for (int j = 0; j < x; j++) {
-                                    Seat movieSeat = new Seat(j*i+(j+1));
-                                    if (seats[j][i].equals("X")) {
->>>>>>> fetch_head
                                         movieSeat.setIsBooked(true);
                                         mSeats[i][j] = movieSeat;
                                     }
@@ -134,7 +85,7 @@ public class MovieScreeningController extends DatabaseController {
                             movieScreenings.add(movieScreening);
                         }
                     }
-                }
+
             }
             catch (IOException io){
                 System.out.println("Error! Unable to retrieve model from file.");
@@ -172,30 +123,15 @@ public class MovieScreeningController extends DatabaseController {
                 str.append(Boolean.toString(movieScreening.getIsExpired()));
                 str.append(DELIMITER);
 
-                char [][] seatLayout = cinema.getSeatLayout();
-                for (int i = 0; i < seatLayout.length; i++){
-                    for (int j = 0; j < seatLayout[i].length; j++){
-                        str.append(seatLayout[i][j]);
-                    }
-                    str.append(DELIMITER);
-                }
                 Seat[][] seats = movieScreening.getSeats();
                 int x = seats[0].length;
                 int y = seats.length;
                 for (int i = 0; i < y; i++) {
                     for (int j = 0; j < x; j++) {
-<<<<<<< HEAD
                         if (j == 7)
                             str.append(" ");
                         else if (seats[i][j].getIsBooked())
                             str.append("X");
-||||||| merged common ancestors
-                        if (seats[j][i].getIsBooked())
-                            System.out.print("X");
-=======
-                        if (seats[j][i].getIsBooked())
-                            str.append("X");
->>>>>>> fetch_head
                         else
                             str.append("O");
                     }

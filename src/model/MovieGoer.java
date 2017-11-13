@@ -1,7 +1,11 @@
+package model;
+
+import controller.MovieGoerController;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class MovieGoer extends Person{
+public class MovieGoer extends Person {
 
 	//Attributes
 	private int cusID;

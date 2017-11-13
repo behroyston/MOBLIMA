@@ -1,4 +1,8 @@
+package controller;
+import model.MovieGoer;
+
 import java.util.ArrayList;
+
 
 public class MovieGoerController {
 	//Attributes

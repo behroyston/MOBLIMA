@@ -30,13 +30,9 @@ public class BookingController extends DatabaseController{
     public void readDB() {
         bookingList.clear();
         if (checkDirectoryExist(BASEDIR + DIR)) {
-            File folder = new File(BASEDIR + DIR);
-            File[] listOfFiles = folder.listFiles();
-            /* Summary: Text in order: String transactionId , int movieScreeningID, String userName, String mobileNum, String emailAddress*/
-            try {
-                for (File f : listOfFiles) {
-                    if (f.isFile() && f.getName().equals("Booking.dat")) {
-                        List<String> text = retrieveData(BASEDIR + DIR + "Booking.dat");
+            try{
+                for (File f : getListofFiles(BASEDIR + DIR)) {
+                    List<String> text = retrieveData(BASEDIR + DIR + "Booking.dat");
                         StringTokenizer aStr;
                         Booking booking;
                         for (String line : text) {
@@ -51,7 +47,7 @@ public class BookingController extends DatabaseController{
                             bookingList.add(booking);
                         }
                     }
-                }
+
             }
             catch (IOException io)
             {

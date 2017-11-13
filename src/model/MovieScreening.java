@@ -123,6 +123,7 @@ public class MovieScreening {
 
     public void printMovieScreeningInfo(){
         for (int i = 0; i < seats.length; i++){
+            System.out.print(i+1 + " ");
             for (int j = 0; j < seats[i].length; j++)
                 if (j == 7) {
                     System.out.print(" ");

@@ -40,19 +40,9 @@ public class MovieController extends DatabaseController{
     public void readDB() {
         movieList.clear();
         if (checkDirectoryExist(BASEDIR + DIR)) {
-            File folder = new File(BASEDIR + DIR);
-            File[] listOfFiles = folder.listFiles();
-            /* Summary: Text in order: int movieId, String movieName, String status, String synopsis, String director, String cast, double avg_rating,
-                    boolean isShowing, double ticketSales, int duration, ArrayList<String> reviews, ArrayList<Double> ratingList
-                    */
-            try
-            {
-                for (File f : listOfFiles) {
-//                    System.out.println("Folder!");
-//                    System.out.println(f.getName());
-
-                    if (f.isFile() && f.getName().equals("Movie.dat")) {
-                        List<String> text = retrieveData(BASEDIR + DIR + "Movie.dat");
+            try{
+                for (File f : getListofFiles(BASEDIR + DIR)) {
+                    List<String> text = retrieveData(BASEDIR + DIR + "Movie.dat");
                         StringTokenizer aStr;
                         Movie movie;
                         for (String line : text) {
@@ -99,7 +89,7 @@ public class MovieController extends DatabaseController{
                             movieList.add(movie);
                         }
                     }
-                }
+
             } catch (IOException io) {
                 System.out.println("Error! Unable to retrieve model from file.");
             }

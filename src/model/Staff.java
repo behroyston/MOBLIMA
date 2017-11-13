@@ -1,3 +1,7 @@
+package model;
+
+import controller.StaffController;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 

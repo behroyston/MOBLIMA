@@ -70,62 +70,6 @@ public class CineplexController extends DatabaseController {
 
 		if (checkDirectoryExist(BASEDIR + DIR)) {
 			try{
-<<<<<<< HEAD
-				for (File f : listOfFiles) {
-					if (f.isFile() && f.getName().equals("Bishan Cineplex")){
-						List<String> text = retrieveData(BASEDIR + DIR + f.getName());
-
-						// model.Cineplex Attributes
-						StringTokenizer aStr = new StringTokenizer(text.get(0), DELIMITER);
-						String cineplexName = aStr.nextToken();			// Name
-                        System.out.println(cineplexName);
-                        String cineplexLocation = aStr.nextToken();		// Location
-
-						// model.Cinema Attributes
-						ArrayList<Cinema> cinemaList = new ArrayList<>();
-						for (String line : text.subList(1, text.size())){
-							aStr = new StringTokenizer(line, DELIMITER);
-							int cinemaID = Integer.parseInt(aStr.nextToken());	// CinemaID
-							String classType = aStr.nextToken();				// Type of model.Cinema
-
-							// model.Seat Layout
-							char[][] seatLayout = new char[8][15];
-							int i = 0;
-							while (aStr.hasMoreTokens()) {
-								String col = aStr.nextToken();
-								for (int j = 0; j < col.length(); j++)
-									seatLayout[i][j] = col.charAt(j);
-								i++;
-							}
-							cinemaList.add(new Cinema(cinemaID, classType, seatLayout));
-||||||| merged common ancestors
-				for (File f : listOfFiles) {
-					if (f.isFile()){
-						List<String> text = retrieveData(BASEDIR + DIR + f.getName());
-
-						// model.Cineplex Attributes
-						StringTokenizer aStr = new StringTokenizer(text.get(0), DELIMITER);
-						String cineplexName = aStr.nextToken();			// Name
-						String cineplexLocation = aStr.nextToken();		// Location
-
-						// model.Cinema Attributes
-						ArrayList<Cinema> cinemaList = new ArrayList<>();
-						for (String line : text.subList(1, text.size())){
-							aStr = new StringTokenizer(line, DELIMITER);
-							int cinemaID = Integer.parseInt(aStr.nextToken());	// CinemaID
-							String classType = aStr.nextToken();				// Type of model.Cinema
-
-							// model.Seat Layout
-							char[][] seatLayout = new char[8][15];
-							int i = 0;
-							while (aStr.hasMoreTokens()) {
-								String col = aStr.nextToken();
-								for (int j = 0; j < col.length(); j++)
-									seatLayout[i][j] = col.charAt(j);
-								i++;
-							}
-							cinemaList.add(new Cinema(cinemaID, classType, seatLayout));
-=======
 				for (File f : getListofFiles(BASEDIR + DIR)) {
 					List<String> text = retrieveData(BASEDIR + DIR + f.getName());
 
@@ -149,7 +93,6 @@ public class CineplexController extends DatabaseController {
 							for (int j = 0; j < col.length(); j++)
 								seatLayout[i][j] = col.charAt(j);
 							i++;
->>>>>>> fetch_head
 						}
 						cinemaList.add(new Cinema(cinemaID, classType, seatLayout));
 					}
