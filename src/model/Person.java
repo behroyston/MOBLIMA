@@ -1,5 +1,3 @@
-package CZ2002Assn;
-
 //import java.util.Scanner;
 
 public abstract class Person {
