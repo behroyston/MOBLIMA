@@ -37,8 +37,8 @@ public class MovieScreeningController extends DatabaseController {
             **/
             try{
                 for (File f : listOfFiles) {
-                    if (f.isFile()) {
-                        List<String> text = retrieveData(BASEDIR + DIR);
+                    if (f.isFile() && f.getName().equals("MovieScreening.dat")) {
+                        List<String> text = retrieveData(BASEDIR + DIR + "MovieScreenings.dat");
                         StringTokenizer aStr;
                         MovieScreening movieScreening;
 
@@ -54,31 +54,40 @@ public class MovieScreeningController extends DatabaseController {
                             endTime.setTimeInMillis(Long.parseLong(aStr.nextToken()));        // End Time
                             String movieType = aStr.nextToken();                            // movieType
                             boolean isExpired = Boolean.parseBoolean(aStr.nextToken()); // isExpired
-                            String[][] seats = new String[20][20];
-                            String[] seat;
-                            String[][] movieSeats;
-                            int x = 0;
-                            do {
-                                seat = aStr.nextToken().split("");
-                                seats[x] = seat;
-                                x++;
-                            } while (seat != null);
-                            int y = seats[0].length;
-                            Seat[][] movieScreeningSeats = new Seat[x+1][y];
-                            for (int i = 0; i < y-1; i ++) {
-                                for (int j = 0; j < x; j++) {
-                                    Seat movieSeat = new Seat(j*i+(j+1));
-                                    if (seats[j][i].equals("X")) {
+
+                            Seat[][] mSeats = new Seat[8][15];
+                            char[][] seatLayout = new char[8][15];
+                            int i = 0;
+                            while (aStr.hasMoreTokens()) {
+                                String col = aStr.nextToken();
+                                for (int j = 0; j < col.length(); j++) {
+                                    char c = col.charAt(j);
+                                    if (c == 'O')
+                                        mSeats[i][j] = new Seat(j * i + (j + 1));
+                                    else if (c == 'X') {
+                                        Seat movieSeat = new Seat(j * i + (j + 1));
                                         movieSeat.setIsBooked(true);
-                                        movieScreeningSeats[j][i] = movieSeat;
+                                        mSeats[i][j] = movieSeat;
                                     }
-                                    else if (seats[j][i].equals("O"))
-                                        movieScreeningSeats[j][i] = movieSeat;
                                 }
+                                i++;
                             }
+//                            int y = seats[0].length;
+//                            Seat[][] movieScreeningSeats = new Seat[x+1][y];
+//                            for (int i = 0; i < y-1; i ++) {
+//                                for (int j = 0; j < x; j++) {
+//                                    Seat movieSeat = new Seat(j*i+(j+1));
+//                                    if (seats[j][i].equals("X")) {
+//                                        movieSeat.setIsBooked(true);
+//                                        movieScreeningSeats[j][i] = movieSeat;
+//                                    }
+//                                    else if (seats[j][i].equals("O"))
+//                                        movieScreeningSeats[j][i] = movieSeat;
+//                                }
+//                            }
 
                             movieScreening = new MovieScreening(movieScreeningID,startTime,endTime,movieType,cinemaID,movieID,
-                                    movieScreeningSeats);
+                                    mSeats);
                             movieScreenings.add(movieScreening);
                         }
                     }
@@ -102,7 +111,6 @@ public class MovieScreeningController extends DatabaseController {
 		String movieType, isExpired, Seat[][] seats;
         */
         for (MovieScreening movieScreening : movieScreenings) {
-            text.clear();
             if (checkDirectoryExist(BASEDIR + DIR)) {
                 // model.MovieScreening Attributes
                 str.setLength(0); // Reset Buffer
@@ -121,18 +129,28 @@ public class MovieScreeningController extends DatabaseController {
                 str.append(Boolean.toString(movieScreening.getIsExpired()));
                 str.append(DELIMITER);
                 Seat[][] seats = movieScreening.getSeats();
-                int y = seats[0].length;
-                int x = seats.length;
+                int x = seats[0].length;
+                int y = seats.length;
                 for (int i = 0; i < y; i++) {
                     for (int j = 0; j < x; j++) {
-                        if (seats[j][i].getIsBooked())
-                            System.out.print("X");
+                        if (j == 7)
+                            str.append(" ");
+                        else if (seats[i][j].getIsBooked())
+                            str.append("X");
                         else
-                            System.out.print("O");
+                            str.append("O");
                     }
                     str.append(DELIMITER);
                 }
-                str.append(DELIMITER);
+
+                // model.Seat layout of the cinema
+                //char [][] seatLayout = cinema.getSeatLayout();
+//                for (int i = 0; i < seatLayout.length; i++){
+//                    for (int j = 0; j < seatLayout[i].length; j++){
+//                        str.append(seatLayout[i][j]);
+//                    }
+//                    str.append(DELIMITER);
+//                }
                 text.add(str.toString());            // Write to line
 
                 // Attempt to save to file
@@ -223,4 +241,14 @@ public class MovieScreeningController extends DatabaseController {
      */
     public void updateExpiry(){}
 
+    public void setMovieScreenings(ArrayList<MovieScreening> movieScreenings) {
+        this.movieScreenings = movieScreenings;
+    }
+
+    public void printMovieScreenings(){
+        for (int i = 0; i < movieScreenings.size(); i ++){
+            movieScreenings.get(i).printMovieScreeningInfo();
+        }
+
+    }
 }

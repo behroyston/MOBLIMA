@@ -73,13 +73,14 @@ public class CineplexController extends DatabaseController {
 			File[] listOfFiles = folder.listFiles();
 			try{
 				for (File f : listOfFiles) {
-					if (f.isFile()){
+					if (f.isFile() && f.getName().equals("Bishan Cineplex")){
 						List<String> text = retrieveData(BASEDIR + DIR + f.getName());
 
 						// model.Cineplex Attributes
 						StringTokenizer aStr = new StringTokenizer(text.get(0), DELIMITER);
 						String cineplexName = aStr.nextToken();			// Name
-						String cineplexLocation = aStr.nextToken();		// Location
+                        System.out.println(cineplexName);
+                        String cineplexLocation = aStr.nextToken();		// Location
 
 						// model.Cinema Attributes
 						ArrayList<Cinema> cinemaList = new ArrayList<>();

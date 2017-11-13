@@ -1,13 +1,12 @@
 package ui;
 
-import controller.CineplexController;
-import model.Booking;
-import model.Cinema;
-import model.Cineplex;
-import model.Movie;
+import controller.MovieScreeningController;
+import model.*;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class TestApp {
@@ -25,17 +24,24 @@ public class TestApp {
 //        bookingController.readDB();
 //        bookingController.printBookingList();
 
+        MovieScreeningController movieScreeningController= MovieScreeningController.getInstance();
+        //movieScreeningController.setMovieScreenings(createSampleMovieScreening());
+       // movieScreeningController.writeDB();
+        movieScreeningController.readDB();
+        movieScreeningController.printMovieScreenings();
+
+
 		// Manual text format - preferred here because it simulates the allowance of staff to add new cineplex/cinema to DB
-		CineplexController control = CineplexController.getInstance();
-		ArrayList<Cineplex> cineplexList ;
-		cineplexList = createSample();
-		control.setCineplexList(cineplexList);
-		control.writeDB();
-		control.readDB();
+//		CineplexController control = CineplexController.getInstance();
+//		ArrayList<Cineplex> cineplexList ;
+//		cineplexList = createSample();
+//		control.setCineplexList(cineplexList);
+//		control.writeDB();
+//		control.readDB();
 		
-		cineplexList = control.getCineplexList();
+//		cineplexList = control.getCineplexList();
 //		System.out.println("---------------------------------------");
-		printCineplex(cineplexList);
+//		printCineplex(cineplexList);
 		
 		/*control.writeDB();
 		System.out.println("---------------------------------------");
@@ -138,9 +144,11 @@ public class TestApp {
 		char [][] seatsLayout = new char[8][15];
 		for (int i = 0; i < seatsLayout.length; i++)
 			for (int j = 0; j < seatsLayout[i].length; j++)
-				if (j != 7)
-					seatsLayout[i][j] = 'O';
-		for (int i = 0; i < seatsLayout.length; i++){
+                if (j != 7)
+                    seatsLayout[i][j] = 'O';
+                else
+                    seatsLayout[i][j] = ' ';
+                for (int i = 0; i < seatsLayout.length; i++){
 			for (int j = 0; j < seatsLayout[i].length ; j++)
 				System.out.print(seatsLayout[i][j]);
 			System.out.println();
@@ -230,6 +238,30 @@ public class TestApp {
         bookings.add(booking3);
 
         return bookings;
+    }
+
+    private static ArrayList<MovieScreening> createSampleMovieScreening(){
+        Calendar aDate, startTime, endTime;
+        MovieScreening movieScreening;
+        ArrayList<MovieScreening> mMovieScreenings = new ArrayList<>();
+        aDate = new GregorianCalendar(2013, 3, 5, 8, 00);
+        startTime = (Calendar) aDate.clone();
+        endTime = (Calendar) (new GregorianCalendar(2013, 3, 5, 8, 30)).clone();
+        movieScreening = new MovieScreening(1, startTime,endTime,"2D",1,1);
+
+        mMovieScreenings.add(movieScreening);
+        aDate = new GregorianCalendar(2017, 3, 5, 8, 00);
+		startTime = (Calendar) aDate.clone();
+		endTime = (Calendar) (new GregorianCalendar(2017, 3, 5, 8, 30)).clone();
+        movieScreening = new MovieScreening(2,startTime,endTime,"3D",1,2);
+        mMovieScreenings.add(movieScreening);
+
+        startTime = (Calendar) (new GregorianCalendar(2013, 3, 5, 7, 40)).clone();
+        endTime = (Calendar) (new GregorianCalendar(2013, 3, 5, 7, 50)).clone();
+        movieScreening = new MovieScreening(3,startTime,endTime,"2D",2,3);
+        mMovieScreenings.add(movieScreening);
+
+        return mMovieScreenings;
     }
 
 	public static void writeSampleFile(){

@@ -1,7 +1,5 @@
 package model;
 
-import controller.CineplexController;
-
 import java.util.Calendar;
 
 public class MovieScreening {
@@ -32,14 +30,17 @@ public class MovieScreening {
         this.movieID = movieID;
         isExpired = false;
 
-        // for now it's 15 by 8
-        char[][] seatLayout = CineplexController.getInstance().getCinema(cinemaID).getSeatLayout();
-        int y = seatLayout[0].length;
-        int x = seatLayout.length;
-        seats = new Seat[x][y];
+        // for now it's 8 by 15
+        char[][] seatLayout = new char[8][15];
+                //CineplexController.getInstance().getCinema(cinemaID).getSeatLayout();
+        int x = seatLayout[0].length;
+        int y = seatLayout.length;
+        seats = new Seat[y][x];
         for (int i = 0; i < y; i++){
             for (int j = 0; j < x; j++) {
-                seats[j][i] = new Seat(j*i+(j+1));
+                if (j != 7) {
+                    seats[i][j] = new Seat(j * i + (j + 1));
+                }
             }
         }
     }
@@ -118,5 +119,20 @@ public class MovieScreening {
 
     public void setMovieScreeningID(int movieScreeningID) {
         this.movieScreeningID = movieScreeningID;
+    }
+
+    public void printMovieScreeningInfo(){
+        for (int i = 0; i < seats.length; i++){
+            for (int j = 0; j < seats[i].length; j++)
+                if (j == 7) {
+                    System.out.print(" ");
+                }
+                else if (!seats[i][j].getIsBooked())
+                    System.out.print("O");
+                else
+                    System.out.print("X");
+            System.out.println();
+        }
+
     }
 }
