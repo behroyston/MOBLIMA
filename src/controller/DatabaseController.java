@@ -61,6 +61,16 @@ public abstract class DatabaseController {
 		return f.exists();
 	}
 	
+	public File[] getListofFiles(String fileName){
+		File folder = new File(fileName);
+		File[] listOfFiles = folder.listFiles();
+		List<File> relevantFiles = new ArrayList<>();
+		for (File f : listOfFiles)
+			if (f.isFile() && f.getName().charAt(0) != '.')
+				relevantFiles.add(f);
+		File [] outputFiles = new File[relevantFiles.size()];
+		return relevantFiles.toArray(outputFiles);
+	}
 	/**
 	 * Store a specified model into database
 	 * @param fileName	Name of the model file to store model
@@ -79,7 +89,7 @@ public abstract class DatabaseController {
 			System.out.println("Error! Cannot write to file.");
 		}
 	}
-
+	
 	/**
 	 * Retrieve a specified model from database
 	 * @param fileName		Name of the model file
