@@ -1,5 +1,3 @@
-package CZ2002Assn;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -70,7 +68,7 @@ public class StaffController {
 		//add to array
 		staffList.add(newStaff);
 		
-		//add to DB - to be added
+		//Update DB - to be added
 	}
 	
 	//get private arraylist for login
