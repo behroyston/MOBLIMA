@@ -140,6 +140,8 @@ public class TestApp {
 			for (int j = 0; j < seatsLayout[i].length; j++)
 				if (j != 7)
 					seatsLayout[i][j] = 'O';
+				else
+					seatsLayout[i][j] = ' ';
 		for (int i = 0; i < seatsLayout.length; i++){
 			for (int j = 0; j < seatsLayout[i].length ; j++)
 				System.out.print(seatsLayout[i][j]);
