@@ -31,10 +31,11 @@ public class TestApp {
 		cineplexList = createSample();
 		control.setCineplexList(cineplexList);
 		control.writeDB();
-//		//control.readDB();
-//		cineplexList = control.getCineplexList();
+		control.readDB();
+		
+		cineplexList = control.getCineplexList();
 //		System.out.println("---------------------------------------");
-//		printCineplex(cineplexList);
+		printCineplex(cineplexList);
 		
 		/*control.writeDB();
 		System.out.println("---------------------------------------");
@@ -136,8 +137,9 @@ public class TestApp {
 		ArrayList<Cinema> cin = new ArrayList<>();
 		char [][] seatsLayout = new char[8][15];
 		for (int i = 0; i < seatsLayout.length; i++)
-			for (int j = 0; j < seatsLayout[i].length && i != 6; j++)
-				seatsLayout[i][j] = 'O';
+			for (int j = 0; j < seatsLayout[i].length; j++)
+				if (j != 7)
+					seatsLayout[i][j] = 'O';
 		for (int i = 0; i < seatsLayout.length; i++){
 			for (int j = 0; j < seatsLayout[i].length ; j++)
 				System.out.print(seatsLayout[i][j]);
@@ -168,7 +170,7 @@ public class TestApp {
 		System.out.println(cin.get(1).addMovieScreening(startTime, endTime, "2D", 3));
 		printMovieTimings(at);*/
 
-		cineplexList.add(new Cineplex("Bugis model.Cineplex", "Bugis", cin));
+		cineplexList.add(new Cineplex("Bugis Cineplex", "Bugis", cin));
 		System.out.println("LOL3!~~~~~~~~~~");
 		ArrayList<Cinema> cin2 = new ArrayList<>();
 		seatsLayout[6][12] = ' ';
@@ -195,7 +197,7 @@ public class TestApp {
 		System.out.println(cin2.get(1).addMovieScreening(startTime, endTime, "2D", 30));
 		printMovieTimings(at2);*/
 
-		cineplexList.add(new Cineplex("Bishan model.Cineplex", "Bishan", cin2));
+		cineplexList.add(new Cineplex("Bishan Cineplex", "Bishan", cin2));
 		return cineplexList;
 	}
 
@@ -238,7 +240,7 @@ public class TestApp {
 	
 	public static void printCineplex(ArrayList<Cineplex> cineplexList){
 		for (Cineplex cineplex : cineplexList){
-			System.out.println("model.Cineplex Name: " + cineplex.getName());
+			System.out.println("Cineplex Name: " + cineplex.getName());
 			System.out.println("Location: " + cineplex.getLocation());
 			System.out.println("Cinemas: ");
 			printCinemas(cineplex.getCinemaList());
@@ -249,7 +251,7 @@ public class TestApp {
 		for (Cinema cinema : cinemaList){
 			System.out.print("CinemaID: " + cinema.getCinemaID());
 			System.out.println(" (Class Type: " + cinema.getClassType() + ")");
-			System.out.println("model.Seat Layout: ");
+			System.out.println("Seat Layout: ");
 			char[][] seatLayout = cinema.getSeatLayout();
 			for (int i = 0; i < seatLayout.length; i++){
 				for (int j = 0; j < seatLayout[i].length; j++)

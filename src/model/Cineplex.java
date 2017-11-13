@@ -35,6 +35,13 @@ public class Cineplex{
 		this.cinemaList = cinemaList;
 	}
 	
+	/**
+	 * Prints this cineplex attributes
+	 */
+	public void printCineplexInfo(){
+		System.out.println("Cineplex Name: " + name);
+		System.out.println("Location: " + location);
+	}
 	
 	/**
 	 * Gets the name of this cineplex.
