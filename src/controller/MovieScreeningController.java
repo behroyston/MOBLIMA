@@ -54,6 +54,15 @@ public class MovieScreeningController extends DatabaseController {
                             endTime.setTimeInMillis(Long.parseLong(aStr.nextToken()));        // End Time
                             String movieType = aStr.nextToken();                            // movieType
                             boolean isExpired = Boolean.parseBoolean(aStr.nextToken()); // isExpired
+                            // model.Seat Layout
+                            char[][] seatLayout = new char[8][15];
+                            int i = 0;
+                            while (aStr.hasMoreTokens()) {
+                                String col = aStr.nextToken();
+                                for (int j = 0; j < col.length(); j++)
+                                    seatLayout[i][j] = col.charAt(j);
+                                i++;
+                            }
                             String[][] seats = new String[20][20];
                             String[] seat;
                             String[][] movieSeats;
@@ -120,13 +129,21 @@ public class MovieScreeningController extends DatabaseController {
                 str.append(DELIMITER);
                 str.append(Boolean.toString(movieScreening.getIsExpired()));
                 str.append(DELIMITER);
+
+                char [][] seatLayout = cinema.getSeatLayout();
+                for (int i = 0; i < seatLayout.length; i++){
+                    for (int j = 0; j < seatLayout[i].length; j++){
+                        str.append(seatLayout[i][j]);
+                    }
+                    str.append(DELIMITER);
+                }
                 Seat[][] seats = movieScreening.getSeats();
-                int y = seats[0].length;
-                int x = seats.length;
+                int x = seats[0].length;
+                int y = seats.length;
                 for (int i = 0; i < y; i++) {
                     for (int j = 0; j < x; j++) {
                         if (seats[j][i].getIsBooked())
-                            System.out.print("X");
+                            str.append("X");
                         else
                             System.out.print("O");
                     }

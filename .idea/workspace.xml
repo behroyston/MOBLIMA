@@ -2,30 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ed6268a8-6d06-4e72-94cb-131ed4fa5168" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/MOBLIMA/Booking.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/MOBLIMA/Cineplex.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/MOBLIMA/CineplexController.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/MOBLIMA/DatabaseController.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/MOBLIMA/Main.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/MOBLIMA/Seat.class" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Booking.java" afterPath="$PROJECT_DIR$/src/model/Booking.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/BookingController.java" afterPath="$PROJECT_DIR$/src/controller/BookingController.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Cinema.java" afterPath="$PROJECT_DIR$/src/model/Cinema.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Cineplex.java" afterPath="$PROJECT_DIR$/src/model/Cineplex.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/CineplexController.java" afterPath="$PROJECT_DIR$/src/controller/CineplexController.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/DatabaseController.java" afterPath="$PROJECT_DIR$/src/controller/DatabaseController.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Movie.java" afterPath="$PROJECT_DIR$/src/model/Movie.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/MovieController.java" afterPath="$PROJECT_DIR$/src/controller/MovieController.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/MovieGoerUI.java" afterPath="$PROJECT_DIR$/src/ui/MovieGoerUI.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/MovieScreening.java" afterPath="$PROJECT_DIR$/src/model/MovieScreening.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/MovieScreeningController.java" afterPath="$PROJECT_DIR$/src/controller/MovieScreeningController.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Seat.java" afterPath="$PROJECT_DIR$/src/model/Seat.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/TestApp.java" afterPath="$PROJECT_DIR$/src/ui/TestApp.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database/cineplex/Ang Mo Kio Cineplex.dat" afterPath="$PROJECT_DIR$/database/cineplex/Ang Mo Kio Cineplex.dat" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database/cineplex/Bishan Cineplex.dat" afterPath="$PROJECT_DIR$/database/cineplex/Bishan Cineplex.dat" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database/cineplex/Bugis Cineplex.dat" afterPath="$PROJECT_DIR$/database/cineplex/Bugis Cineplex.dat" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Main.java" afterPath="$PROJECT_DIR$/src/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/controller/MovieScreeningController.java" afterPath="$PROJECT_DIR$/src/controller/MovieScreeningController.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -55,38 +32,8 @@
       <file leaf-file-name="Cinema.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/model/Cinema.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="96">
-              <caret line="90" column="31" lean-forward="false" selection-start-line="90" selection-start-column="31" selection-end-line="90" selection-end-column="31" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Bishan model.Cineplex.dat" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/database/cineplex/Bishan model.Cineplex.dat">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="1" column="65" lean-forward="false" selection-start-line="1" selection-start-column="50" selection-end-line="1" selection-end-column="65" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Bugis model.Cineplex.dat" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/database/cineplex/Bugis model.Cineplex.dat">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="1" column="121" lean-forward="false" selection-start-line="1" selection-start-column="106" selection-end-line="1" selection-end-column="121" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Bugis Cineplex.dat" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/database/cineplex/Bugis Cineplex.dat">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="1717">
+              <caret line="187" column="12" lean-forward="true" selection-start-line="187" selection-start-column="12" selection-end-line="187" selection-end-column="12" />
               <folding />
             </state>
           </provider>
@@ -95,8 +42,8 @@
       <file leaf-file-name="MovieGoerUI.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ui/MovieGoerUI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="163">
-              <caret line="57" column="9" lean-forward="true" selection-start-line="57" selection-start-column="9" selection-end-line="57" selection-end-column="9" />
+            <state relative-caret-position="223">
+              <caret line="61" column="44" lean-forward="false" selection-start-line="61" selection-start-column="44" selection-end-line="61" selection-end-column="44" />
               <folding />
             </state>
           </provider>
@@ -114,21 +61,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MovieController.dat" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/database/movie/MovieController.dat">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" column="96" lean-forward="false" selection-start-line="2" selection-start-column="96" selection-end-line="2" selection-end-column="96" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MovieScreeningController.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MovieScreeningController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/controller/MovieScreeningController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-15">
-              <caret line="78" column="0" lean-forward="true" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
+            <state relative-caret-position="277">
+              <caret line="145" column="44" lean-forward="false" selection-start-line="145" selection-start-column="44" selection-end-line="145" selection-end-column="44" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -136,11 +73,31 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="Bishan Cineplex.dat" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/database/cineplex/Bishan Cineplex.dat">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Movie.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/model/Movie.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="84">
+              <caret line="139" column="25" lean-forward="false" selection-start-line="139" selection-start-column="16" selection-end-line="139" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="CineplexController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/controller/CineplexController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="530">
-              <caret line="90" column="28" lean-forward="false" selection-start-line="90" selection-start-column="28" selection-end-line="98" selection-end-column="29" />
+            <state relative-caret-position="104">
+              <caret line="146" column="20" lean-forward="false" selection-start-line="146" selection-start-column="20" selection-end-line="152" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -208,8 +165,8 @@
         <option value="$PROJECT_DIR$/src/model/Cinema.java" />
         <option value="$PROJECT_DIR$/src/model/MovieScreening.java" />
         <option value="$PROJECT_DIR$/src/controller/CineplexController.java" />
-        <option value="$PROJECT_DIR$/src/controller/MovieScreeningController.java" />
         <option value="$PROJECT_DIR$/src/ui/TestApp.java" />
+        <option value="$PROJECT_DIR$/src/controller/MovieScreeningController.java" />
       </list>
     </option>
   </component>
@@ -470,12 +427,12 @@
       <workItem from="1509724368595" duration="4209000" />
       <workItem from="1510122463323" duration="9424000" />
       <workItem from="1510214220952" duration="1089000" />
-      <workItem from="1510472663979" duration="30504000" />
+      <workItem from="1510472663979" duration="31382000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="50606000" />
+    <option name="totallyTimeSpent" value="51484000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="6" y="23" width="1366" height="698" extended-state="6" />
@@ -489,7 +446,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3258786" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3258786" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -533,7 +490,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3258786" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35065886" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35065886" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3248731" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
@@ -948,14 +905,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/Movie.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="27" column="5" lean-forward="true" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/controller/MovieController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="177">
@@ -982,18 +931,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/database/cineplex/Bishan Cineplex.dat">
+    <entry file="file://$PROJECT_DIR$/database/cineplex/Bugis Cineplex.dat">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="30">
+          <caret line="2" column="78" lean-forward="true" selection-start-line="2" selection-start-column="78" selection-end-line="2" selection-end-column="78" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ui/MovieGoerUI.java">
+    <entry file="file://$PROJECT_DIR$/database/cineplex/Bugis model.Cineplex.dat">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="163">
-          <caret line="57" column="9" lean-forward="true" selection-start-line="57" selection-start-column="9" selection-end-line="57" selection-end-column="9" />
+        <state relative-caret-position="15">
+          <caret line="1" column="121" lean-forward="false" selection-start-line="1" selection-start-column="106" selection-end-line="1" selection-end-column="121" />
           <folding />
         </state>
       </provider>
@@ -1008,21 +957,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/controller/CineplexController.java">
+    <entry file="file://$PROJECT_DIR$/src/model/Movie.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="530">
-          <caret line="90" column="28" lean-forward="false" selection-start-line="90" selection-start-column="28" selection-end-line="98" selection-end-column="29" />
+        <state relative-caret-position="84">
+          <caret line="139" column="25" lean-forward="false" selection-start-line="139" selection-start-column="16" selection-end-line="139" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/controller/MovieScreeningController.java">
+    <entry file="file://$PROJECT_DIR$/src/model/Cinema.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-15">
-          <caret line="78" column="0" lean-forward="true" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="1717">
+          <caret line="187" column="12" lean-forward="true" selection-start-line="187" selection-start-column="12" selection-end-line="187" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ui/MovieGoerUI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="223">
+          <caret line="61" column="44" lean-forward="false" selection-start-line="61" selection-start-column="44" selection-end-line="61" selection-end-column="44" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1044,10 +999,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/Cinema.java">
+    <entry file="file://$PROJECT_DIR$/src/controller/CineplexController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="90" column="31" lean-forward="false" selection-start-line="90" selection-start-column="31" selection-end-line="90" selection-end-column="31" />
+        <state relative-caret-position="104">
+          <caret line="146" column="20" lean-forward="false" selection-start-line="146" selection-start-column="20" selection-end-line="152" selection-end-column="21" />
           <folding />
         </state>
       </provider>
@@ -1055,24 +1010,26 @@
     <entry file="file://$PROJECT_DIR$/database/cineplex/Bishan model.Cineplex.dat">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
-          <caret line="1" column="65" lean-forward="false" selection-start-line="1" selection-start-column="50" selection-end-line="1" selection-end-column="65" />
+          <caret line="1" column="126" lean-forward="false" selection-start-line="1" selection-start-column="114" selection-end-line="1" selection-end-column="126" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/database/cineplex/Bugis model.Cineplex.dat">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="121" lean-forward="false" selection-start-line="1" selection-start-column="106" selection-end-line="1" selection-end-column="121" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/cineplex/Bugis Cineplex.dat">
+    <entry file="file://$PROJECT_DIR$/database/cineplex/Bishan Cineplex.dat">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/controller/MovieScreeningController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="277">
+          <caret line="145" column="44" lean-forward="false" selection-start-line="145" selection-start-column="44" selection-end-line="145" selection-end-column="44" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
