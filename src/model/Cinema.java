@@ -41,6 +41,14 @@ public class Cinema{
 		this.classType = classType;
 		setSeatLayout(seatLayout);
 	}
+	
+	/**
+	 * Print this cinema attributes
+	 */
+	public void printCineplexInfo(){
+		System.out.println("Cinema " + cinemaID + "(Class Type: " + classType + ")");
+	}
+	
 		
 	/**
 	 * Gets the model.Cinema ID of this cinema.

@@ -69,38 +69,35 @@ public class CineplexController extends DatabaseController {
 		cineplexList.clear();
 
 		if (checkDirectoryExist(BASEDIR + DIR)) {
-			File folder = new File(BASEDIR + DIR);
-			File[] listOfFiles = folder.listFiles();
 			try{
-				for (File f : listOfFiles) {
-					if (f.isFile()){
-						List<String> text = retrieveData(BASEDIR + DIR + f.getName());
+				for (File f : getListofFiles(BASEDIR + DIR)) {
+					List<String> text = retrieveData(BASEDIR + DIR + f.getName());
 
-						// model.Cineplex Attributes
-						StringTokenizer aStr = new StringTokenizer(text.get(0), DELIMITER);
-						String cineplexName = aStr.nextToken();			// Name
-						String cineplexLocation = aStr.nextToken();		// Location
+					// model.Cineplex Attributes
+					StringTokenizer aStr = new StringTokenizer(text.get(0), DELIMITER);
+					String cineplexName = aStr.nextToken();			// Name
+					String cineplexLocation = aStr.nextToken();		// Location
 
-						// model.Cinema Attributes
-						ArrayList<Cinema> cinemaList = new ArrayList<>();
-						for (String line : text.subList(1, text.size())){
-							aStr = new StringTokenizer(line, DELIMITER);
-							int cinemaID = Integer.parseInt(aStr.nextToken());	// CinemaID
-							String classType = aStr.nextToken();				// Type of model.Cinema
+					// model.Cinema Attributes
+					ArrayList<Cinema> cinemaList = new ArrayList<>();
+					for (String line : text.subList(1, text.size())){
+						aStr = new StringTokenizer(line, DELIMITER);
+						int cinemaID = Integer.parseInt(aStr.nextToken());	// CinemaID
+						String classType = aStr.nextToken();				// Type of model.Cinema
 
-							// model.Seat Layout
-							char[][] seatLayout = new char[8][15];
-							int i = 0;
-							while (aStr.hasMoreTokens()) {
-								String col = aStr.nextToken();
-								for (int j = 0; j < col.length(); j++)
-									seatLayout[i][j] = col.charAt(j);
-								i++;
-							}
-							cinemaList.add(new Cinema(cinemaID, classType, seatLayout));
+						// model.Seat Layout
+						char[][] seatLayout = new char[8][15];
+						int i = 0;
+						while (aStr.hasMoreTokens()) {
+							String col = aStr.nextToken();
+							for (int j = 0; j < col.length(); j++)
+								seatLayout[i][j] = col.charAt(j);
+							i++;
 						}
-						cineplexList.add(new Cineplex(cineplexName, cineplexLocation, cinemaList));
+						cinemaList.add(new Cinema(cinemaID, classType, seatLayout));
 					}
+					cineplexList.add(new Cineplex(cineplexName, cineplexLocation, cinemaList));
+
 				}
 			}
 			catch (IOException io){
