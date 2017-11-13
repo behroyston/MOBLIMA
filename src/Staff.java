@@ -1,5 +1,3 @@
-package CZ2002Assn;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
