@@ -1,5 +1,3 @@
-package CZ2002Assn;
-
 import java.io.IOException;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -90,7 +88,9 @@ public class SystemSettings{
 		return instance;
 	}
 	
+	//Serializable
 	//for testing purposes
+	//WIP!!!
 	public static List readSettings(String filename) {
 		List sSDetails = null;
 		FileInputStream fis = null;
