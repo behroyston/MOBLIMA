@@ -1,3 +1,5 @@
+package controller;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.BufferedReader;
@@ -9,14 +11,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A controller to perform storing and retrieval of data to/from database.
+ * A controller to perform storing and retrieval of model to/from database.
  * @author Wong Jing Lun
  * @version 1.0
  * @since 2017-11-06
  */
 public abstract class DatabaseController {
 	/**
-	 * Delimiter to seperate data in the database
+	 * Delimiter to seperate model in the database
 	 */
 	protected static final String DELIMITER = ";";
 	
@@ -26,7 +28,7 @@ public abstract class DatabaseController {
 	protected static final String BASEDIR = "database/";
 	
 	/**
-	 * Buffer in database for retrieval of data
+	 * Buffer in database for retrieval of model
 	 */
 	private static List<String> data;
 
@@ -36,13 +38,13 @@ public abstract class DatabaseController {
 
 	/**
 	 * Method to allow specialized controllers to handle the structure
-	 * of the data file during data retrieval
+	 * of the model file during model retrieval
 	 */
 	public abstract void readDB();
 	
 	/**
 	 * Method to allow specialized controllers to handle the structure of 
-	 * data file during data storing 
+	 * model file during model storing
 	 */
 	public abstract void writeDB();
 
@@ -60,8 +62,8 @@ public abstract class DatabaseController {
 	}
 	
 	/**
-	 * Store a specified data into database
-	 * @param fileName	Name of the data file to store data
+	 * Store a specified model into database
+	 * @param fileName	Name of the model file to store model
 	 * @param dat		Data to store into the database
 	 */
 	public void saveData(String fileName, List<String> dat) {
@@ -79,9 +81,9 @@ public abstract class DatabaseController {
 	}
 
 	/**
-	 * Retrieve a specified data from database
-	 * @param fileName		Name of the data file
-	 * @return				Retrieved data in the file
+	 * Retrieve a specified model from database
+	 * @param fileName		Name of the model file
+	 * @return				Retrieved model in the file
 	 * @throws IOException	File do not exists
 	 */
 	public List<String> retrieveData(String fileName) throws IOException{

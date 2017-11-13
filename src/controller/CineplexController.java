@@ -1,3 +1,8 @@
+package controller;
+
+import model.Cinema;
+import model.Cineplex;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -5,7 +10,7 @@ import java.util.StringTokenizer;
 import java.io.IOException;
 
 /**
- * A controller to perform storing and retrieval of Cineplex data to/from database.
+ * A controller to perform storing and retrieval of model.Cineplex model to/from database.
  * Also validates changes before committing any changes to database.
  * @author Wong Jing Lun
  * @version 1.0
@@ -13,7 +18,7 @@ import java.io.IOException;
  */
 public class CineplexController extends DatabaseController {
 	/**
-	 * The sub-directory of Cineplex Controller.
+	 * The sub-directory of model.Cineplex Controller.
 	 */
 	private final String DIR = "cineplex/";
 
@@ -28,7 +33,7 @@ public class CineplexController extends DatabaseController {
 	private ArrayList<Cineplex> cineplexList;
 
 	/**
-	 * Creates a new Cineplex Controller. 
+	 * Creates a new model.Cineplex Controller.
 	 * Also initalise the list of cineplex.
 	 */
 	private CineplexController(){
@@ -45,8 +50,8 @@ public class CineplexController extends DatabaseController {
 
 	/**
 	 * Find the cinema with the corresponding cinemaID from all the cineplex
-	 * @param cinemaID	Cinema ID of the cinema to find
-	 * @return			Cinema corresponding to the cinemaID if it exists. Returns null if cannot find such cinema.
+	 * @param cinemaID	model.Cinema ID of the cinema to find
+	 * @return			model.Cinema corresponding to the cinemaID if it exists. Returns null if cannot find such cinema.
 	 */
 	public Cinema getCinema(int cinemaID){
 		for (Cineplex cineplex : cineplexList)
@@ -57,7 +62,7 @@ public class CineplexController extends DatabaseController {
 	}
 
 	/**
-	 * Retrieve the Cineplex data from database. 
+	 * Retrieve the model.Cineplex model from database.
 	 */
 	@Override
 	public void readDB() {
@@ -71,25 +76,25 @@ public class CineplexController extends DatabaseController {
 					if (f.isFile()){
 						List<String> text = retrieveData(BASEDIR + DIR + f.getName());
 
-						// Cineplex Attributes
+						// model.Cineplex Attributes
 						StringTokenizer aStr = new StringTokenizer(text.get(0), DELIMITER);
 						String cineplexName = aStr.nextToken();			// Name
 						String cineplexLocation = aStr.nextToken();		// Location
 
-						// Cinema Attributes
+						// model.Cinema Attributes
 						ArrayList<Cinema> cinemaList = new ArrayList<>();
 						for (String line : text.subList(1, text.size())){
 							aStr = new StringTokenizer(line, DELIMITER);
 							int cinemaID = Integer.parseInt(aStr.nextToken());	// CinemaID
-							String classType = aStr.nextToken();				// Type of Cinema
+							String classType = aStr.nextToken();				// Type of model.Cinema
 
-							// Seat Layout
-							int[][] seatLayout = new int[15][8];
+							// model.Seat Layout
+							char[][] seatLayout = new char[8][15];
 							int i = 0;
 							while (aStr.hasMoreTokens()) {
 								String col = aStr.nextToken();
 								for (int j = 0; j < col.length(); j++)
-									seatLayout[i][j] = col.charAt(j) - '0';
+									seatLayout[i][j] = col.charAt(j);
 								i++;
 							}
 							cinemaList.add(new Cinema(cinemaID, classType, seatLayout));
@@ -99,16 +104,16 @@ public class CineplexController extends DatabaseController {
 				}
 			}
 			catch (IOException io){
-				System.out.println("Error! Unable to retrieve data from file.");
+				System.out.println("Error! Unable to retrieve model from file.");
 			}
 
 		} else {
-			System.out.println("Error, Directory not found! Database for Cineplex is not loaded!");
+			System.out.println("Error, Directory not found! Database for model.Cineplex is not loaded!");
 		}
 	}
 
 	/**
-	 * Save the Cineplex data into database. 
+	 * Save the model.Cineplex model into database.
 	 * Each cineplex will be divided into individual file.
 	 */
 	@Override
@@ -116,13 +121,13 @@ public class CineplexController extends DatabaseController {
 		List<String> text = new ArrayList<>();
 		StringBuilder str = new StringBuilder();
 		/* Summary: 1st line of the file will be the cineplex attributes
-		 * All following line will be the Cineplex's cinemas attributes
+		 * All following line will be the model.Cineplex's cinemas attributes
 		 * The seat layout will be divided by column by column for storage.
 		 */
 		for (Cineplex cineplex : cineplexList){
 			text.clear();
 			if (checkDirectoryExist(BASEDIR + DIR)) {
-				// Cineplex Attributes
+				// model.Cineplex Attributes
 				str.setLength(0); // Reset Buffer
 				str.append(cineplex.getName());		// Name
 				str.append(DELIMITER);
@@ -130,16 +135,16 @@ public class CineplexController extends DatabaseController {
 				str.append(DELIMITER);
 				text.add(str.toString());			// Write to line
 
-				// Cinema attributes
+				// model.Cinema attributes
 				for (Cinema cinema : cineplex.getCinemaList()){	// Cinemas
 					str.setLength(0); // Reset Buffer
-					str.append(cinema.getCinemaID());	// Cinema ID
+					str.append(cinema.getCinemaID());	// model.Cinema ID
 					str.append(DELIMITER);
-					str.append(cinema.getClassType());	// Cinema Class type
+					str.append(cinema.getClassType());	// model.Cinema Class type
 					str.append(DELIMITER);
 
-					// Seat layout of the cinema
-					int [][] seatLayout = cinema.getSeatLayout();
+					// model.Seat layout of the cinema
+					char [][] seatLayout = cinema.getSeatLayout();
 					for (int i = 0; i < seatLayout.length; i++){
 						for (int j = 0; j < seatLayout[i].length; j++){
 							str.append(seatLayout[i][j]);
@@ -162,9 +167,9 @@ public class CineplexController extends DatabaseController {
 	}
 
 	/**
-	 * Gets the channel reference of the CineplexController.
+	 * Gets the channel reference of the controller.CineplexController.
 	 * Creates the channel reference if it do not exists.
-	 * @return Instance of the Cineplex Controller
+	 * @return Instance of the model.Cineplex Controller
 	 */
 	public static CineplexController getInstance(){
 		if (instance == null)
@@ -180,21 +185,21 @@ public class CineplexController extends DatabaseController {
 	}
 
 	/**
-	 * Adds a new movie screening to a specified Cineplex's Cinema.
+	 * Adds a new movie screening to a specified model.Cineplex's model.Cinema.
 	 * Commits the change to database only if it is successfuly added.
 	 * @param cineplexID	ID of the cineplex to add new movie screening.
 	 * @param cinemaID		ID of the cinema to add new movie screening.
 	 * @param movieID		ID of the corresponding movie of the movie screening.
-	 * @param movieType		Movie type of the movie being screened.
+	 * @param movieType		model.Movie type of the movie being screened.
 	 * @param startTime		Starting time of the screening.
 	 * @param endTime		Ending time of the screening.
 	 */
 	/*public void addMovieScreening(int cineplexID, int cinemaID, int movieID, String movieType, Calendar startTime, Calendar endTime){
 		if (cineplexID >= cineplexList.size() || cineplexID < 0){
-			System.out.println("Error! Invalid Cineplex!");
+			System.out.println("Error! Invalid model.Cineplex!");
 			return;
 		}
-		for (Cinema cinema : cineplexList.get(cineplexID).getCinemaList())
+		for (model.Cinema cinema : cineplexList.get(cineplexID).getCinemaList())
 			if (cinema.getCinemaID() == cinemaID)
 				if(cinema.addMovieScreening(startTime, endTime, movieType, movieID)){
 					writeDB();
@@ -204,22 +209,22 @@ public class CineplexController extends DatabaseController {
 	}*.
 
 	/**
-	 * Update a movie screening of a specified Cineplex's Cinema to a new value.
+	 * Update a movie screening of a specified model.Cineplex's model.Cinema to a new value.
 	 * Commits the change to database only if it is successfully updated.
 	 * @param cineplexID	ID of the cineplex to change movie screening.
 	 * @param cinemaID		ID of the cinema to change movie screening.
 	 * @param screeningID	ID of movie screening to update.
 	 * @param movieID		ID of the new movie to be screened.
-	 * @param movieType		Movie type of the new movie to be screened.
+	 * @param movieType		model.Movie type of the new movie to be screened.
 	 * @param startTime		New starting time of the screening.
 	 * @param endTime		Old starting time of the screening.
 	 */
 	/*public void updateMovieScreening(int cineplexID, int cinemaID, int screeningID, int movieID, String movieType, Calendar startTime, Calendar endTime){
 		if (cineplexID >= cineplexList.size() || cineplexID < 0){
-			System.out.println("Error! Invalid Cineplex!");
+			System.out.println("Error! Invalid model.Cineplex!");
 			return;
 		}
-		for (Cinema cinema : cineplexList.get(cineplexID).getCinemaList())
+		for (model.Cinema cinema : cineplexList.get(cineplexID).getCinemaList())
 			if (cinema.getCinemaID() == cinemaID)
 				if (cinema.updateMovieScreening(screeningID, startTime, endTime, movieType, movieID)){
 					writeDB();
@@ -229,17 +234,17 @@ public class CineplexController extends DatabaseController {
 	}*/
 
 	/**
-	 * Remove a movie screening of a specified Cineplex's Cinema.
+	 * Remove a movie screening of a specified model.Cineplex's model.Cinema.
 	 * @param cineplexID	ID of the cineplex to remove movie screening from.
 	 * @param cinemaID		ID of the cinema to remove movie screening from.
 	 * @param screeningID	ID of the movie screening to be removed.
 	 */
 	/*public void removeMovieScreening(int cineplexID, int cinemaID, int screeningID){
 		if (cineplexID >= cineplexList.size() || cineplexID < 0){
-			System.out.println("Error! Invalid Cineplex!");
+			System.out.println("Error! Invalid model.Cineplex!");
 			return;
 		}
-		for (Cinema cinema : cineplexList.get(cineplexID).getCinemaList())
+		for (model.Cinema cinema : cineplexList.get(cineplexID).getCinemaList())
 			if (cinema.getCinemaID() == cinemaID)
 				if(cinema.removeMovieScreening(screeningID)){
 					writeDB();

@@ -1,35 +1,47 @@
-import java.io.IOException;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.List;
+package ui;
+
+import controller.CineplexController;
+import model.Booking;
+import model.Cinema;
+import model.Cineplex;
+import model.Movie;
+
+import java.io.*;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Calendar;
-import java.text.SimpleDateFormat;
-import java.util.GregorianCalendar;
-import java.util.StringTokenizer;
+import java.util.List;
 
 public class TestApp {
 	public static void main(String[] args) {
+
+//        MovieController movieController = MovieController.getInstance();
+//        movieController.setMovieList(createSampleMovie());
+//        movieController.writeDB();
+//        movieController.readDB();
+//        movieController.printMovieLists();
+
+//        BookingController bookingController = BookingController.getInstance();
+////        bookingController.setBookingList(createSampleBooking());
+////        bookingController.writeDB();
+//        bookingController.readDB();
+//        bookingController.printBookingList();
+
 		// Manual text format - preferred here because it simulates the allowance of staff to add new cineplex/cinema to DB
 		CineplexController control = CineplexController.getInstance();
 		ArrayList<Cineplex> cineplexList ;
 		cineplexList = createSample();
 		control.setCineplexList(cineplexList);
 		control.writeDB();
-		//control.readDB();
-		cineplexList = control.getCineplexList();
-		System.out.println("---------------------------------------");
-		printCineplex(cineplexList);
+//		//control.readDB();
+//		cineplexList = control.getCineplexList();
+//		System.out.println("---------------------------------------");
+//		printCineplex(cineplexList);
 		
 		/*control.writeDB();
 		System.out.println("---------------------------------------");
 		printCineplex(control.getCineplexList());*/
 		/*
 		
-		// Test the functionality of create movie screening of Cineplex Controller
+		// Test the functionality of create movie screening of model.Cineplex Controller
 		System.out.println("---------------------------------------");
 		int cineplexID = 1, cinemaID = 1, movieID = 100;
 		String movieType = "3D";
@@ -39,7 +51,7 @@ public class TestApp {
 		control.addMovieScreening(cineplexID, cinemaID, movieID, movieType, startTime, endTime);
 		printCineplex(control.getCineplexList());
 		
-		// Test the functionlity of update movie screening of Cineplex Controller
+		// Test the functionlity of update movie screening of model.Cineplex Controller
 		System.out.println("---------------------------------------");
 		int screeningID = 2;
 		aDate = new GregorianCalendar(2017, 11, 4, 22, 0);
@@ -49,7 +61,7 @@ public class TestApp {
 		control.updateMovieScreening(cineplexID, cinemaID, screeningID, movieID, movieType, startTime, endTime);
 		printCineplex(control.getCineplexList());
 		
-		// Test the functionlity of remove movie screening of Cineplex Controller
+		// Test the functionlity of remove movie screening of model.Cineplex Controller
 		System.out.println("---------------------------------------");
 		control.removeMovieScreening(2, cinemaID, screeningID);
 		printCineplex(control.getCineplexList());
@@ -65,7 +77,7 @@ public class TestApp {
 				// read from serialized file the list of professors
 				list = (ArrayList) readSerializedObject("test.dat");
 				for (int i = 0 ; i < list.size() ; i++) {
-					Cineplex p = (Cineplex)list.get(i);
+					model.Cineplex p = (model.Cineplex)list.get(i);
 					System.out.println("Name is " + p.getName() );
 					System.out.println("Location is " + p.getLocation() );
 				}
@@ -111,20 +123,21 @@ public class TestApp {
 		}
 	}
 
-<<<<<<< HEAD
-	public static ArrayList<MovieScreening> createSampleForMovieScreening(){
-//		    public MovieScreening(Calendar startTime, Calendar endTime,
-//		int cinemaId, int movieID, String movieType){
-		ArrayList<MovieScreening> movieScreeningList = new ArrayList<>();
-		Calendar aDate, startTime, endTime;
-=======
+
+//	public static ArrayList<MovieScreening> createSampleForMovieScreening() {
+////		    public model.MovieScreening(Calendar startTime, Calendar endTime,
+////		int cinemaId, int movieID, String movieType){
+//		ArrayList<MovieScreening> movieScreeningList = new ArrayList<>();
+//		Calendar aDate, startTime, endTime;
+//	}
+
 	public static ArrayList<Cineplex> createSample(){
 		ArrayList<Cineplex> cineplexList = new ArrayList<>();
 		ArrayList<Cinema> cin = new ArrayList<>();
-		int [][] seatsLayout = new int[15][8];
+		char [][] seatsLayout = new char[8][15];
 		for (int i = 0; i < seatsLayout.length; i++)
 			for (int j = 0; j < seatsLayout[i].length && i != 6; j++)
-				seatsLayout[i][j] = 1;
+				seatsLayout[i][j] = 'O';
 		for (int i = 0; i < seatsLayout.length; i++){
 			for (int j = 0; j < seatsLayout[i].length ; j++)
 				System.out.print(seatsLayout[i][j]);
@@ -132,27 +145,16 @@ public class TestApp {
 		}
 		
 		cin.add(new Cinema(1, "Regular", seatsLayout));
-		seatsLayout[14][7] = 0;
+		seatsLayout[7][14] = ' ';
 		cin.add(new Cinema(2, "Regular", seatsLayout));
 
 		/*Calendar aDate, startTime, endTime;
->>>>>>> 9be68c14653815d60435056e070fedff5f1c7049
 		aDate = new GregorianCalendar(2013, 3, 5, 8, 00);
 		startTime = (Calendar) aDate.clone();
 		endTime = (Calendar) (new GregorianCalendar(2013, 3, 5, 8, 30)).clone();
 		addMovieScreening(startTime, endTime, "2D", 1);
-		ArrayList<MovieScreening> at = cin.get(0).getMovieScreenings();
+		ArrayList<model.MovieScreening> at = cin.get(0).getMovieScreenings();
 		printMovieTimings(at);
-
-
-	}
-
-	public static ArrayList<Cineplex> createSample(){
-		ArrayList<Cineplex> cineplexList = new ArrayList<>();
-		ArrayList<Cinema> cin = new ArrayList<>();
-		cin.add(new Cinema(1, "Regular"));
-		cin.add(new Cinema(2, "Regular"));
-
 
 		System.out.println("LOL!~~~~~~~~~~");
 		startTime = (Calendar) (new GregorianCalendar(2013, 3, 5, 7, 51)).clone();
@@ -166,19 +168,19 @@ public class TestApp {
 		System.out.println(cin.get(1).addMovieScreening(startTime, endTime, "2D", 3));
 		printMovieTimings(at);*/
 
-		cineplexList.add(new Cineplex("Bugis Cineplex", "Bugis", cin));
+		cineplexList.add(new Cineplex("Bugis model.Cineplex", "Bugis", cin));
 		System.out.println("LOL3!~~~~~~~~~~");
 		ArrayList<Cinema> cin2 = new ArrayList<>();
-		seatsLayout[12][6] = 0;
+		seatsLayout[6][12] = ' ';
 		cin2.add(new Cinema(3, "Platinum Suites", seatsLayout));
-		seatsLayout[12][6] = 1;
+		seatsLayout[6][12] = 'O';
 		cin2.add(new Cinema(4, "Regular", seatsLayout));
 
 		/*aDate = new GregorianCalendar(2017, 3, 5, 8, 00);
 		startTime = (Calendar) aDate.clone();
 		endTime = (Calendar) (new GregorianCalendar(2017, 3, 5, 8, 30)).clone();
 		cin2.get(0).addMovieScreening(startTime, endTime, "2D", 10);
-		ArrayList<MovieScreening> at2 = cin2.get(0).getMovieScreenings();
+		ArrayList<model.MovieScreening> at2 = cin2.get(0).getMovieScreenings();
 		printMovieTimings(at2);
 
 		System.out.println("LOL2!~~~~~~~~~~");
@@ -193,9 +195,40 @@ public class TestApp {
 		System.out.println(cin2.get(1).addMovieScreening(startTime, endTime, "2D", 30));
 		printMovieTimings(at2);*/
 
-		cineplexList.add(new Cineplex("Bishan Cineplex", "Bishan", cin2));
+		cineplexList.add(new Cineplex("Bishan model.Cineplex", "Bishan", cin2));
 		return cineplexList;
 	}
+
+	private static ArrayList<Movie> createSampleMovie(){
+        ArrayList<String> reviews = new ArrayList<String>();
+        reviews.add("It's great!");
+        reviews.add("It sucks");
+        ArrayList<Double> ratingList = new ArrayList<>();
+        ratingList.add(2.0);
+        ratingList.add(2.0);
+
+        Movie movie1 = new Movie(1,"Kingsman","abc","Matthew Vaughn","Taron Egerton", "Now Showing");
+        Movie movie2 = new Movie(2,"Marvel's Thor: Ragnarok", "abcd", "Taika Waititi","Chris Hemworth", "Now Showing");
+        Movie movie3 = new Movie(3, "Ah Boys to Men 4","abcde", "Jack Neo", "Joshua Tan", "Now Showing",2,true,10,130,
+                reviews, ratingList );
+        ArrayList <Movie> movieLists = new ArrayList<>();
+        movieLists.add(movie1);
+        movieLists.add(movie2);
+        movieLists.add(movie3);
+        return movieLists;
+    }
+
+    private static ArrayList<Booking> createSampleBooking(){
+	    Booking booking1 = new Booking(1,"Royston","91234567","behroyston@gmail.com",1);
+        Booking booking2 = new Booking(1,"Amos","91234568","random@gmail.com",1);
+        Booking booking3 = new Booking(1,"Yandao","91234569","random1@gmail.com",1);
+        ArrayList<Booking> bookings = new ArrayList<>();
+        bookings.add(booking1);
+        bookings.add(booking2);
+        bookings.add(booking3);
+
+        return bookings;
+    }
 
 	public static void writeSampleFile(){
 		ArrayList<Cineplex> cineplexList = createSample();
@@ -205,7 +238,7 @@ public class TestApp {
 	
 	public static void printCineplex(ArrayList<Cineplex> cineplexList){
 		for (Cineplex cineplex : cineplexList){
-			System.out.println("Cineplex Name: " + cineplex.getName());
+			System.out.println("model.Cineplex Name: " + cineplex.getName());
 			System.out.println("Location: " + cineplex.getLocation());
 			System.out.println("Cinemas: ");
 			printCinemas(cineplex.getCinemaList());
@@ -216,11 +249,11 @@ public class TestApp {
 		for (Cinema cinema : cinemaList){
 			System.out.print("CinemaID: " + cinema.getCinemaID());
 			System.out.println(" (Class Type: " + cinema.getClassType() + ")");
-			System.out.println("Seat Layout: ");
-			int[][] seatLayout = cinema.getSeatLayout();
+			System.out.println("model.Seat Layout: ");
+			char[][] seatLayout = cinema.getSeatLayout();
 			for (int i = 0; i < seatLayout.length; i++){
 				for (int j = 0; j < seatLayout[i].length; j++)
-					if (seatLayout[i][j] == 1)
+					if (seatLayout[i][j] == 'O')
 						System.out.print("O");
 					else
 						System.out.print(" ");
@@ -229,8 +262,8 @@ public class TestApp {
 		}
 	}
 
-	/*public static void printMovieTimings(ArrayList<MovieScreening> at){
-		for (MovieScreening movie: at){
+	/*public static void printMovieTimings(ArrayList<model.MovieScreening> at){
+		for (model.MovieScreening movie: at){
 			System.out.print("MovieID: " + movie.getMovieID() + " - ");
 			System.out.print(movie.getStartTime().getTime() + " to ");
 			System.out.println(movie.getEndTime().getTime());

@@ -1,5 +1,7 @@
+package model;
+
 /**
- * Represents a Cinema in a Cineplex.
+ * Represents a model.Cinema in a model.Cineplex.
  * A cinema contains seats and have a defined schedule of screenings.
  * @author Wong Jing Lun
  * @version 1.0
@@ -12,45 +14,45 @@ public class Cinema{
 	private int cinemaID;
 	
 	/**
-	 * The class of this cinema (e.g Platinum Movie Suites).
+	 * The class of this cinema (e.g Platinum model.Movie Suites).
 	 */
 	private String classType;
 	
 	/**
-	 * Seat layout of this cinema.
+	 * model.Seat layout of this cinema.
 	 * Entries are 1 for a seat and 0 for a space.
 	 */
-	private int[][] seatLayout = new int[15][8];
+	private char[][] seatLayout = new char[8][15];
 	
 	/**
 	 * The list of seats for this cinema.
 	 */
-	//private ArrayList<Seat> seats;
+	//private ArrayList<model.Seat> seats;
 	
 	/**
-	 * Creates a new Cinema with its given ID, classType and seats.
+	 * Creates a new model.Cinema with its given ID, classType and seats.
 	 * Also initalise the movieScreenings.
-	 * @param cinemaID Cinema ID corresponding to this cinema.
+	 * @param cinemaID model.Cinema ID corresponding to this cinema.
 	 * @param classType Class of this cinema.
 	 * @param seatLayout
 	 */
-	public Cinema(int cinemaID, String classType, int[][] seatLayout){
+	public Cinema(int cinemaID, String classType, char[][] seatLayout){
 		this.cinemaID = cinemaID;
 		this.classType = classType;
 		setSeatLayout(seatLayout);
 	}
 		
 	/**
-	 * Gets the Cinema ID of this cinema.
-	 * @return Cinema ID of this cinema.
+	 * Gets the model.Cinema ID of this cinema.
+	 * @return model.Cinema ID of this cinema.
 	 */
 	public int getCinemaID(){
 		return cinemaID;
 	}
 	
 	/**
-	 * Change the Cinema ID of this cinema.
-	 * @param cinemaID New Cinema ID of this cinema.
+	 * Change the model.Cinema ID of this cinema.
+	 * @param cinemaID New model.Cinema ID of this cinema.
 	 */
 	public void setCinemaID(int cinemaID){
 		this.cinemaID = cinemaID;
@@ -74,9 +76,9 @@ public class Cinema{
 	
 	/**
 	 * Get the seat layout of this cinema.
-	 * @return Seat layout of this cinema
+	 * @return model.Seat layout of this cinema
 	 */
-	public int[][] getSeatLayout(){
+	public char[][] getSeatLayout(){
 		return seatLayout;
 	}
 	
@@ -85,16 +87,16 @@ public class Cinema{
 	 * Set the seat layout for this cinema.
 	 * @param layout New seat layout of this cinema
 	 */
-	public void setSeatLayout(int[][] layout){
+	public void setSeatLayout(char[][] layout){
 		if (layout.length != seatLayout.length){		// Check that the structure is the same
-			System.out.println("Seat layout not of correct dimensions!");
+			System.out.println("model.Seat layout not of correct dimensions!");
 			return;
 		}
 		for (int i = 0; i < layout.length; i++){
 			if (layout[i].length == seatLayout[i].length) // Check that the structure is the same	
 				System.arraycopy(layout[i], 0, seatLayout[i], 0, layout[i].length);
 			else{
-				System.out.println("Seat layout not of correct dimensions!");
+				System.out.println("model.Seat layout not of correct dimensions!");
 				return;
 			}
 		}
@@ -105,7 +107,7 @@ public class Cinema{
 	 * Gets the list of movie screenings for this cinema.
 	 * @return List of movie screenings.
 	 */
-	/*public ArrayList<MovieScreening> getMovieScreenings(){
+	/*public ArrayList<model.MovieScreening> getMovieScreenings(){
 		return movieScreenings;
 	}*/
 	
@@ -133,15 +135,15 @@ public class Cinema{
 	 * checks for any possible crashes of timing of the screenings.
 	 * @param startTime	Starting time of the movie screening.
 	 * @param endTime 	Ending time of the movie screening.
-	 * @param movieType	Movie type of the movie screening.
-	 * @param movieID	Movie ID of the movie being screened.
+	 * @param movieType	model.Movie type of the movie screening.
+	 * @param movieID	model.Movie ID of the movie being screened.
 	 * @return			Returns true if movie screening is added successfully. Returns false otherwise.
 	 */
 	/*public boolean addMovieScreening(Calendar startTime, Calendar endTime, String movieType, int movieID){
 		int index = checkForTimeClash(startTime, endTime);
 		if (index == -1 || startTime.after(endTime))
 			return false;
-		movieScreenings.add(index, new MovieScreening(startTime, endTime, movieType, movieID));
+		movieScreenings.add(index, new model.MovieScreening(startTime, endTime, movieType, movieID));
 		return true;
 	}*/
 	
@@ -151,8 +153,8 @@ public class Cinema{
 	 * @param screeningID	ID of the movie screening.
 	 * @param startTime		Starting time of the movie screening.
 	 * @param endTime		Ending time of the movie screening.
-	 * @param movieType		Movie type of the movie screening.
-	 * @param movieID		Movie ID of the movie being screened.
+	 * @param movieType		model.Movie type of the movie screening.
+	 * @param movieID		model.Movie ID of the movie being screened.
 	 * @return 				Returns true if movie screening is updated successfully. Returns false otherwise.
 	 */
 	/*public boolean updateMovieScreening(int screeningID, Calendar startTime, Calendar endTime, String movieType, int movieID){
@@ -162,7 +164,7 @@ public class Cinema{
 		}	
 		else{
 			// Check if the changes are alright first before committing the change (by using a backup copy)
-			ArrayList<MovieScreening> temp = new ArrayList<>(movieScreenings);	
+			ArrayList<model.MovieScreening> temp = new ArrayList<>(movieScreenings);
 			if (!removeMovieScreening(screeningID) || !addMovieScreening(startTime, endTime, movieType, movieID)){
 				movieScreenings = temp;
 				return false;
