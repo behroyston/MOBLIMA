@@ -1,5 +1,3 @@
-package CZ2002Assn;
-
 import java.util.ArrayList;
 
 public class MovieGoerController {
