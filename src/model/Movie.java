@@ -25,6 +25,7 @@ public class Movie{
 		this.movieShowingStatus = status;
 		this.reviews = new ArrayList<>();
 		this.ratingList = new ArrayList<>();
+		setIsShowing();
 	}
 
 	public Movie(int movieId, String movieName, String synopsis, String director, String cast, MovieShowingStatus status, double avg_rating, boolean isShowing, double ticketSales, int duration,
@@ -83,6 +84,13 @@ public class Movie{
 	public boolean isShowing() {
 		return isShowing;
 	}
+	
+	private void setIsShowing(){
+		if (movieShowingStatus == MovieShowingStatus.PREVIEW || movieShowingStatus == MovieShowingStatus.NOW_SHOWING)
+			isShowing = true;
+		else
+			isShowing = false;
+	}
 
 	public double getTicketSales() {
 		return ticketSales;
@@ -94,6 +102,7 @@ public class Movie{
 
 	public void setStatus(MovieShowingStatus status) {
 		this.movieShowingStatus = status;
+		setIsShowing();
 	}
 
 	public void setAvg_rating(double avg_rating) {
@@ -131,6 +140,7 @@ public class Movie{
 
 	public void addRating(double rating){
 		ratingList.add(rating);
+		setAvgRating();
 	}
 
 	public void addTicketSales(double sales){

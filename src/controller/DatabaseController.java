@@ -71,17 +71,6 @@ public abstract class DatabaseController {
 		File [] outputFiles = new File[relevantFiles.size()];
 		return relevantFiles.toArray(outputFiles);
 	}
-
-	public File[] getListofFiles(String folderName, String fileName){
-		File folder = new File(folderName);
-		File[] listOfFiles = folder.listFiles();
-		List<File> relevantFiles = new ArrayList<>();
-		for (File f : listOfFiles)
-			if (f.isFile() && f.getName().charAt(0) != '.' && f.getName().equals(fileName))
-				relevantFiles.add(f);
-		File [] outputFiles = new File[relevantFiles.size()];
-		return relevantFiles.toArray(outputFiles);
-	}
 	
 	/**
 	 * Store a specified model into database

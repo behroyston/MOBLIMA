@@ -28,21 +28,22 @@ public class MovieGoerController extends DatabaseController{
 		if (checkDirectoryExist(BASEDIR + DIR)) {
 			try{
 				for (File f : getListofFiles(BASEDIR + DIR)) {
-					List<String> text = retrieveData(BASEDIR + DIR + f.getName());
-					StringTokenizer aStr;
-					for (String line : text) {
-						aStr = new StringTokenizer(line, DELIMITER);
-						String name = aStr.nextToken();
-						String mobileNumber = (aStr.nextToken());
-						String password = aStr.nextToken();
-						String email = aStr.nextToken();
-						int cusID = Integer.parseInt(aStr.nextToken());
-						int age = Integer.parseInt(aStr.nextToken());
-						MovieGoer movieGoer = new MovieGoer(password, name, mobileNumber, email, cusID, age);
-						movieGoerList.add(movieGoer);
+					if (f.getName().equals("moviegoer")){
+						List<String> text = retrieveData(BASEDIR + DIR + f.getName());
+						StringTokenizer aStr;
+						for (String line : text) {
+							aStr = new StringTokenizer(line, DELIMITER);
+							String name = aStr.nextToken();
+							String mobileNumber = (aStr.nextToken());
+							String password = aStr.nextToken();
+							String email = aStr.nextToken();
+							int cusID = Integer.parseInt(aStr.nextToken());
+							int age = Integer.parseInt(aStr.nextToken());
+							MovieGoer movieGoer = new MovieGoer(password, name, mobileNumber, email, cusID, age);
+							movieGoerList.add(movieGoer);
+						}
 					}
 				}
-
 			}
 			catch (IOException io)
 			{
@@ -55,7 +56,7 @@ public class MovieGoerController extends DatabaseController{
 		}
 
 	}
-	
+
 	protected void writeDB() {
 		List<String> text = new ArrayList<>();
 		StringBuilder str = new StringBuilder();
@@ -92,7 +93,7 @@ public class MovieGoerController extends DatabaseController{
 			System.out.println("Error! Directory cannot be found!");
 		}
 	}
-	
+
 	public MovieGoer getMovieGoerByEmail(String email){
 		for (MovieGoer movieGoer : movieGoerList)
 			if (email.equalsIgnoreCase(movieGoer.getEmail()))
@@ -120,7 +121,7 @@ public class MovieGoerController extends DatabaseController{
 		return movieGoerList;
 	}
 
-	
+
 	public void setMovieGoerList(ArrayList<MovieGoer> arrList){
 		movieGoerList = arrList;
 	}

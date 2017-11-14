@@ -35,8 +35,8 @@ public class TestApp {
 
 
         MovieController movieController = MovieController.getInstance();
-//        movieController.setMovieList(createSampleMovie());
-//        movieController.writeDB();
+        movieController.setMovieList(createSampleMovie());
+        movieController.writeDB();
         movieController.readDB();
 //        movieController.printMovieLists();
 //

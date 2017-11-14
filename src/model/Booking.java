@@ -74,6 +74,7 @@ public class Booking {
         System.out.println("Mobile Number: " + mobileNum);
         System.out.println("Email Address: " + emailAddress);
         System.out.println("CinemaID: " + cinemaID);
+        System.out.println("MovieScreeningID: " + movieScreeningID);
 
 
     }
