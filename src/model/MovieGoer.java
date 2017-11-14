@@ -1,8 +1,5 @@
 package model;
 
-import controller.MovieGoerController;
-
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MovieGoer extends Person {
@@ -15,11 +12,10 @@ public class MovieGoer extends Person {
 	Scanner sc = new Scanner(System.in);
 	
 	//Class constructor
-	public MovieGoer(String password, String name, String mobileNumber, String email, int cusID, int age, boolean isStudent) {
+	public MovieGoer(String password, String name, String mobileNumber, String email, int cusID, int age) {
 		super(password, name, mobileNumber, email);//abstract
 		this.cusID = cusID;
 		this.age = age;
-		this.isStudent = isStudent;
 	}
 	
 	//access private ID
@@ -49,16 +45,7 @@ public class MovieGoer extends Person {
 		return;
 	}
 	
-	//access private age
-	public boolean getIsStudent() {
-		return isStudent;
-	}
-	
-	//mutate private age
-	public void setIsStudent(boolean isStudent) {
-		this.isStudent = isStudent;
-	}
-	
+
 	public void printInfo(){
 		System.out.println("Email Address: " + email);
 		System.out.println("Password: " + password);
@@ -66,6 +53,5 @@ public class MovieGoer extends Person {
 		System.out.println("Name: " + name);
 		System.out.println("CustomerID: " + cusID);
 		System.out.println("Age: " + age);
-		System.out.println("isStudent: " + isStudent);
 	}
 }

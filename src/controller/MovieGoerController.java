@@ -1,6 +1,5 @@
 package controller;
 
-import model.Booking;
 import model.MovieGoer;
 
 import java.io.File;
@@ -39,8 +38,7 @@ public class MovieGoerController extends DatabaseController{
 						String email = aStr.nextToken();
 						int cusID = Integer.parseInt(aStr.nextToken());
 						int age = Integer.parseInt(aStr.nextToken());
-						boolean isStudent = Boolean.parseBoolean(aStr.nextToken());
-						MovieGoer movieGoer = new MovieGoer(password, name, mobileNumber, email, cusID, age, isStudent);
+						MovieGoer movieGoer = new MovieGoer(password, name, mobileNumber, email, cusID, age);
 						movieGoerList.add(movieGoer);
 					}
 				}
@@ -80,8 +78,6 @@ public class MovieGoerController extends DatabaseController{
 				str.append(movieGoer.getCusID());		// Customer ID
 				str.append(DELIMITER);
 				str.append(movieGoer.getAge());			// Age
-				str.append(DELIMITER);
-				str.append(movieGoer.getIsStudent()); // isStudent
 				str.append(DELIMITER);
 				text.add(str.toString());			// Write to line
 			}
