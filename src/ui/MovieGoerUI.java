@@ -2,6 +2,7 @@ package ui;
 
 import controller.BookingController;
 import controller.MovieController;
+import controller.MovieGoerController;
 import controller.MovieScreeningController;
 import model.Booking;
 import model.Movie;
@@ -28,7 +29,6 @@ public class MovieGoerUI {
 			return;
 		}
 		
-
 		// Movie-Goer Options
 		int choice;
 		do{
@@ -63,18 +63,29 @@ public class MovieGoerUI {
 			}
 		}while(choice != 6);
 	}
-	
+
 	private int checkIfInt(int value){
 		if (!sc.hasNextInt()){
-		    sc.next(); // Remove the invalid input
-            return value;
-        }
-        return sc.nextInt();
+			sc.next(); // Remove the invalid input
+			return value;
+		}
+		return sc.nextInt();
 	}
 
 	// Current display seems to be implemented in MovieGoer - may need to revise this
 	private String loginValidation(){
-		return "absce@hotmail.com";
+		String email, password;
+		while (true){
+			System.out.print("Please enter your email address: ");
+			email = sc.next();
+			System.out.print("Please enter your password: ");
+			password = sc.next();
+			if (!MovieGoerController.getInstance().validateCustomer(email, password))
+				System.out.println("Invalid login details! Please re-enter...");
+			else
+				break;
+		}
+		return email;
 	}
 
 	// We need a logic to check that 'Now Showing' & 'Preview' should set isShowing == true
@@ -108,7 +119,7 @@ public class MovieGoerUI {
 			}
 		}while (choice > 3 || choice < 1);
 	}
-	
+
 	private void printShowingMovies(){
 		ArrayList<Movie> movieList = MovieController.getInstance().getShowingMovieList();
 		System.out.println("The list of movies that are currently showing: ");
@@ -134,9 +145,9 @@ public class MovieGoerUI {
 				Movie showingMovie = MovieController.getInstance().getShowingMovieByName(movieName);
 				int movieID = showingMovie.getMovieId();
 				if (showingMovie != null) {
-                    showingMovie.printInfo();
-                    listTimings(movieID);
-                }
+					showingMovie.printInfo();
+					listTimings(movieID);
+				}
 				break;
 			case 2:
 				ArrayList<Movie> movieList = MovieController.getInstance().getShowingMovieList();
@@ -146,9 +157,9 @@ public class MovieGoerUI {
 				if (num > movieList.size() || num < 1)
 					System.out.println("Invalid Number!");
 				else {
-                    movieList.get(num-1).printInfo();
-                    listTimings(num-1);
-                }
+					movieList.get(num-1).printInfo();
+					listTimings(num-1);
+				}
 				break;
 			case 3:
 				return;
@@ -159,18 +170,18 @@ public class MovieGoerUI {
 	}
 
 	private void listTimings(int movieID){
-        ArrayList<MovieScreening> movieScreenings = MovieScreeningController.getInstance().getMovieScreeningsByMovieID(movieID);
-        System.out.println("MovieScreenings:");
-        for (int i = 0; i< movieScreenings.size(); i++)
-        {
-            System.out.print((i+1) + ") ");
-            movieScreenings.get(i).getStartDateTime();
-        }
-        System.out.println("Enter the Movie Screening Number if you want to book seats!");
+		ArrayList<MovieScreening> movieScreenings = MovieScreeningController.getInstance().getMovieScreeningsByMovieID(movieID);
+		System.out.println("MovieScreenings:");
+		for (int i = 0; i< movieScreenings.size(); i++)
+		{
+			System.out.print((i+1) + ") ");
+			movieScreenings.get(i).getStartDateTime();
+		}
+		System.out.println("Enter the Movie Screening Number if you want to book seats!");
 
-        int selection = sc.nextInt();
-        showSeatsAvailability(movieScreenings.get(selection-1).getMovieScreeningID());
-    }
+		int selection = sc.nextInt();
+		showSeatsAvailability(movieScreenings.get(selection-1).getMovieScreeningID());
+	}
 
 	private void listTopRankings(){
 		MovieController movieController = MovieController.getInstance();
@@ -207,7 +218,7 @@ public class MovieGoerUI {
 			}
 		}while (choice > 3 || choice < 1);
 	}
-	
+
 	private void enterReviewRating(String emailAddress){
 		// TODO: Validate that the movie-goer has watched the movie
 		ArrayList<Booking> userBookings = BookingController.getInstance().getAllBookingByUser(emailAddress);
@@ -215,7 +226,7 @@ public class MovieGoerUI {
 		/*for (int i = 1; i <= userBookings.size(); i++){
 			System.out.println(userBookings.get(i-1).);
 		}
-		*/
+		 */
 		// Enter review
 		int movieID = 1;
 		Movie movie = MovieController.getInstance().getMovie(movieID);
@@ -290,7 +301,7 @@ public class MovieGoerUI {
 	// traverses through MovieController.getCineplex(position).getCinema(position).getMovieScreening(position).getSeatsForThisMovie
 	public void showSeatsAvailability(int movieScreeningID){
 
-	    MovieScreening movieScreening = MovieScreeningController.getInstance().getMovieScreenings().get(movieScreeningID);
+		MovieScreening movieScreening = MovieScreeningController.getInstance().getMovieScreenings().get(movieScreeningID);
 		// 14
 		System.out.println("\t <<<EXIT>>>\t");
 		System.out.print("  ");
@@ -313,7 +324,7 @@ public class MovieGoerUI {
 		int choice = checkIfInt(2);
 		switch (choice) {
 		case (1): bookTickets(movieScreeningID);
-		    break;
+		break;
 		case (2): //TODO: Add in the show main menu function
 			break;
 		}
@@ -357,21 +368,21 @@ public class MovieGoerUI {
 		showSeatsAvailability(movieScreeningID);
 	}
 
-    public void viewBookingHistory() {
-        System.out.println("Booking History: \n");
-        ArrayList<Booking> bookings = BookingController.getInstance().getBookingList();
-        for (Booking booking : bookings) {
-            int moviescreeningID = booking.getMovieScreeningID();
-            MovieScreening movieScreening = MovieScreeningController.getInstance().getMovieScreenings().get(moviescreeningID);
-            int movieID = movieScreening.getMovieID();
-            String movieName = MovieController.getInstance().getMovie(movieID).getMovieName();
+	public void viewBookingHistory() {
+		System.out.println("Booking History: \n");
+		ArrayList<Booking> bookings = BookingController.getInstance().getBookingList();
+		for (Booking booking : bookings) {
+			int moviescreeningID = booking.getMovieScreeningID();
+			MovieScreening movieScreening = MovieScreeningController.getInstance().getMovieScreenings().get(moviescreeningID);
+			int movieID = movieScreening.getMovieID();
+			String movieName = MovieController.getInstance().getMovie(movieID).getMovieName();
 
-            System.out.println(
-                    "Booking Transaction ID: " + booking.getTransactionID()
-                    + "\nMovie watched: " +  movieName);
-            System.out.printf("Time watched: " );
-            movieScreening.getStartDateTime();
-        }
-    }
+			System.out.println(
+					"Booking Transaction ID: " + booking.getTransactionID()
+					+ "\nMovie watched: " +  movieName);
+			System.out.printf("Time watched: " );
+			movieScreening.getStartDateTime();
+		}
+	}
 
 }

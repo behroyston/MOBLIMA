@@ -248,7 +248,7 @@ public class MovieController extends DatabaseController{
 	// Add this to class diagram
 	public Movie getShowingMovieByName(String movieName){
 		for (Movie movie : movieList)
-			if (movie.getMovieName().toLowerCase().equals(movieName.toLowerCase()) && movie.isShowing())
+			if (movie.getMovieName().equalsIgnoreCase(movieName) && movie.isShowing())
 				return movie;
 		return null;
 	}
@@ -288,5 +288,9 @@ public class MovieController extends DatabaseController{
 			movieList.get(i).printInfo();
 		}
 
+	}
+	public void validateCustomer(String email, String password) {
+		// TODO Auto-generated method stub
+		
 	}
 }

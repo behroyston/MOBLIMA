@@ -296,11 +296,11 @@ public class TestApp {
 
     public static ArrayList<MovieGoer> createMovieGoerSample(){
     	ArrayList<MovieGoer> movieGoerList = new ArrayList<>();
-    	MovieGoer movieGoer = new MovieGoer("123456", "Ah Tock", 85543214, "abc@hotmail.com", 1, 32, false);
+    	MovieGoer movieGoer = new MovieGoer("123456", "Ah Tock", "85543214", "abc@hotmail.com", 1, 32, false);
     	movieGoerList.add(movieGoer);
-    	movieGoer = new MovieGoer("654321", "Ah Baka", 93352146, "cba@hotmail.com", 2, 20, true);
+    	movieGoer = new MovieGoer("654321", "Ah Baka", "93352146", "cba@hotmail.com", 2, 20, true);
     	movieGoerList.add(movieGoer);
-    	movieGoer = new MovieGoer("651234", "Peon", 97578428, "peon@hotmail.com", 3, 30, true);
+    	movieGoer = new MovieGoer("651234", "Peon", "97578428", "peon@hotmail.com", 3, 30, true);
     	movieGoerList.add(movieGoer);
     	return movieGoerList;
     }

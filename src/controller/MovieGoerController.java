@@ -96,7 +96,20 @@ public class MovieGoerController extends DatabaseController{
 			System.out.println("Error! Directory cannot be found!");
 		}
 	}
+	
+	public MovieGoer getMovieGoerByEmail(String email){
+		for (MovieGoer movieGoer : movieGoerList)
+			if (email.equalsIgnoreCase(movieGoer.getEmail()))
+				return movieGoer;
+		return null;
+	}
 
+	public boolean validateCustomer(String email, String password){
+		MovieGoer movieGoer = getMovieGoerByEmail(email);
+		if (movieGoer != null)
+			return movieGoer.validateIdentity(email, password);
+		return false;
+	}
 
 	//static 'instance' method	
 	public static MovieGoerController getInstance(){
