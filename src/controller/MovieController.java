@@ -215,6 +215,23 @@ public class MovieController extends DatabaseController{
 		Movie newMovie = new Movie(movieId, movieName, synopsis, director, cast, status);
 		movieList.add(newMovie);
 	}
+	
+	/**
+         * removes the movie based on its unique ID.
+         * if movie is not found, return null object
+         * @param movieId
+         * @return
+         */
+        public Movie removeMovie(int movieId){
+            for (int i = 0; i < movieList.size() - 1; i++)
+            {
+                if (movieList.get(i).getMovieId() == movieId) {
+                    return movieList.remove(i);
+                }
+            }
+            return null;
+        }
+
 
 	/**
 	 * get the model.Movie using movieId
