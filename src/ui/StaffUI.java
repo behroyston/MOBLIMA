@@ -4,6 +4,7 @@ import controller.MovieController;
 import controller.MovieScreeningController;
 import controller.StaffController;
 import model.MovieClassType;
+import model.MovieShowingStatus;
 import model.SystemSettings;
 
 import java.util.Calendar;
@@ -88,47 +89,59 @@ public class StaffUI {
 		return email;
 	}
 
-	
-	//methods to edit movie listing
-	private void createMovieListing() {
-		System.out.println("-----------------EDIT MOVIE LISTINGS-----------------");
-		System.out.println("Add New Movie Listing: \n");
-		System.out.println("Enter Movie ID: ");
-		int newMID = sc.nextInt();
-		System.out.println("Enter Movie Name: ");
-		String newName = sc.next();
-		System.out.println("Enter Movie Synopsis: ");
-		String newSyn = sc.next();
-		System.out.println("Enter Movie Director(s) Name: ");
-		String newDir = sc.next();
-		System.out.println("Enter Cast List: ");
-		String newCast = sc.next();
-		System.out.println("Enter Movie Showing Status: ");
-		String newStat = sc.next();
-		
-		MovieController.getInstance().addMovie(newMID, newName, newSyn, newDir, newCast, newStat);
-		
-	}
-	private void updateMovieListing() {
-		System.out.println("-----------------EDIT MOVIE LISTINGS-----------------");
-		System.out.println("Update Existing Movie Listing: \n");
-		System.out.println("List of Movie Listings: \n");
-		System.out.println(MovieController.getInstance().getShowingMovieList());
-		System.out.println("Enter Movie ID: ");
-		int newMID = sc.nextInt();
-		System.out.println("Enter Movie Name: ");
-		String newName = sc.next();
-		System.out.println("Enter Movie Synopsis: ");
-		String newSyn = sc.next();
-		System.out.println("Enter Movie Director(s) Name: ");
-		String newDir = sc.next();
-		System.out.println("Enter Cast List: ");
-		String newCast = sc.next();
-		System.out.println("Enter Movie Showing Status: ");
-		String newStat = sc.next();
-		
-		MovieController.getInstance().updateMovie(newMID, newName, newSyn, newDir, newCast, newStat);
-	}
+	private void createMovieListing(){
+        System.out.println("-----------------CREATE MOVIE LISTINGS-----------------");
+        System.out.println("Add new Movie Listing: \n");
+        createOrUpdateMovieListing(true);
+    }
+
+    private void updateMovieListing(){
+        System.out.println("-----------------EDIT MOVIE LISTINGS-----------------");
+        System.out.println("Update Existing Movie Listing: \n");
+    }
+
+
+	private void createOrUpdateMovieListing(boolean create) {
+        System.out.println("List of Movie Listings: \n");
+        System.out.println(MovieController.getInstance().getShowingMovieList());
+        System.out.println("Enter Movie ID: ");
+        int newMID = sc.nextInt();
+        System.out.println("Enter Movie Name: ");
+        String newName = sc.next();
+        System.out.println("Enter Movie Synopsis: ");
+        String newSyn = sc.next();
+        System.out.println("Enter Movie Director(s) Name: ");
+        String newDir = sc.next();
+        System.out.println("Enter Cast List: ");
+        String newCast = sc.next();
+        System.out.println("Enter Movie Showing Status: \n" +
+                "1) Coming Soon\n" + "2) Preview\n" + "3) Now Showing\n" + "4) End of Showing\n" );
+        int newType = sc.nextInt();
+        MovieShowingStatus movieShowingStatus;
+        switch (newType){
+            case (1) :
+                movieShowingStatus = MovieShowingStatus.COMING_SOON;
+                break;
+            case (2) :
+                movieShowingStatus = MovieShowingStatus.PREVIEW;
+                break;
+            case (3) :
+                movieShowingStatus = MovieShowingStatus.NOW_SHOWING;
+                break;
+            case (4) :
+                movieShowingStatus = MovieShowingStatus.END_OF_SHOWING;
+                break;
+            default:
+                movieShowingStatus = MovieShowingStatus.PREVIEW;
+                break;
+        }
+
+        if (create)
+            MovieController.getInstance().addMovie(newMID, newName, newSyn, newDir, newCast, movieShowingStatus);
+        else
+            MovieController.getInstance().updateMovie(newMID, newName, newSyn, newDir, newCast, movieShowingStatus);
+
+    }
 	private void removeMovieListing() {
 		System.out.println("-----------------EDIT MOVIE LISTINGS-----------------");
 		System.out.println("Remove Existing Movie Listing: \n");
@@ -137,11 +150,22 @@ public class StaffUI {
 		
 		MovieController.getInstance().removeMovie(newMID);
 	}
+
+	private void createCinemaShowtimes(){
+        System.out.println("-----------------CREATE CINEMA SHOWTIMES-----------------");
+        System.out.println("Add New Showtime:\n");
+        createOrUpdateMovieListing(true);
+    }
+
+    private void updateCinemaShowtimes(){
+        System.out.println("-----------------EDIT CINEMA SHOWTIMES-----------------");
+        System.out.println("Edit New Showtime:\n");
+        createOrUpdateMovieListing(false);
+
+    }
 	
 	//methods to edit cinema showtimes
-	private void createCinemaShowtimes() {
-		System.out.println("-----------------EDIT CINEMA SHOWTIMES-----------------");
-		System.out.println("Add New Showtime:\n");
+	private void createOrUpdateCinemaShowtimes(boolean create) {
 		//consider adding exception handling for wrong Cinema/Movie ID?
 		System.out.println("Enter Cinema ID: ");
 		int newCID = sc.nextInt();
@@ -175,41 +199,14 @@ public class StaffUI {
 		int newMin = sc.nextInt();
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(newYear, newMonth, newDay, newHour,newMin, 0);
-		
-		MovieScreeningController.getInstance().addMovieScreening(newCID, newMID, calendar, movieClassType);
-		
-		
-	}
-	private void updateCinemaShowtimes() {
-		System.out.println("-----------------EDIT CINEMA SHOWTIMES-----------------");
-		System.out.println("Update Existing Showtime:\n");
-		System.out.println("List of exisiting screenings: \n");
-		System.out.println(MovieScreeningController.getInstance().getMovieScreenings());
-		//consider adding exception handling for wrong Cinema/Movie ID?
-		System.out.println("Enter Movie Screening ID of Screening to Update: ");
-		int newSID = sc.nextInt();
-		System.out.println("Enter Updated Cinema ID: ");
-		int newCID = sc.nextInt();
-		System.out.println("Enter Updated Movie ID: ");
-		int newMID = sc.nextInt();
-		System.out.println("Enter Updated Movie Type: ");
-		String newType = sc.next();
-		System.out.println("Movie Start Time:\n");
-		System.out.println("Enter Year of screening: ");
-		int newYear = sc.nextInt();
-		System.out.println("Enter Month of screening: ");
-		int newMonth = sc.nextInt();
-		System.out.println("Enter Day of screening: ");
-		int newDay = sc.nextInt();
-		System.out.println("Enter Hour of Screening: ");
-		int newHour = sc.nextInt();
-		System.out.println("Enter Minute of Screening: ");
-		int newMin = sc.nextInt();
-		Calendar calendar = Calendar.getInstance();
-		calendar.set(newYear, newMonth, newDay, newHour,newMin, 0);
-		
-		MovieScreeningController.getInstance().updateMovieScreening(newSID, newCID, newMID, calendar, newType);	
-	}
+
+		if (create)
+		    MovieScreeningController.getInstance().addMovieScreening(newCID, newMID, calendar, movieClassType);
+		else
+            MovieScreeningController.getInstance().updateMovieScreening(newCID, newCID, newMID, calendar, movieClassType);
+
+    }
+
 	private void removeCinemaShowtimes() {
 		System.out.println("-----------------EDIT CINEMA SHOWTIMES-----------------");
 		System.out.println("Remove Existing Showtime:\n");
@@ -331,4 +328,3 @@ public class StaffUI {
 		return instance;
 	}
 }
->>>>>>> a967083b49fe7b562c5464c8491a669aece4d4e1
