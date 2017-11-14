@@ -5,7 +5,10 @@ import model.Seat;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.StringTokenizer;
 
 /**
  *
@@ -244,6 +247,19 @@ public class MovieScreeningController extends DatabaseController {
         for (int i = 0; i < movieScreenings.size(); i ++){
             movieScreenings.get(i).printMovieScreeningInfo();
         }
-
     }
+
+    public ArrayList<MovieScreening> getMovieScreeningsByMovieID(int movieID){
+        ArrayList<MovieScreening> movieScreeningList = new ArrayList<>();
+        for (int i = 0; i < this.movieScreenings.size(); i++) {
+            MovieScreening movieScreening = movieScreenings.get(i);
+            if (movieID == movieScreening.getMovieID())
+            {
+                movieScreeningList.add(movieScreening);
+            }
+        }
+        return movieScreenings;
+    }
+
+
 }

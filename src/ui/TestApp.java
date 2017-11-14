@@ -1,5 +1,8 @@
 package ui;
 
+import controller.BookingController;
+import controller.CineplexController;
+import controller.MovieController;
 import controller.MovieScreeningController;
 import model.Cinema;
 import model.Cineplex;
@@ -15,36 +18,39 @@ import java.util.List;
 public class TestApp {
     public static void main(String[] args) {
 
-//        MovieController movieController = MovieController.getInstance();
+
+        MovieController movieController = MovieController.getInstance();
 //        movieController.setMovieList(createSampleMovie());
-//        movieController.writeDB();
-//        movieController.readDB();
+//       // movieController.writeDB();
+        movieController.readDB();
 //        movieController.printMovieLists();
 
-//        BookingController bookingController = BookingController.getInstance();
+        BookingController bookingController = BookingController.getInstance();
 ////        bookingController.setBookingList(createSampleBooking());
 ////        bookingController.writeDB();
-//        bookingController.readDB();
+        bookingController.readDB();
+
 //        bookingController.printBookingList();
 
         MovieScreeningController movieScreeningController= MovieScreeningController.getInstance();
-//        movieScreeningController.setMovieScreenings(createSampleMovieScreening());
-//        movieScreeningController.writeDB();
+////        movieScreeningController.setMovieScreenings(createSampleMovieScreening());
+////        movieScreeningController.writeDB();
         movieScreeningController.readDB();
-//        movieScreeningController.printMovieScreenings();
-
-        MovieGoerUI.getInstance().showSeatsAvailability(movieScreeningController.getMovieScreenings().get(0));
-
-        // Manual text format - preferred here because it simulates the allowance of staff to add new cineplex/cinema to DB
-//        CineplexController control = CineplexController.getInstance();
+////        movieScreeningController.printMovieScreenings();
+//        MovieGoerUI.getInstance().showSeatsAvailability(movieScreeningController.getMovieScreenings().get(0));
+//
+//        // Manual text format - preferred here because it simulates the allowance of staff to add new cineplex/cinema to DB
+        CineplexController control = CineplexController.getInstance();
 //        ArrayList<Cineplex> cineplexList ;
 //        cineplexList = createSample();
 //        control.setCineplexList(cineplexList);
 //        control.writeDB();
-//        control.readDB();
+        control.readDB();
+        MovieGoerUI.getInstance().display();
+
 
 //        cineplexList = control.getCineplexList();
-////		System.out.println("---------------------------------------");
+//////		System.out.println("---------------------------------------");
 //        printCineplex(cineplexList);
 
 		/*control.writeDB();
