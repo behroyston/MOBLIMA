@@ -1,13 +1,11 @@
-package ui;
+package controller;
 
-import controller.BookingController;
-import controller.CineplexController;
-import controller.MovieController;
-import controller.MovieScreeningController;
 import model.Cinema;
 import model.Cineplex;
 import model.Movie;
+import model.MovieGoer;
 import model.MovieScreening;
+import ui.MovieGoerUI;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -17,7 +15,17 @@ import java.util.List;
 
 public class TestApp {
     public static void main(String[] args) {
-
+    	MovieGoerController movieGoerController = MovieGoerController.getInstance();
+    	ArrayList<MovieGoer> movieGoerList = createMovieGoerSample();
+    	movieGoerController.setMovieGoerList(movieGoerList);
+    	for (MovieGoer movieGoer : movieGoerList)
+    		movieGoer.printInfo();
+    	movieGoerController.writeDB();
+    	movieGoerController.readDB();
+    	System.out.println("----------------------------");
+    	for (MovieGoer movieGoer : movieGoerList)
+    		movieGoer.printInfo();
+    	
 
         MovieController movieController = MovieController.getInstance();
 //        movieController.setMovieList(createSampleMovie());
@@ -286,6 +294,17 @@ public class TestApp {
         }
     }
 
+    public static ArrayList<MovieGoer> createMovieGoerSample(){
+    	ArrayList<MovieGoer> movieGoerList = new ArrayList<>();
+    	MovieGoer movieGoer = new MovieGoer("123456", "Ah Tock", 85543214, "abc@hotmail.com", 1, 32, false);
+    	movieGoerList.add(movieGoer);
+    	movieGoer = new MovieGoer("654321", "Ah Baka", 93352146, "cba@hotmail.com", 2, 20, true);
+    	movieGoerList.add(movieGoer);
+    	movieGoer = new MovieGoer("651234", "Peon", 97578428, "peon@hotmail.com", 3, 30, true);
+    	movieGoerList.add(movieGoer);
+    	return movieGoerList;
+    }
+    
 	/*public static void printMovieTimings(ArrayList<model.MovieScreening> at){
 		for (model.MovieScreening movie: at){
 			System.out.print("MovieID: " + movie.getMovieID() + " - ");
