@@ -29,6 +29,11 @@ public class MovieScreeningController extends DatabaseController {
         return instance;
     }
 
+    /** Summary: Text in order:  int movieScreening_ID, int cinemaID, int movieID, Calendar startTime, Calendar endTime ,
+     * String movieType, isExpired, Seat[][] seats;
+     * These variables are parsed into the movie screening objects and stored when the MovieScreening Controller is
+     * initalized.
+     */
     @Override
     protected void readDB(){
         movieScreenings.clear();
@@ -69,19 +74,6 @@ public class MovieScreeningController extends DatabaseController {
                                 }
                                 i++;
                             }
-//                            int y = seats[0].length;
-//                            Seat[][] movieScreeningSeats = new Seat[x+1][y];
-//                            for (int i = 0; i < y-1; i ++) {
-//                                for (int j = 0; j < x; j++) {
-//                                    Seat movieSeat = new Seat(j*i+(j+1));
-//                                    if (seats[j][i].equals("X")) {
-//                                        movieSeat.setIsBooked(true);
-//                                        movieScreeningSeats[j][i] = movieSeat;
-//                                    }
-//                                    else if (seats[j][i].equals("O"))
-//                                        movieScreeningSeats[j][i] = movieSeat;
-//                                }
-//                            }
 
                             movieScreening = new MovieScreening(movieScreeningID,startTime,endTime,movieType,cinemaID,movieID,
                                     mSeats);
@@ -99,14 +91,18 @@ public class MovieScreeningController extends DatabaseController {
         }
     }
 
+
+    /** Each line in the Moviescreenings.dat is a moviescreening object.
+     * Summary: Text in order:  int movieScreening_ID, int cinemaID, int movieID, Calendar startTime, Calendar endTime ,
+     * String movieType, isExpired, Seat[][] seats;
+     * These will be appended into the MovieScreenings.dat file in sequence.
+     */
     @Override
     protected void writeDB() {
 
         List<String> text = new ArrayList<>();
         StringBuilder str = new StringBuilder();
-		/* Summary: Text in order:  int movieScreening_D, int cinemaID, int movieID, Calendar startTime, Calendar endTime ,
-		String movieType, isExpired, Seat[][] seats;
-        */
+
         for (MovieScreening movieScreening : movieScreenings) {
             if (checkDirectoryExist(BASEDIR + DIR)) {
                 // model.MovieScreening Attributes
@@ -141,14 +137,6 @@ public class MovieScreeningController extends DatabaseController {
                     str.append(DELIMITER);
                 }
 
-                // model.Seat layout of the cinema
-                //char [][] seatLayout = cinema.getSeatLayout();
-//                for (int i = 0; i < seatLayout.length; i++){
-//                    for (int j = 0; j < seatLayout[i].length; j++){
-//                        str.append(seatLayout[i][j]);
-//                    }
-//                    str.append(DELIMITER);
-//                }
                 text.add(str.toString());            // Write to line
 
                 // Attempt to save to file
