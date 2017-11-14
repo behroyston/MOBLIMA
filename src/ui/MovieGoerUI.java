@@ -24,13 +24,29 @@ public class MovieGoerUI {
 	public void display(){
 		// Validation first
 		System.out.println("-------------------- Welcome to MOBLIMA! --------------------");
-		String emailAddress = loginValidation();
-		if (emailAddress == null){
-			return;
-		}
+		int choice;
+		String emailAddress = null;
+		do{
+			System.out.println("Do you have a account with us?");
+			System.out.println("1. No and would like to register one");
+			System.out.println("2. Yes and would like to login");
+			System.out.println("3. Go back to previous menu");
+			System.out.print("Enter choice: ");
+			choice = checkIfInt(4);
+			switch (choice){
+			case 1:
+				registerNewAccount();
+			case 2:
+				emailAddress = loginValidation();
+				break;
+			case 3:
+				return;
+			default:
+				System.out.println("Invalid choice! Please re-enter...");
+			}
+		}while(choice != 1 && choice != 2);
 
 		// Movie-Goer Options
-		int choice;
 		do{
 			System.out.println();
 			System.out.println("1. Search/List movie");
@@ -56,6 +72,7 @@ public class MovieGoerUI {
 				break;
 			case 5:
 				enterReviewRating(emailAddress);
+				break;
 			case 6:
 				break; 
 			default:
@@ -72,9 +89,24 @@ public class MovieGoerUI {
 		return sc.nextInt();
 	}
 
-	// Current display seems to be implemented in MovieGoer - may need to revise this
+	private void registerNewAccount(){
+		sc.nextLine();			// Clear buffer
+		System.out.print("Please enter your name: ");
+		String name = sc.nextLine();
+		System.out.print("Please enter your email address: ");
+		String email = sc.next();
+		System.out.print("Please enter your password: ");
+		String password = sc.next();
+		System.out.print("Please enter your mobile number: ");
+		String mobileNumber = sc.next();
+		System.out.print("Please enter your age: ");
+		int age = sc.nextInt();
+		MovieGoerController.getInstance().addMovieGoer(password, name, mobileNumber, email, age);
+	}
+	
 	private String loginValidation(){
 		String email, password;
+		System.out.println("Login System:");
 		while (true){
 			System.out.print("Please enter your email address: ");
 			email = sc.next();

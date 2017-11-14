@@ -1,5 +1,6 @@
 package controller;
 
+import model.Movie;
 import model.MovieGoer;
 
 import java.io.File;
@@ -28,7 +29,7 @@ public class MovieGoerController extends DatabaseController{
 		if (checkDirectoryExist(BASEDIR + DIR)) {
 			try{
 				for (File f : getListofFiles(BASEDIR + DIR)) {
-					if (f.getName().equals("moviegoer")){
+					if (f.getName().equals("moviegoer.dat") || f.getName().equals("moviegoer")){
 						List<String> text = retrieveData(BASEDIR + DIR + f.getName());
 						StringTokenizer aStr;
 						for (String line : text) {
@@ -94,6 +95,16 @@ public class MovieGoerController extends DatabaseController{
 		}
 	}
 
+	public void addMovieGoer(String password, String name, String mobileNumber, String email, int age){
+		int cusID;
+		if (movieGoerList.size() == 0)
+			cusID = 1;
+		else
+			cusID = movieGoerList.get(movieGoerList.size()-1).getCusID();
+		movieGoerList.add(new MovieGoer(password, name, mobileNumber, email, cusID, age));
+		writeDB();
+	}
+
 	public MovieGoer getMovieGoerByEmail(String email){
 		for (MovieGoer movieGoer : movieGoerList)
 			if (email.equalsIgnoreCase(movieGoer.getEmail()))
@@ -103,8 +114,9 @@ public class MovieGoerController extends DatabaseController{
 
 	public boolean validateCustomer(String email, String password){
 		MovieGoer movieGoer = getMovieGoerByEmail(email);
-		if (movieGoer != null)
+		if (movieGoer != null){
 			return movieGoer.validateIdentity(email, password);
+		}
 		return false;
 	}
 

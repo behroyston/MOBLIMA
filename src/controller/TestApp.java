@@ -15,12 +15,12 @@ public class TestApp {
     	MovieGoerController movieGoerController = MovieGoerController.getInstance();
     	ArrayList<MovieGoer> movieGoerList = createMovieGoerSample();
     	movieGoerController.setMovieGoerList(movieGoerList);
-    	for (MovieGoer movieGoer : movieGoerList)
-    		movieGoer.printInfo();
-    	movieGoerController.writeDB();
+//    	for (MovieGoer movieGoer : movieGoerList)
+//  		movieGoer.printInfo();
+//    	movieGoerController.writeDB();
     	movieGoerController.readDB();
 //    	System.out.println("----------------------------");
-    	for (MovieGoer movieGoer : movieGoerList)
+    	for (MovieGoer movieGoer : movieGoerController.getMovieGoerList())
     		movieGoer.printInfo();
 
 //    	StaffController staffController = StaffController.getInstance();
@@ -45,7 +45,7 @@ public class TestApp {
         bookingController.writeDB();
         bookingController.readDB();
 //
-        bookingController.printBookingList();
+ //       bookingController.printBookingList();
 //
         MovieScreeningController movieScreeningController= MovieScreeningController.getInstance();
 //        movieScreeningController.setMovieScreenings(createSampleMovieScreening());
