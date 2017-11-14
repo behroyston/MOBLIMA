@@ -1,4 +1,4 @@
-package CZ2002Assn;
+package ui;
 
 import java.util.Scanner;
 import java.util.Calendar;
