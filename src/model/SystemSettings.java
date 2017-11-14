@@ -8,12 +8,13 @@ public class SystemSettings implements Serializable{
 
 	//Attributes
 	private static SystemSettings instance = null;
-	private double base_price;
-	private double threeDExtra;
-	private double platinumExtra;
-	private double seniorDiscount;
-	private double childDiscount;
-	private double weekend_HolidayExtra;
+	private double base_price=10;
+	private double threeDExtra=5;
+	private double platinumExtra=7;
+	private double seniorDiscount=3;
+	private double childDiscount=2;
+	private double weekend_HolidayExtra=2;
+	private double goldExtra=5;
 	
 	//Class constructor
 	private SystemSettings() {
@@ -89,6 +90,18 @@ public class SystemSettings implements Serializable{
 		writeSettings("SystemSettings.dat", sS);
 		return;
 	}
+	
+	//access private gold class extra
+		public double getGold() {
+			return this.goldExtra;
+		}
+		//mutate private gold class extra
+		public void setGold(double goldExtra) {
+			this.goldExtra = goldExtra;
+			SystemSettings sS = SystemSettings.getInstance();
+			writeSettings("SystemSettings.dat", sS);
+			return;
+		}
 	
 	//static 'instance' method
 	public static SystemSettings getInstance(){
