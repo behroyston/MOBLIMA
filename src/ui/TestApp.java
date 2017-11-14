@@ -23,6 +23,8 @@ public class TestApp {
        // movieController.writeDB();
         movieController.readDB();
         movieController.printMovieLists();
+        
+        
 
 //        BookingController bookingController = BookingController.getInstance();
 ////        bookingController.setBookingList(createSampleBooking());
@@ -31,8 +33,10 @@ public class TestApp {
 //        bookingController.printBookingList();
 
         MovieScreeningController movieScreeningController= MovieScreeningController.getInstance();
-//        movieScreeningController.setMovieScreenings(createSampleMovieScreening());
-//        movieScreeningController.writeDB();
+        movieScreeningController.setMovieScreenings(createSampleMovieScreening());
+        Calendar startTime = (Calendar) (new GregorianCalendar(2018, 3, 5, 7, 40)).clone();
+        movieScreeningController.updateMovieScreening(3,2,1,startTime, "4D");
+        movieScreeningController.writeDB();
         movieScreeningController.readDB();
 //        movieScreeningController.printMovieScreenings();
         MovieGoerUI.getInstance().display();

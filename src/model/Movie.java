@@ -132,6 +132,7 @@ public class Movie{
 
 	public void addRating(double rating){
 		ratingList.add(rating);
+		setAvgRating();
 	}
 
 	public void addTicketSales(double sales){

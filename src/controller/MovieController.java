@@ -194,7 +194,7 @@ public class MovieController extends DatabaseController{
 	public ArrayList<Movie> getMovieList(){
 		return movieList;
 	}
-	
+
 	public ArrayList<Movie> getShowingMovieList(){
 		ArrayList<Movie> showingMovies = new ArrayList<>(movieList);
 		for (int i = showingMovies.size() - 1 ; i >= 0; i--)
@@ -215,42 +215,36 @@ public class MovieController extends DatabaseController{
 		Movie newMovie = new Movie(movieId, movieName, synopsis, director, cast, status);
 		movieList.add(newMovie);
 	}
-	
+
 	/**
-         * update the movie given the new movieId, movieName, synopsis, director, cast, status
-         * @param movieId the unique movieId to be updated.
+	 * update the movie given the new movieId, movieName, synopsis, director, cast, status
+	 * @param movieId the unique movieId to be updated.
 	 ...
-         * @return
-         */
+	 * @return
+	 */
 	//Add this to class diagram
-        public boolean updateMovie(int movieId, String newMovieName, String newSynopsis, String newDirector, String newCast, String newStatus)
-        {
-            Movie oldMovie = removeMovie(movieId);
-            if (addMovie(movieId, newMovieName, newSynopsis, newDirector, newCast, newStatus) && oldMovie != null)
-                return true;
-            else if (oldMovie != null){
-                addMovie(oldMovie.getMovieId(),oldMovie.getMovieName(), oldMovie.getSynopsis(), oldMovie.getDirector(), oldMovie.getCast(), oldMovie.getStatus());
-                return false;
-            }
-            return false;
-        }
-	
+	public void updateMovie(int movieId, String newMovieName, String newSynopsis, String newDirector, String newCast, String newStatus){
+		if (removeMovie(movieId))
+			addMovie(movieId, newMovieName, newSynopsis, newDirector, newCast, newStatus);
+	}
+
 	/**
-         * removes the movie based on its unique ID.
-         * if movie is not found, return null object
-         * @param movieId
-         * @return
-         */
+	 * removes the movie based on its unique ID.
+	 * if movie is not found, return null object
+	 * @param movieId
+	 * @return
+	 */
 	//Add this to class diagram
-        public Movie removeMovie(int movieId){
-            for (int i = 0; i < movieList.size() - 1; i++)
-            {
-                if (movieList.get(i).getMovieId() == movieId) {
-                    return movieList.remove(i);
-                }
-            }
-            return null;
-        }
+	public boolean removeMovie(int movieId){
+		for (int i = 0; i < movieList.size() - 1; i++)
+		{
+			if (movieList.get(i).getMovieId() == movieId) {
+				movieList.remove(i);
+				return true;
+			}
+		}
+		return false;
+	}
 
 
 	/**
@@ -272,7 +266,7 @@ public class MovieController extends DatabaseController{
 				return movie;
 		return null;
 	}
-	
+
 	// Add this to class diagram
 	public ArrayList<Movie> getTopFiveBySales(){
 		ArrayList<Movie> sortedMovieList = new ArrayList<>(getShowingMovieList());
@@ -282,18 +276,17 @@ public class MovieController extends DatabaseController{
 			size = sortedMovieList.size();
 		return new ArrayList<>(sortedMovieList.subList(0, size));
 	}
-	
+
 	// Add this to class diagram
 	public ArrayList<Movie> getTopFiveByRatings(){
 		ArrayList<Movie> sortedMovieList = new ArrayList<>(getShowingMovieList());
 		Collections.sort(sortedMovieList, new MovieRatingsComparator());
-
 		int size = 5;
 		if (size > sortedMovieList.size())
 			size = sortedMovieList.size();
 		return new ArrayList<>(sortedMovieList.subList(0, size));
 	}
-	
+
 	public void setMovieList(ArrayList<Movie> movieList) {
 		this.movieList = movieList;
 	}

@@ -220,7 +220,7 @@ public class MovieScreeningController extends DatabaseController {
      * @return
      */
     public MovieScreening removeMovieScreening(int movieScreeningID){
-        for (int i = 0; i < movieScreenings.size() - 1; i++)
+        for (int i = 0; i < movieScreenings.size(); i++)
         {
             if (movieScreenings.get(i).getMovieScreeningID() == movieScreeningID) {
                 return movieScreenings.remove(i);
