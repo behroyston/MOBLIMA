@@ -100,7 +100,6 @@ public class StaffUI {
         System.out.println("Update Existing Movie Listing: \n");
     }
 
-
 	private void createOrUpdateMovieListing(boolean create) {
         System.out.println("List of Movie Listings: \n");
         System.out.println(MovieController.getInstance().getShowingMovieList());

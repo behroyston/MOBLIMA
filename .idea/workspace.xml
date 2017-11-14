@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ed6268a8-6d06-4e72-94cb-131ed4fa5168" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/controller/MovieController.java" afterPath="$PROJECT_DIR$/src/controller/MovieController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/controller/StaffController.java" afterPath="$PROJECT_DIR$/src/controller/StaffController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ui/StaffUI.java" afterPath="$PROJECT_DIR$/src/ui/StaffUI.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -33,9 +32,10 @@
         <entry file="file://$PROJECT_DIR$/src/ui/MovieGoerUI.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="180">
-              <caret line="36" column="38" lean-forward="true" selection-start-line="36" selection-start-column="38" selection-end-line="36" selection-end-column="38" />
+              <caret line="36" column="38" lean-forward="false" selection-start-line="36" selection-start-column="38" selection-end-line="36" selection-end-column="38" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <marker date="1510654441000" expanded="true" signature="13291:13850" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -44,8 +44,8 @@
       <file leaf-file-name="StaffUI.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ui/StaffUI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="123">
-              <caret line="105" column="43" lean-forward="false" selection-start-line="105" selection-start-column="43" selection-end-line="105" selection-end-column="43" />
+            <state relative-caret-position="239">
+              <caret line="160" column="51" lean-forward="true" selection-start-line="160" selection-start-column="51" selection-end-line="160" selection-end-column="51" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -53,11 +53,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MovieController.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MovieController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/controller/MovieController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="219">
-              <caret line="218" column="4" lean-forward="true" selection-start-line="218" selection-start-column="4" selection-end-line="218" selection-end-column="4" />
+            <state relative-caret-position="408">
+              <caret line="276" column="50" lean-forward="true" selection-start-line="276" selection-start-column="50" selection-end-line="276" selection-end-column="50" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <marker date="1510654332000" expanded="true" signature="6257:6723" ph="/**...*/" />
@@ -66,21 +66,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TestApp.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/controller/TestApp.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="151">
-              <caret line="312" column="34" lean-forward="false" selection-start-line="312" selection-start-column="34" selection-end-line="312" selection-end-column="34" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="StaffController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/controller/StaffController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="252">
-              <caret line="162" column="25" lean-forward="true" selection-start-line="162" selection-start-column="25" selection-end-line="162" selection-end-column="25" />
+              <caret line="162" column="25" lean-forward="false" selection-start-line="162" selection-start-column="25" selection-end-line="162" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -100,7 +90,7 @@
         <entry file="file://$PROJECT_DIR$/src/model/MovieGoer.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="217">
-              <caret line="35" column="5" lean-forward="true" selection-start-line="35" selection-start-column="5" selection-end-line="35" selection-end-column="5" />
+              <caret line="35" column="5" lean-forward="false" selection-start-line="35" selection-start-column="5" selection-end-line="35" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -110,7 +100,7 @@
         <entry file="file://$PROJECT_DIR$/src/controller/MovieGoerController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="95">
-              <caret line="33" column="68" lean-forward="true" selection-start-line="33" selection-start-column="68" selection-end-line="33" selection-end-column="68" />
+              <caret line="33" column="68" lean-forward="false" selection-start-line="33" selection-start-column="68" selection-end-line="33" selection-end-column="68" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -208,12 +198,12 @@
         <option value="$PROJECT_DIR$/src/model/Movie.java" />
         <option value="$PROJECT_DIR$/src/controller/BookingController.java" />
         <option value="$PROJECT_DIR$/src/controller/MovieScreeningController.java" />
-        <option value="$PROJECT_DIR$/src/controller/TestApp.java" />
         <option value="$PROJECT_DIR$/src/model/MovieScreening.java" />
         <option value="$PROJECT_DIR$/src/model/MovieGoer.java" />
         <option value="$PROJECT_DIR$/src/controller/MovieGoerController.java" />
         <option value="$PROJECT_DIR$/src/controller/StaffController.java" />
         <option value="$PROJECT_DIR$/src/controller/MovieController.java" />
+        <option value="$PROJECT_DIR$/src/controller/TestApp.java" />
         <option value="$PROJECT_DIR$/src/ui/StaffUI.java" />
       </list>
     </option>
@@ -224,11 +214,11 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-120" />
-    <option name="y" value="34" />
-    <option name="width" value="1366" />
-    <option name="height" value="698" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="1366" />
+    <option name="y" value="271" />
+    <option name="width" value="1920" />
+    <option name="height" value="1010" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -525,15 +515,15 @@
       <workItem from="1510122463323" duration="9424000" />
       <workItem from="1510214220952" duration="1089000" />
       <workItem from="1510472663979" duration="31382000" />
-      <workItem from="1510579555510" duration="25337000" />
+      <workItem from="1510579555510" duration="26333000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="76821000" />
+    <option name="totallyTimeSpent" value="77817000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1366" height="698" extended-state="6" />
+    <frame x="1366" y="271" width="1920" height="1010" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -544,12 +534,12 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3146965" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3146965" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3023426" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21510416" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3248731" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -712,7 +702,7 @@
         <state relative-caret-position="930">
           <caret line="74" column="61" lean-forward="false" selection-start-line="74" selection-start-column="61" selection-end-line="74" selection-end-column="61" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -910,7 +900,7 @@
         <state relative-caret-position="230">
           <caret line="146" column="0" lean-forward="false" selection-start-line="146" selection-start-column="0" selection-end-line="146" selection-end-column="0" />
           <folding>
-            <marker date="1510651368000" expanded="true" signature="4551:4552" ph="{...}" />
+            <marker date="1510654441000" expanded="true" signature="4707:4708" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -962,9 +952,10 @@
     <entry file="file://$PROJECT_DIR$/src/ui/MovieGoerUI.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
-          <caret line="36" column="38" lean-forward="true" selection-start-line="36" selection-start-column="38" selection-end-line="36" selection-end-column="38" />
+          <caret line="36" column="38" lean-forward="false" selection-start-line="36" selection-start-column="38" selection-end-line="36" selection-end-column="38" />
           <folding>
             <element signature="imports" expanded="true" />
+            <marker date="1510654441000" expanded="true" signature="13291:13850" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -980,7 +971,7 @@
     <entry file="file://$PROJECT_DIR$/src/model/MovieGoer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="217">
-          <caret line="35" column="5" lean-forward="true" selection-start-line="35" selection-start-column="5" selection-end-line="35" selection-end-column="5" />
+          <caret line="35" column="5" lean-forward="false" selection-start-line="35" selection-start-column="5" selection-end-line="35" selection-end-column="5" />
           <folding />
         </state>
       </provider>
@@ -988,7 +979,7 @@
     <entry file="file://$PROJECT_DIR$/src/controller/MovieGoerController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="95">
-          <caret line="33" column="68" lean-forward="true" selection-start-line="33" selection-start-column="68" selection-end-line="33" selection-end-column="68" />
+          <caret line="33" column="68" lean-forward="false" selection-start-line="33" selection-start-column="68" selection-end-line="33" selection-end-column="68" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -998,37 +989,37 @@
     <entry file="file://$PROJECT_DIR$/src/controller/StaffController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="252">
-          <caret line="162" column="25" lean-forward="true" selection-start-line="162" selection-start-column="25" selection-end-line="162" selection-end-column="25" />
+          <caret line="162" column="25" lean-forward="false" selection-start-line="162" selection-start-column="25" selection-end-line="162" selection-end-column="25" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/controller/MovieController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
-          <caret line="218" column="4" lean-forward="true" selection-start-line="218" selection-start-column="4" selection-end-line="218" selection-end-column="4" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1510654332000" expanded="true" signature="6257:6723" ph="/**...*/" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ui/StaffUI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="123">
-          <caret line="105" column="43" lean-forward="false" selection-start-line="105" selection-start-column="43" selection-end-line="105" selection-end-column="43" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/controller/TestApp.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="312" column="34" lean-forward="false" selection-start-line="312" selection-start-column="34" selection-end-line="312" selection-end-column="34" />
+        <state relative-caret-position="208">
+          <caret line="307" column="63" lean-forward="false" selection-start-line="307" selection-start-column="63" selection-end-line="307" selection-end-column="63" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ui/StaffUI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="239">
+          <caret line="160" column="51" lean-forward="true" selection-start-line="160" selection-start-column="51" selection-end-line="160" selection-end-column="51" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/controller/MovieController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="276" column="50" lean-forward="true" selection-start-line="276" selection-start-column="50" selection-end-line="276" selection-end-column="50" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <marker date="1510654332000" expanded="true" signature="6257:6723" ph="/**...*/" />
+          </folding>
         </state>
       </provider>
     </entry>
