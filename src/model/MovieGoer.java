@@ -33,13 +33,8 @@ public class MovieGoer extends Person {
 	}
 	
 	//login(abstract)
-	public boolean login() {
+	public boolean login(String email, String password) {
 		//same logic as staff
-		System.out.println("Please enter your email address: ");
-		String email = sc.next();
-		System.out.println("Please enter your password: ");
-		String password = sc.next();
-		
 		ArrayList<MovieGoer> movieGoerList = MovieGoerController.getInstance().getMovieGoerList();
 		
 		for (int i=0; i < movieGoerList.size(); i++) {

@@ -250,11 +250,7 @@ public class MovieController extends DatabaseController{
 	public ArrayList<Movie> getTopFiveByRatings(){
 		ArrayList<Movie> sortedMovieList = new ArrayList<>(getShowingMovieList());
 		Collections.sort(sortedMovieList, new MovieRatingsComparator());
-		for (int i = 0 ; i < sortedMovieList.size(); i++)
-			if (!sortedMovieList.get(i).isShowing()){
-				sortedMovieList.remove(i);
-				i--;
-			}
+
 		int size = 5;
 		if (size > sortedMovieList.size())
 			size = sortedMovieList.size();

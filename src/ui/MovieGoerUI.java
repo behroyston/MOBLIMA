@@ -13,6 +13,7 @@ import java.util.Scanner;
 
 import controller.BookingController;
 import controller.MovieController;
+import controller.MovieGoerController;
 
 public class MovieGoerUI {
 
@@ -28,7 +29,7 @@ public class MovieGoerUI {
 		// Validation first
 		System.out.println("-------------------- Welcome to MOBLIMA! --------------------");
 		String emailAddress = loginValidation();
-		if (emailAddress != null){
+		if (emailAddress == null){
 			return;
 		}
 		
@@ -77,18 +78,21 @@ public class MovieGoerUI {
 	}
 	
 	private int checkIfInt(int value){
-		try{
-			return sc.nextInt();
-		}
-		catch(InputMismatchException ex){
-			sc.nextLine();
-			return value;
-		}
+	    if (!sc.hasNextInt()) {
+	        sc.next(); 	// Remove the invalid input
+	        return value;
+	    }
+	    return sc.nextInt();
 	}
 
 	// Current display seems to be implemented in MovieGoer - may need to revise this
 	private String loginValidation(){
-		return "absce@hotmail.com";
+		System.out.println("Please enter your email address: ");
+		String email = sc.next();
+		System.out.println("Please enter your password: ");
+		String password = sc.next();
+		//MovieGoerController.getInstance().validate();
+		return "abc@email.com";
 	}
 
 	// We need a logic to check that 'Now Showing' & 'Preview' should set isShowing == true
@@ -154,10 +158,11 @@ public class MovieGoerUI {
 				printShowingMovies();
 				System.out.print("Enter corresponding number: ");
 				int num = checkIfInt(-1);
-				if (num > movieList.size() || num < 1)
+				if (num > movieList.size() || num < 1){
 					System.out.println("Invalid Number!");
+				}
 				else
-					movieList.get(num).printInfo();
+					movieList.get(num-1).printInfo();
 				break;
 			case 3:
 				return;

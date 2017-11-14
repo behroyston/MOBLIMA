@@ -18,7 +18,7 @@ public abstract class Person {
 	}
 	
 	//login(abstract)
-	abstract public boolean login();
+	abstract public boolean login(String email, String password);
 	
 	//access private password
 	public String getPassword() {
