@@ -4,6 +4,7 @@ import model.Cinema;
 import model.Cineplex;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -87,6 +88,8 @@ public class CineplexController extends DatabaseController {
 
 						// model.Seat Layout
 						char[][] seatLayout = new char[8][15];
+						for (int i = 0; i < seatLayout.length; i++)
+							Arrays.fill(seatLayout[i], ' ');
 						int i = 0;
 						while (aStr.hasMoreTokens()) {
 							String col = aStr.nextToken();
