@@ -98,7 +98,20 @@ public class StaffController extends DatabaseController{
         }
     }
 
-
+	public Staff getStaffByEmail(String email){
+		for (Staff staff : staffList)
+			if (email.equalsIgnoreCase(staff.getEmail()))
+				return staff;
+		return null;
+	}
+	
+	//Validate Staff
+	public boolean validateStaff(String email, String password){
+		Staff staff = getStaffByEmail(email);
+		if (staff != null)
+			return staff.validateIdentity(email, password);
+		return false;
+	}
 
     //static 'instance' method
 	public static StaffController getInstance() {

@@ -217,6 +217,13 @@ public class MovieController extends DatabaseController{
 		movieList.add(newMovie);
 	}
 	
+	public void updateMovie(int movieId, String newMovieName, String newSynopsis, String newdirector, String newCast, String newStatus){
+		Movie oldMovie = removeMovie(movieId);
+		if (oldMovie != null)
+			addMovie(movieId, newMovieName, newSynopsis, newdirector, newCast, newStatus);
+	}
+	
+	
 	/**
          * removes the movie based on its unique ID.
          * if movie is not found, return null object
