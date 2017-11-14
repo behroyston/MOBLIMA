@@ -300,10 +300,6 @@ public class StaffUI {
 					System.out.println("INVALID OPTION");
 				}
 				else break;
-			
-			case '0':
-				//EXIT?!??!
-				break;
 			}
 		} while (choice2 != 0);
 	}
