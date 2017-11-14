@@ -51,10 +51,10 @@ public class MovieScreeningController extends DatabaseController {
                             int movieScreeningID  = Integer.parseInt(aStr.nextToken());     // movieScreeningID
                             int cinemaID = Integer.parseInt(aStr.nextToken());      // cinemaID
                             int movieID = Integer.parseInt(aStr.nextToken());       // movieID
-                            Calendar startTime = Calendar.getInstance();
-                            startTime.setTimeInMillis(Long.parseLong(aStr.nextToken()));    // Start Time
-                            Calendar endTime = Calendar.getInstance();
-                            endTime.setTimeInMillis(Long.parseLong(aStr.nextToken()));        // End Time
+                            Calendar cal = Calendar.getInstance();
+                            cal.setTimeInMillis(Long.parseLong(aStr.nextToken()));    // Start Time
+                            Calendar startTime = (Calendar)cal.clone();
+                            cal.setTimeInMillis(Long.parseLong(aStr.nextToken()));        // End Time
                             MovieClassType movieType = MovieClassType.valueOf(aStr.nextToken());                            // movieType
                             boolean isExpired = Boolean.parseBoolean(aStr.nextToken()); // isExpired
 
@@ -76,7 +76,7 @@ public class MovieScreeningController extends DatabaseController {
                                 i++;
                             }
 
-                            movieScreening = new MovieScreening(movieScreeningID,startTime,endTime,movieType,cinemaID,movieID,
+                            movieScreening = new MovieScreening(movieScreeningID,startTime,cal,movieType,cinemaID,movieID,
                                     mSeats);
                             movieScreenings.add(movieScreening);
                         }
@@ -166,12 +166,14 @@ public class MovieScreeningController extends DatabaseController {
      */
     public boolean addMovieScreening(int cinemaID, int movieID, Calendar startTime, MovieClassType movieType)
     {
-        Calendar endTime = startTime;
+        Calendar endTime = (Calendar)(startTime.clone());
         endTime.add(Calendar.MINUTE, MovieController.getInstance().getMovie(movieID).getDuration());
+        System.out.println(startTime.getTime());
+        System.out.println(endTime.getTime());
         for (int i = 0; i < movieScreenings.size(); i ++){
             MovieScreening movieScreening = movieScreenings.get(i);
             if (movieScreening.getCinemaID() == cinemaID){
-                if (!(((startTime.compareTo(movieScreening.getStartTime())== 1) && (endTime.compareTo(movieScreening.getEndTime())) == 1) ||
+                if (!(((startTime.compareTo(movieScreening.getStartTime())== 1) && ((endTime.compareTo(movieScreening.getEndTime())) == 1)) ||
                         (((startTime.compareTo(movieScreening.getStartTime())) == -1) && ((endTime.compareTo(movieScreening.getEndTime())) == -1)))) {
                     System.out.println("This moviescreening's timing clashes with another moviescreening's timing!");
                     return false;

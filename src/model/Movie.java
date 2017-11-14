@@ -16,7 +16,7 @@ public class Movie{
 	private double ticketSales;
 	private int duration;
 
-	public Movie(int movieId, String movieName, String synopsis, String director, String cast, MovieShowingStatus status){
+	public Movie(int movieId, String movieName, String synopsis, String director, String cast, MovieShowingStatus status, int duration){
 		this.movieId = movieId;
 		this.movieName = movieName;
 		this.synopsis = synopsis;
@@ -25,6 +25,7 @@ public class Movie{
 		this.movieShowingStatus = status;
 		this.reviews = new ArrayList<>();
 		this.ratingList = new ArrayList<>();
+		this.duration = duration;
 		setIsShowing();
 	}
 

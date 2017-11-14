@@ -124,6 +124,9 @@ public class StaffUI {
         String newDir = sc.nextLine();
         System.out.println("Enter Cast List: ");
         String newCast = sc.nextLine();
+        System.out.println("Enter Duration of Movie: ");
+        int duration = sc.nextInt();
+
         System.out.println("Enter Movie Showing Status: \n" +
                 "1) Coming Soon\n" + "2) Preview\n" + "3) Now Showing\n" + "4) End of Showing" );
         int newType = sc.nextInt();
@@ -147,9 +150,9 @@ public class StaffUI {
         }
 
         if (create)
-            MovieController.getInstance().addMovie(newMID, newName, newSyn, newDir, newCast, movieShowingStatus);
+            MovieController.getInstance().addMovie(newMID, newName, newSyn, newDir, newCast, movieShowingStatus, duration);
         else
-            MovieController.getInstance().updateMovie(newMID, newName, newSyn, newDir, newCast, movieShowingStatus);
+            MovieController.getInstance().updateMovie(newMID, newName, newSyn, newDir, newCast, movieShowingStatus, duration);
 
     }
 	private void removeMovieListing() {

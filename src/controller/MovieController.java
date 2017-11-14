@@ -212,16 +212,16 @@ public class MovieController extends DatabaseController{
 	 * @param director
 	 * @param cast
 	 */
-	public void addMovie(int movieId, String movieName, String synopsis, String director, String cast, MovieShowingStatus status){
-		Movie newMovie = new Movie(movieId, movieName, synopsis, director, cast, status);
+	public void addMovie(int movieId, String movieName, String synopsis, String director, String cast, MovieShowingStatus status, int duration){
+		Movie newMovie = new Movie(movieId, movieName, synopsis, director, cast, status, duration);
 		movieList.add(newMovie);
 		writeDB();
 	}
 	
-	public void updateMovie(int movieId, String newMovieName, String newSynopsis, String newdirector, String newCast, MovieShowingStatus newStatus){
+	public void updateMovie(int movieId, String newMovieName, String newSynopsis, String newdirector, String newCast, MovieShowingStatus newStatus, int duration){
 		Movie oldMovie = removeMovie(movieId);
 		if (oldMovie != null)
-			addMovie(movieId, newMovieName, newSynopsis, newdirector, newCast, newStatus);
+			addMovie(movieId, newMovieName, newSynopsis, newdirector, newCast, newStatus, duration);
 		writeDB();
 	}
 	
