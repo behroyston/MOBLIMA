@@ -2,11 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ed6268a8-6d06-4e72-94cb-131ed4fa5168" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/controller/BookingController.java" afterPath="$PROJECT_DIR$/src/controller/BookingController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/controller/CineplexController.java" afterPath="$PROJECT_DIR$/src/controller/CineplexController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/controller/DatabaseController.java" afterPath="$PROJECT_DIR$/src/controller/DatabaseController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/controller/MovieController.java" afterPath="$PROJECT_DIR$/src/controller/MovieController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/controller/MovieScreeningController.java" afterPath="$PROJECT_DIR$/src/controller/MovieScreeningController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/controller/StaffController.java" afterPath="$PROJECT_DIR$/src/controller/StaffController.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -70,11 +65,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StaffController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="StaffController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/controller/StaffController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="362">
-              <caret line="48" column="51" lean-forward="true" selection-start-line="42" selection-start-column="26" selection-end-line="48" selection-end-column="51" />
+            <state relative-caret-position="243">
+              <caret line="49" column="21" lean-forward="true" selection-start-line="49" selection-start-column="21" selection-end-line="49" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -115,11 +110,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Staff.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Staff.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/model/Staff.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="25" column="23" lean-forward="true" selection-start-line="25" selection-start-column="23" selection-end-line="25" selection-end-column="23" />
+            <state relative-caret-position="195">
+              <caret line="16" column="50" lean-forward="false" selection-start-line="16" selection-start-column="50" selection-end-line="16" selection-end-column="50" />
               <folding />
             </state>
           </provider>
@@ -468,12 +463,12 @@
       <workItem from="1510122463323" duration="9424000" />
       <workItem from="1510214220952" duration="1089000" />
       <workItem from="1510472663979" duration="31382000" />
-      <workItem from="1510579555510" duration="15077000" />
+      <workItem from="1510579555510" duration="15705000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="66561000" />
+    <option name="totallyTimeSpent" value="67189000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1366" height="698" extended-state="6" />
@@ -858,14 +853,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/Staff.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="25" column="23" lean-forward="true" selection-start-line="25" selection-start-column="23" selection-end-line="25" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/controller/MovieController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1184">
@@ -918,8 +905,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/controller/StaffController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="362">
-          <caret line="48" column="51" lean-forward="true" selection-start-line="42" selection-start-column="26" selection-end-line="48" selection-end-column="51" />
+        <state relative-caret-position="243">
+          <caret line="49" column="21" lean-forward="true" selection-start-line="49" selection-start-column="21" selection-end-line="49" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/Staff.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="16" column="50" lean-forward="false" selection-start-line="16" selection-start-column="50" selection-end-line="16" selection-end-column="50" />
           <folding />
         </state>
       </provider>

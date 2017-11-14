@@ -36,17 +36,17 @@ public class StaffController extends DatabaseController{
                 for (File f : getListofFiles(BASEDIR + DIR)) {
                     List<String> text = retrieveData(BASEDIR + DIR + "Staff.dat");
                     StringTokenizer aStr;
-                    Booking booking;
+                    Staff staff;
                     for (String line : text) {
                         // model.MovieScreening Attributes
                         aStr = new StringTokenizer(line, DELIMITER);
-//                        int staffID = aStr.nextToken();
-//                        int movieScreeningID = Integer.parseInt(aStr.nextToken());
-//                        String userName = aStr.nextToken();
-//                        String mobileNum = aStr.nextToken();
-//                        String emailAddress = aStr.nextToken();
-//                        booking = new Booking(movieScreeningID,userName,mobileNum,emailAddress,transactionID);
-//                        bookingList.add(booking);
+                        int staffID = Integer.parseInt(aStr.nextToken());
+                        String userName = aStr.nextToken();
+                        String password = aStr.nextToken();
+                        String mobileNum = aStr.nextToken();
+                        String emailAddress = aStr.nextToken();
+                        staff = new Staff(password,userName,mobileNum,emailAddress,staffID);
+                        bookingList.add(booking);
                     }
                 }
 
@@ -83,7 +83,7 @@ public class StaffController extends DatabaseController{
                 str.append(DELIMITER);
                 str.append(staff.getMobileNumber());   //  mobileNumber
                 str.append(DELIMITER);
-                str.append(staff.getEmail());     // staffID
+                str.append(staff.getEmail());     // emailAddres
                 str.append(DELIMITER);
                 text.add(str.toString());			// Write to line
 
