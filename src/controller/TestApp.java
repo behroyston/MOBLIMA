@@ -12,44 +12,44 @@ import java.util.List;
 public class TestApp {
     public static void main(String[] args) {
 
-    	MovieGoerController movieGoerController = MovieGoerController.getInstance();
-    	ArrayList<MovieGoer> movieGoerList = createMovieGoerSample();
-    	movieGoerController.setMovieGoerList(movieGoerList);
-//    	for (MovieGoer movieGoer : movieGoerList)
-//  		movieGoer.printInfo();
-//    	movieGoerController.writeDB();
-    	movieGoerController.readDB();
-//    	System.out.println("----------------------------");
-    	for (MovieGoer movieGoer : movieGoerController.getMovieGoerList())
-    		movieGoer.printInfo();
-
-    	StaffController staffController = StaffController.getInstance();
-////        ArrayList<Staff> staffList = createStaffSample();
-////        staffController.setStaffList(staffList);
-////        staffController.writeDB();
-        staffController.readDB();
-//        staffController.printStaffList();
-        StaffUI staffUI = StaffUI.getInstance();
-
-
-
-        MovieController movieController = MovieController.getInstance();
-        movieController.setMovieList(createSampleMovie());
-        movieController.writeDB();
-        movieController.readDB();
-//        movieController.printMovieLists();
+//    	MovieGoerController movieGoerController = MovieGoerController.getInstance();
+//    	ArrayList<MovieGoer> movieGoerList = createMovieGoerSample();
+//    	movieGoerController.setMovieGoerList(movieGoerList);
+////    	for (MovieGoer movieGoer : movieGoerList)
+////  		movieGoer.printInfo();
+////    	movieGoerController.writeDB();
+//    	movieGoerController.readDB();
+////    	System.out.println("----------------------------");
+//    	for (MovieGoer movieGoer : movieGoerController.getMovieGoerList())
+//    		movieGoer.printInfo();
 //
-        BookingController bookingController = BookingController.getInstance();
-        bookingController.setBookingList(createSampleBooking());
-        bookingController.writeDB();
-        bookingController.readDB();
+//    	StaffController staffController = StaffController.getInstance();
+//////        ArrayList<Staff> staffList = createStaffSample();
+//////        staffController.setStaffList(staffList);
+//////        staffController.writeDB();
+//        staffController.readDB();
+////        staffController.printStaffList();
+        StaffUI staffUI = StaffUI.getInstance();
+//
+//
+//
+//        MovieController movieController = MovieController.getInstance();
+//        movieController.setMovieList(createSampleMovie());
+//        movieController.writeDB();
+//        movieController.readDB();
+////        movieController.printMovieLists();
+////
+//        BookingController bookingController = BookingController.getInstance();
+//        bookingController.setBookingList(createSampleBooking());
+//        bookingController.writeDB();
+//        bookingController.readDB();
 //
  //       bookingController.printBookingList();
 //
         MovieScreeningController movieScreeningController= MovieScreeningController.getInstance();
 //        movieScreeningController.setMovieScreenings(createSampleMovieScreening());
 //        movieScreeningController.writeDB();
-        movieScreeningController.readDB();
+ //       movieScreeningController.readDB();
         movieScreeningController.printMovieScreenings();
 //        MovieGoerUI.getInstance().display();
 //        MovieGoerUI.getInstance().showSeatsAvailability(movieScreeningController.getMovieScreenings().get(0));

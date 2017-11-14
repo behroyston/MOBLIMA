@@ -20,7 +20,8 @@ public class MovieGoerController extends DatabaseController{
 
 	//Class constructor
 	private MovieGoerController() {
-
+		movieGoerList = new ArrayList<>();
+		readDB();
 	}
 
 	@Override
@@ -48,12 +49,12 @@ public class MovieGoerController extends DatabaseController{
 			}
 			catch (IOException io)
 			{
-				System.out.println("Error! Unable to retrieve model from file.");
+				System.out.println("Error! Unable to retrieve MovieGoer data from file. The data may be corrupted.");
 			}
 		}
 		else
 		{
-			System.out.println("Error, Directory not found! Database for Booking is not loaded!");
+			System.out.println("Error, Directory not found! Database for MovieGoer is not loaded!");
 		}
 
 	}
@@ -95,14 +96,19 @@ public class MovieGoerController extends DatabaseController{
 		}
 	}
 
-	public void addMovieGoer(String password, String name, String mobileNumber, String email, int age){
+	public boolean addMovieGoer(String password, String name, String mobileNumber, String email, int age){
 		int cusID;
 		if (movieGoerList.size() == 0)
 			cusID = 1;
-		else
+		else{
+			for (MovieGoer movieGoer : movieGoerList)
+				if (movieGoer.getEmail() == email)
+					return false;
 			cusID = movieGoerList.get(movieGoerList.size()-1).getCusID();
+		}
 		movieGoerList.add(new MovieGoer(password, name, mobileNumber, email, cusID, age));
 		writeDB();
+		return true;
 	}
 
 	public MovieGoer getMovieGoerByEmail(String email){

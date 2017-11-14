@@ -215,7 +215,7 @@ public class StaffUI {
 		System.out.println("Enter Minute of Screening: ");
 		int newMin = sc.nextInt();
 		Calendar calendar = Calendar.getInstance();
-		calendar.set(newYear, newMonth, newDay, newHour,newMin, 0);
+		calendar.set(newYear, newMonth - 1, newDay, newHour,newMin, 0);
 
 		if (create)
 		    MovieScreeningController.getInstance().addMovieScreening(newCID, newMID, calendar, movieClassType);

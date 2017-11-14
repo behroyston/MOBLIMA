@@ -15,16 +15,17 @@ public class BookingController extends DatabaseController{
 
 	private ArrayList<Booking> bookingList;
 
-	private static BookingController Instance = null;
+	private static BookingController instance = null;
 
 	private BookingController() {
 		bookingList = new ArrayList<>();
+		readDB();
 	}
 
 	public static BookingController getInstance() {
-		if (Instance == null)
-			Instance = new BookingController();
-		return Instance;
+		if (instance == null)
+			instance = new BookingController();
+		return instance;
 	}
 
 	 /** Summary: Text in order: String transactionId , int movieScreeningID, String userName, String mobileNum,

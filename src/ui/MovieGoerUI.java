@@ -1,6 +1,7 @@
 package ui;
 
 import controller.BookingController;
+import controller.CineplexController;
 import controller.MovieController;
 import controller.MovieGoerController;
 import controller.MovieScreeningController;
@@ -35,7 +36,10 @@ public class MovieGoerUI {
 			choice = checkIfInt(4);
 			switch (choice){
 			case 1:
-				registerNewAccount();
+				if(!registerNewAccount()){
+					System.out.println("The email account already exists!");
+					break;
+				}
 			case 2:
 				emailAddress = loginValidation();
 				break;
@@ -44,7 +48,7 @@ public class MovieGoerUI {
 			default:
 				System.out.println("Invalid choice! Please re-enter...");
 			}
-		}while(choice != 1 && choice != 2);
+		}while(emailAddress == null);
 
 		// Movie-Goer Options
 		do{
@@ -89,7 +93,7 @@ public class MovieGoerUI {
 		return sc.nextInt();
 	}
 
-	private void registerNewAccount(){
+	private boolean registerNewAccount(){
 		sc.nextLine();			// Clear buffer
 		System.out.print("Please enter your name: ");
 		String name = sc.nextLine();
@@ -101,21 +105,21 @@ public class MovieGoerUI {
 		String mobileNumber = sc.next();
 		System.out.print("Please enter your age: ");
 		int age = sc.nextInt();
-		MovieGoerController.getInstance().addMovieGoer(password, name, mobileNumber, email, age);
+		return MovieGoerController.getInstance().addMovieGoer(password, name, mobileNumber, email, age);
 	}
-	
+
 	private String loginValidation(){
 		String email, password;
 		System.out.println("Login System:");
-		while (true){
-			System.out.print("Please enter your email address: ");
-			email = sc.next();
-			System.out.print("Please enter your password: ");
-			password = sc.next();
-			if (!MovieGoerController.getInstance().validateCustomer(email, password))
-				System.out.println("Invalid login details! Please re-enter...");
-			else
-				break;
+		
+		System.out.print("Please enter your email address: ");
+		email = sc.next();
+		System.out.print("Please enter your password: ");
+		password = sc.next();
+		
+		if (!MovieGoerController.getInstance().validateCustomer(email, password)){
+			System.out.println("Invalid login details!");
+			return null;
 		}
 		return email;
 	}
@@ -216,11 +220,15 @@ public class MovieGoerUI {
 			else
 				System.out.println("Invalid input! Please re-enter...");
 		}
+		CineplexController cineplexController = CineplexController.getInstance();
 		System.out.println("MovieScreenings:");
 		for (int i = 0; i< movieScreenings.size(); i++)
 		{
+			int cinemaID = movieScreenings.get(i).getCinemaID();
 			System.out.print((i+1) + ") ");
-			movieScreenings.get(i).getStartDateTime();
+			System.out.print(movieScreenings.get(i).getStartDateTime() + " at " +
+					cineplexController.getCineplexByCinemaID(cinemaID).getName());
+			System.out.println(" - Cinema "+ cineplexController.getCinema(cinemaID).getCinemaID());
 		}
 		System.out.println("Enter the Movie Screening Number if you want to book seats!");
 
@@ -369,7 +377,8 @@ public class MovieGoerUI {
 	// traverses through MovieController.getCineplex(position).getCinema(position).getMovieScreening(position).getSeatsForThisMovie
 	public void showSeatsAvailability(int movieScreeningID){
 
-		MovieScreening movieScreening = MovieScreeningController.getInstance().getMovieScreenings().get(movieScreeningID);
+		MovieScreening movieScreening = MovieScreeningController.getInstance().getMovieScreeningByScreeningID(movieScreeningID);
+		System.out.println(movieScreeningID);
 		// 14
 		System.out.println("\t <<<EXIT>>>\t");
 		System.out.print("  ");
@@ -382,10 +391,9 @@ public class MovieGoerUI {
 			System.out.print(stringList.get(i));
 		}
 		System.out.println();
-
-		movieScreening.printMovieScreeningInfo();
-
+		movieScreening.printMovieScreeningSeatsInfo();
 		System.out.println("\t<<<SCREEN>>>\t");
+		movieScreening.printMovieScreeningInfo();
 
 		Scanner sc = new Scanner(System.in);
 		System.out.println("1. Book Seat\n2. Go Back to Main Menu");

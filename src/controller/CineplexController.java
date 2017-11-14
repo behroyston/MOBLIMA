@@ -40,6 +40,7 @@ public class CineplexController extends DatabaseController {
 	 */
 	private CineplexController(){
 		cineplexList = new ArrayList<>();
+		readDB();
 	}
 
 	/**
@@ -63,6 +64,14 @@ public class CineplexController extends DatabaseController {
 		return null;
 	}
 
+	public Cineplex getCineplexByCinemaID(int cinemaID){
+		for (Cineplex cineplex : cineplexList)
+			for (Cinema cinema : cineplex.getCinemaList())
+				if (cinema.getCinemaID() == cinemaID)
+					return cineplex;
+		return null;
+	}
+	
 	/**
 	 * Retrieve the model.Cineplex model from database.
 	 */
@@ -102,11 +111,10 @@ public class CineplexController extends DatabaseController {
 						cinemaList.add(new Cinema(cinemaID, cinemaClassType, seatLayout));
 					}
 					cineplexList.add(new Cineplex(cineplexName, cineplexLocation, cinemaList));
-
 				}
 			}
-			catch (IOException io){
-				System.out.println("Error! Unable to retrieve model from file.");
+			catch (Exception ex){
+				System.out.println("Error! Unable to retrieve Cineplex data from file. The data may be corrupted.");
 			}
 
 		} else {

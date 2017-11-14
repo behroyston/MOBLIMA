@@ -29,6 +29,7 @@ public class MovieController extends DatabaseController{
 	 */
 	private MovieController() {
 		movieList = new ArrayList<>();
+		readDB();
 	}
 	/**
 	 * create new database if there's no database

@@ -22,6 +22,7 @@ public class MovieScreeningController extends DatabaseController {
 
     private MovieScreeningController(){
         movieScreenings = new ArrayList<>();
+        readDB();
     }
 
     public static MovieScreeningController getInstance() {
@@ -173,9 +174,18 @@ public class MovieScreeningController extends DatabaseController {
         for (int i = 0; i < movieScreenings.size(); i ++){
             MovieScreening movieScreening = movieScreenings.get(i);
             if (movieScreening.getCinemaID() == cinemaID){
-                if (!(((startTime.compareTo(movieScreening.getStartTime())== 1) && ((endTime.compareTo(movieScreening.getEndTime())) == 1)) ||
+            	// Consider changing this. We only accept the add IF
+            	// 1) the start time is after ALL of the endTime OR
+            	// 2) the end time is before ALL of the startTime
+                /*if (!(((startTime.compareTo(movieScreening.getStartTime())== 1) && ((endTime.compareTo(movieScreening.getEndTime())) == 1)) ||
                         (((startTime.compareTo(movieScreening.getStartTime())) == -1) && ((endTime.compareTo(movieScreening.getEndTime())) == -1)))) {
                     System.out.println("This moviescreening's timing clashes with another moviescreening's timing!");
+                    return false;
+                }*/
+            	// Take negation, so if there exists one existing movieScreening such that the new start time is before or equal to this movie screening
+            	// end time AND the new end time is after or equal to this movie screening
+                if (!startTime.after(movieScreening.getEndTime()) && !endTime.before(movieScreening.getStartTime())){
+                	System.out.println("This moviescreening's timing clashes with another moviescreening's timing!");
                     return false;
                 }
             }

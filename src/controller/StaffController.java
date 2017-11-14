@@ -24,6 +24,7 @@ public class StaffController extends DatabaseController{
 	//Class constructor
 	private StaffController() {
 	    staffList = new ArrayList<>();
+	    readDB();
 	}
 
     @Override
