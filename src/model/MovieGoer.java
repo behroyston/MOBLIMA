@@ -32,25 +32,11 @@ public class MovieGoer extends Person {
 		return;
 	}
 	
-	//login(abstract)
-	public boolean login() {
+	//Login for moviegoer
+	@Override
+	public boolean validateIdentity(String email, String password) {
 		//same logic as staff
-		System.out.println("Please enter your email address: ");
-		String email = sc.next();
-		System.out.println("Please enter your password: ");
-		String password = sc.next();
-		
-		ArrayList<MovieGoer> movieGoerList = MovieGoerController.getInstance().getMovieGoerList();
-		
-		for (int i=0; i < movieGoerList.size(); i++) {
-			if (movieGoerList.get(i).getEmail() == email) {
-				if (movieGoerList.get(i).getPassword() == password) {
-					return true;
-				}
-			}
-		}
-		
-		return false;
+		return email.equals(super.email) && password.equals(super.password);
 	}
 	
 	//access private age
@@ -63,4 +49,23 @@ public class MovieGoer extends Person {
 		return;
 	}
 	
+	//access private age
+	public boolean getIsStudent() {
+		return isStudent;
+	}
+	
+	//mutate private age
+	public void setIsStudent(boolean isStudent) {
+		this.isStudent = isStudent;
+	}
+	
+	public void printInfo(){
+		System.out.println("Email Address: " + email);
+		System.out.println("Password: " + password);
+		System.out.println("Mobile Number: " + mobileNumber);
+		System.out.println("Name: " + name);
+		System.out.println("CustomerID: " + cusID);
+		System.out.println("Age: " + age);
+		System.out.println("isStudent: " + isStudent);
+	}
 }

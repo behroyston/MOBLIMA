@@ -4,10 +4,10 @@ package model;
 public abstract class Person {
 
 	//Attributes
-	private String name;
-	private int mobileNumber;
-	private String password;
-	private String email;
+	protected String name;
+	protected int mobileNumber;
+	protected String password;
+	protected String email;
 	
 	//Class constructor
 	public Person(String password, String name, int mobileNumber, String email) {
@@ -18,7 +18,7 @@ public abstract class Person {
 	}
 	
 	//login(abstract)
-	abstract public boolean login();
+	abstract public boolean validateIdentity(String email, String password);
 	
 	//access private password
 	public String getPassword() {
