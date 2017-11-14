@@ -3,6 +3,7 @@ package ui;
 import controller.MovieController;
 import controller.MovieScreeningController;
 import controller.StaffController;
+import model.Movie;
 import model.MovieClassType;
 import model.MovieShowingStatus;
 import model.SystemSettings;
@@ -30,47 +31,54 @@ public class StaffUI {
 		if (emailAddress == null){
 			return;
 		}
-		
-		int choice1;
-		
+
+        int choice1;
 		do {
 			System.out.println("-----------------STAFF CONSOLE-----------------");
 			System.out.println("What would you like to do?\n");
-			System.out.println("1. Create Movie Listing\n");
-			System.out.println("2. Update Movie Listing\n");
-			System.out.println("3. Remove Movie Listing\n");
-			System.out.println("4. Create Cinema Showtimes\n");
-			System.out.println("5. Update Cinema Showtimes\n");
-			System.out.println("6. Remove Cinema Showtimes\n");
-			System.out.println("7. Configure System Settings\n");
-			System.out.println("0. Exit\n");
-			choice1 = sc.nextInt();
+			System.out.println("1. Create Movie Listing");
+			System.out.println("2. Update Movie Listing");
+			System.out.println("3. Remove Movie Listing");
+			System.out.println("4. Create Cinema Showtimes");
+			System.out.println("5. Update Cinema Showtimes");
+			System.out.println("6. Remove Cinema Showtimes");
+			System.out.println("7. Configure System Settings");
+			System.out.println("8. Exit");
+            choice1 = checkIfInt(9);
 		
 			switch (choice1) {
-			case '1':
+			case 1:
 				createMovieListing();
 				break;
-			case '2':
+			case 2:
 				updateMovieListing();
 				break;
-			case '3':
+			case 3:
 				removeMovieListing();
 				break;
-			case '4':
+			case 4:
 				createCinemaShowtimes();
 				break;
-			case '5':
+			case 5:
 				updateCinemaShowtimes();
 				break;
-			case '6':
+			case 6:
 				removeCinemaShowtimes();
 				break;
-			case '7':
+			case 7:
 				configSystemSettings();
 				break;
 			}
-		} while (choice1 != 0);
+		} while (choice1 != 8);
 	}
+
+    private int checkIfInt(int value){
+        if (!sc.hasNextInt()){
+            sc.next(); // Remove the invalid input
+            return value;
+        }
+        return sc.nextInt();
+    }
 	
 	//login
 	private String loginValidation() {
@@ -98,23 +106,26 @@ public class StaffUI {
     private void updateMovieListing(){
         System.out.println("-----------------EDIT MOVIE LISTINGS-----------------");
         System.out.println("Update Existing Movie Listing: \n");
+        createOrUpdateMovieListing(false);
     }
 
 	private void createOrUpdateMovieListing(boolean create) {
         System.out.println("List of Movie Listings: \n");
-        System.out.println(MovieController.getInstance().getShowingMovieList());
+        MovieController.getInstance().printMovieNames();
         System.out.println("Enter Movie ID: ");
         int newMID = sc.nextInt();
+        // remove the garbage \n char
+        sc.nextLine();
         System.out.println("Enter Movie Name: ");
-        String newName = sc.next();
+        String newName = sc.nextLine();
         System.out.println("Enter Movie Synopsis: ");
-        String newSyn = sc.next();
+        String newSyn = sc.nextLine();
         System.out.println("Enter Movie Director(s) Name: ");
-        String newDir = sc.next();
+        String newDir = sc.nextLine();
         System.out.println("Enter Cast List: ");
-        String newCast = sc.next();
+        String newCast = sc.nextLine();
         System.out.println("Enter Movie Showing Status: \n" +
-                "1) Coming Soon\n" + "2) Preview\n" + "3) Now Showing\n" + "4) End of Showing\n" );
+                "1) Coming Soon\n" + "2) Preview\n" + "3) Now Showing\n" + "4) End of Showing" );
         int newType = sc.nextInt();
         MovieShowingStatus movieShowingStatus;
         switch (newType){
@@ -146,20 +157,24 @@ public class StaffUI {
 		System.out.println("Remove Existing Movie Listing: \n");
 		System.out.println("Enter Movie ID: ");
 		int newMID = sc.nextInt();
-		
-		MovieController.getInstance().removeMovie(newMID);
+        Movie movie = MovieController.getInstance().removeMovie(newMID);
+		if (movie != null){
+		    System.out.println(movie.getMovieName() + " is removed!");
+        }
+        else
+            System.out.println("Movie is not found!");
 	}
 
 	private void createCinemaShowtimes(){
         System.out.println("-----------------CREATE CINEMA SHOWTIMES-----------------");
         System.out.println("Add New Showtime:\n");
-        createOrUpdateMovieListing(true);
+        createOrUpdateCinemaShowtimes(true);
     }
 
     private void updateCinemaShowtimes(){
         System.out.println("-----------------EDIT CINEMA SHOWTIMES-----------------");
         System.out.println("Edit New Showtime:\n");
-        createOrUpdateMovieListing(false);
+        createOrUpdateCinemaShowtimes(false);
 
     }
 	

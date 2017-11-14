@@ -1,7 +1,7 @@
 package controller;
 
 import model.*;
-import ui.MovieGoerUI;
+import ui.StaffUI;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -23,14 +23,13 @@ public class TestApp {
     	for (MovieGoer movieGoer : movieGoerController.getMovieGoerList())
     		movieGoer.printInfo();
 
-//    	StaffController staffController = StaffController.getInstance();
+    	StaffController staffController = StaffController.getInstance();
 ////        ArrayList<Staff> staffList = createStaffSample();
 ////        staffController.setStaffList(staffList);
 ////        staffController.writeDB();
-//        staffController.readDB();
+        staffController.readDB();
 //        staffController.printStaffList();
-//        StaffUI staffUI = StaffUI.getInstance();
-//        staffUI.display();
+        StaffUI staffUI = StaffUI.getInstance();
 
 
 
@@ -52,9 +51,10 @@ public class TestApp {
 //        movieScreeningController.writeDB();
         movieScreeningController.readDB();
         movieScreeningController.printMovieScreenings();
-        MovieGoerUI.getInstance().display();
+//        MovieGoerUI.getInstance().display();
 //        MovieGoerUI.getInstance().showSeatsAvailability(movieScreeningController.getMovieScreenings().get(0));
-//
+        staffUI.display();
+
 //        // Manual text format - preferred here because it simulates the allowance of staff to add new cineplex/cinema to DB
 //        CineplexController control = CineplexController.getInstance();
 //        ArrayList<Cineplex> cineplexList ;

@@ -215,12 +215,14 @@ public class MovieController extends DatabaseController{
 	public void addMovie(int movieId, String movieName, String synopsis, String director, String cast, MovieShowingStatus status){
 		Movie newMovie = new Movie(movieId, movieName, synopsis, director, cast, status);
 		movieList.add(newMovie);
+		writeDB();
 	}
 	
 	public void updateMovie(int movieId, String newMovieName, String newSynopsis, String newdirector, String newCast, MovieShowingStatus newStatus){
 		Movie oldMovie = removeMovie(movieId);
 		if (oldMovie != null)
 			addMovie(movieId, newMovieName, newSynopsis, newdirector, newCast, newStatus);
+		writeDB();
 	}
 	
 	
@@ -230,15 +232,17 @@ public class MovieController extends DatabaseController{
          * @param movieId
          * @return
          */
-        public Movie removeMovie(int movieId){
-            for (int i = 0; i < movieList.size() - 1; i++)
-            {
-                if (movieList.get(i).getMovieId() == movieId) {
-                    return movieList.remove(i);
-                }
-            }
-            return null;
-        }
+	public Movie removeMovie(int movieId){
+		for (int i = 0; i < movieList.size(); i++)
+		{
+			if (movieList.get(i).getMovieId() == movieId) {
+				Movie movie = movieList.remove(i);
+				writeDB();
+				return movie;
+			}
+		}
+		return null;
+	}
 
 
 	/**
@@ -295,10 +299,11 @@ public class MovieController extends DatabaseController{
 		for (int i = 0; i < movieList.size();i++){
 			movieList.get(i).printInfo();
 		}
-
 	}
-	public void validateCustomer(String email, String password) {
-		// TODO Auto-generated method stub
-		
+
+	public void printMovieNames() {
+		for (int i = 0; i < movieList.size(); i++) {
+			System.out.println((i + 1) + ") " + movieList.get(i).getMovieName());
+		}
 	}
 }

@@ -171,15 +171,16 @@ public class MovieScreeningController extends DatabaseController {
         for (int i = 0; i < movieScreenings.size(); i ++){
             MovieScreening movieScreening = movieScreenings.get(i);
             if (movieScreening.getCinemaID() == cinemaID){
-                // if startTime is lesser than one of the moviescreening's endTime
-                if (startTime.compareTo(movieScreening.getEndTime()) == -1) {
+                if (!(((startTime.compareTo(movieScreening.getStartTime())== 1) && (endTime.compareTo(movieScreening.getEndTime())) == 1) ||
+                        (((startTime.compareTo(movieScreening.getStartTime())) == -1) && ((endTime.compareTo(movieScreening.getEndTime())) == -1)))) {
                     System.out.println("This moviescreening's timing clashes with another moviescreening's timing!");
                     return false;
                 }
             }
         }
-        MovieScreening newMovieScreening = new MovieScreening(movieScreenings.size()-1,startTime, endTime, movieType, cinemaID,movieID);
+        MovieScreening newMovieScreening = new MovieScreening(movieScreenings.size()+1,startTime, endTime, movieType, cinemaID,movieID);
         movieScreenings.add(newMovieScreening);
+        writeDB();
         return true;
     }
 
@@ -195,8 +196,9 @@ public class MovieScreeningController extends DatabaseController {
                                         MovieClassType movieType)
     {
         MovieScreening oldMovieScreening = removeMovieScreening(movieScreeningID);
-        if (addMovieScreening(newCinemaID,newMovieID, newStartTime, movieType) && oldMovieScreening != null)
+        if (addMovieScreening(newCinemaID,newMovieID, newStartTime, movieType) && oldMovieScreening != null) {
             return true;
+        }
         else if (oldMovieScreening != null){
             addMovieScreening(oldMovieScreening.getCinemaID(),oldMovieScreening.getMovieID(),
                     oldMovieScreening.getStartTime(), movieType);
@@ -215,7 +217,9 @@ public class MovieScreeningController extends DatabaseController {
         for (int i = 0; i < movieScreenings.size(); i++)
         {
             if (movieScreenings.get(i).getMovieScreeningID() == movieScreeningID) {
-                return movieScreenings.remove(i);
+                MovieScreening movieScreening = movieScreenings.remove(i);
+                writeDB();
+                return movieScreening;
             }
         }
         return null;
