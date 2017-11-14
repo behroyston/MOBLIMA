@@ -1,18 +1,14 @@
 package ui;
 
+import controller.BookingController;
+import controller.MovieController;
+import controller.MovieScreeningController;
 import model.Booking;
 import model.Movie;
 import model.MovieScreening;
 import model.Seat;
 
-import java.util.Arrays;
-import java.util.InputMismatchException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-
-import controller.BookingController;
-import controller.MovieController;
+import java.util.*;
 
 public class MovieGoerUI {
 
@@ -28,7 +24,7 @@ public class MovieGoerUI {
 		// Validation first
 		System.out.println("-------------------- Welcome to MOBLIMA! --------------------");
 		String emailAddress = loginValidation();
-		if (emailAddress != null){
+		if (emailAddress == null){
 			return;
 		}
 		
@@ -40,13 +36,11 @@ public class MovieGoerUI {
 			System.out.println("1. Search/List movie");
 			System.out.println("2. View movie details - including review and ratings");
 			System.out.println("3. List the Top 5 ranking by ticket sales OR by overall reviewers' ratings");
-			System.out.println("4. Check seat availability and selection of seats");
-			System.out.println("5. Book and purchase ticket");
-			System.out.println("6. View booking history");
-			System.out.println("7. Enter review or rating for a movie you have watched");
-			System.out.println("8. Go back to previous menu");
+			System.out.println("4. View booking history");
+			System.out.println("5. Enter review or rating for a movie you have watched");
+			System.out.println("6. Go back to previous menu");
 			System.out.print("Enter choice: ");
-			choice = checkIfInt(8);
+			choice = checkIfInt(7);
 			switch (choice){
 			case 1:
 				listSearchMovies();
@@ -58,32 +52,24 @@ public class MovieGoerUI {
 				listTopRankings();
 				break;
 			case 4:
-				//showSeatsAvailability();
+				viewBookingHistory();
 				break;
 			case 5:
-				//bookTickets();
-				break;
-			case 6:
-				//viewBookingHistory();
-				break;
-			case 7:
 				enterReviewRating(emailAddress);
-			case 8:
+			case 6:
 				break; 
 			default:
 				System.out.println("Invalid choice! Please re-enter...");
 			}
-		}while(choice != 8);
+		}while(choice != 6);
 	}
 	
 	private int checkIfInt(int value){
-		try{
-			return sc.nextInt();
-		}
-		catch(InputMismatchException ex){
-			sc.nextLine();
-			return value;
-		}
+		if (!sc.hasNextInt()){
+		    sc.next(); // Remove the invalid input
+            return value;
+        }
+        return sc.nextInt();
 	}
 
 	// Current display seems to be implemented in MovieGoer - may need to revise this
@@ -146,8 +132,11 @@ public class MovieGoerUI {
 				sc.nextLine();                // Clear buffer
 				String movieName = sc.nextLine();
 				Movie showingMovie = MovieController.getInstance().getShowingMovieByName(movieName);
-				if (showingMovie != null)
-					showingMovie.printInfo();
+				int movieID = showingMovie.getMovieId();
+				if (showingMovie != null) {
+                    showingMovie.printInfo();
+                    listTimings(movieID);
+                }
 				break;
 			case 2:
 				ArrayList<Movie> movieList = MovieController.getInstance().getShowingMovieList();
@@ -156,16 +145,32 @@ public class MovieGoerUI {
 				int num = checkIfInt(-1);
 				if (num > movieList.size() || num < 1)
 					System.out.println("Invalid Number!");
-				else
-					movieList.get(num).printInfo();
+				else {
+                    movieList.get(num-1).printInfo();
+                    listTimings(num-1);
+                }
 				break;
 			case 3:
 				return;
 			default:
 				System.out.println("Invalid choice! Please re-enter...");
 			}
-		}while (choice > 3 || choice < 1);
+		} while (choice > 3 || choice < 1);
 	}
+
+	private void listTimings(int movieID){
+        ArrayList<MovieScreening> movieScreenings = MovieScreeningController.getInstance().getMovieScreeningsByMovieID(movieID);
+        System.out.println("MovieScreenings:");
+        for (int i = 0; i< movieScreenings.size(); i++)
+        {
+            System.out.print((i+1) + ") ");
+            movieScreenings.get(i).getStartDateTime();
+        }
+        System.out.println("Enter the Movie Screening Number if you want to book seats!");
+
+        int selection = sc.nextInt();
+        showSeatsAvailability(movieScreenings.get(selection-1).getMovieScreeningID());
+    }
 
 	private void listTopRankings(){
 		MovieController movieController = MovieController.getInstance();
@@ -283,8 +288,9 @@ public class MovieGoerUI {
 	//        Movie.addReviews(Movie.reviews) = newReview;
 	//    }
 	// traverses through MovieController.getCineplex(position).getCinema(position).getMovieScreening(position).getSeatsForThisMovie
-	public void showSeatsAvailability(MovieScreening movieScreening){
+	public void showSeatsAvailability(int movieScreeningID){
 
+	    MovieScreening movieScreening = MovieScreeningController.getInstance().getMovieScreenings().get(movieScreeningID);
 		// 14
 		System.out.println("\t <<<EXIT>>>\t");
 		System.out.print("  ");
@@ -306,16 +312,17 @@ public class MovieGoerUI {
 		System.out.println("1. Book Seat\n2. Go Back to Main Menu");
 		int choice = checkIfInt(2);
 		switch (choice) {
-		case (1): bookTickets(movieScreening);
-		break;
+		case (1): bookTickets(movieScreeningID);
+		    break;
 		case (2): //TODO: Add in the show main menu function
 			break;
 		}
 	}
 
-	private void bookTickets(MovieScreening movieScreening){
+	private void bookTickets(int movieScreeningID){
 		int number;
 		String alphabet;
+		MovieScreening movieScreening = MovieScreeningController.getInstance().getMovieScreenings().get(movieScreeningID);
 		System.out.println("\"Please enter the Seat Alphabet you wished to book!");
 		while (!sc.hasNext("[ABCDEFGHIJKLMNabcdefghijklmn]")) {
 			System.out.println("That's not an Alphabet");
@@ -347,7 +354,24 @@ public class MovieGoerUI {
 		}
 		else
 			System.out.println("The seat is booked! Please select another seat.");
-		showSeatsAvailability(movieScreening);
+		showSeatsAvailability(movieScreeningID);
 	}
+
+    public void viewBookingHistory() {
+        System.out.println("Booking History: \n");
+        ArrayList<Booking> bookings = BookingController.getInstance().getBookingList();
+        for (Booking booking : bookings) {
+            int moviescreeningID = booking.getMovieScreeningID();
+            MovieScreening movieScreening = MovieScreeningController.getInstance().getMovieScreenings().get(moviescreeningID);
+            int movieID = movieScreening.getMovieID();
+            String movieName = MovieController.getInstance().getMovie(movieID).getMovieName();
+
+            System.out.println(
+                    "Booking Transaction ID: " + booking.getTransactionID()
+                    + "\nMovie watched: " +  movieName);
+            System.out.printf("Time watched: " );
+            movieScreening.getStartDateTime();
+        }
+    }
 
 }
