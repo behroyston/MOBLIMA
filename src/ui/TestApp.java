@@ -1,5 +1,7 @@
 package ui;
 
+import controller.CineplexController;
+import controller.MovieController;
 import controller.MovieScreeningController;
 import model.Cinema;
 import model.Cineplex;
@@ -11,15 +13,16 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Scanner;
 
 public class TestApp {
     public static void main(String[] args) {
-
-//        MovieController movieController = MovieController.getInstance();
-//        movieController.setMovieList(createSampleMovie());
-//        movieController.writeDB();
-//        movieController.readDB();
-//        movieController.printMovieLists();
+    	
+        MovieController movieController = MovieController.getInstance();
+        movieController.setMovieList(createSampleMovie());
+       // movieController.writeDB();
+        movieController.readDB();
+        movieController.printMovieLists();
 
 //        BookingController bookingController = BookingController.getInstance();
 ////        bookingController.setBookingList(createSampleBooking());
@@ -32,20 +35,20 @@ public class TestApp {
 //        movieScreeningController.writeDB();
         movieScreeningController.readDB();
 //        movieScreeningController.printMovieScreenings();
-
+        MovieGoerUI.getInstance().display();
         MovieGoerUI.getInstance().showSeatsAvailability(movieScreeningController.getMovieScreenings().get(0));
-
+        
         // Manual text format - preferred here because it simulates the allowance of staff to add new cineplex/cinema to DB
-//        CineplexController control = CineplexController.getInstance();
-//        ArrayList<Cineplex> cineplexList ;
-//        cineplexList = createSample();
-//        control.setCineplexList(cineplexList);
-//        control.writeDB();
-//        control.readDB();
+        CineplexController control = CineplexController.getInstance();
+        ArrayList<Cineplex> cineplexList ;
+        cineplexList = createSample();
+        control.setCineplexList(cineplexList);
+        control.writeDB();
+        control.readDB();
 
-//        cineplexList = control.getCineplexList();
+        cineplexList = control.getCineplexList();
 ////		System.out.println("---------------------------------------");
-//        printCineplex(cineplexList);
+        printCineplex(cineplexList);
 
 		/*control.writeDB();
 		System.out.println("---------------------------------------");
