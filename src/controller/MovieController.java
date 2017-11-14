@@ -217,11 +217,31 @@ public class MovieController extends DatabaseController{
 	}
 	
 	/**
+         * update the movie given the new movieId, movieName, synopsis, director, cast, status
+         * @param movieId the unique movieId to be updated.
+	 ...
+         * @return
+         */
+	//Add this to class diagram
+        public boolean updateMovie(int movieId, String newMovieName, String newSynopsis, String newDirector, String newCast, String newStatus)
+        {
+            Movie oldMovie = removeMovie(movieId);
+            if (addMovie(movieId, newMovieName, newSynopsis, newDirector, newCast, newStatus) && oldMovie != null)
+                return true;
+            else if (oldMovie != null){
+                addMovie(oldMovie.getMovieId(),oldMovie.getMovieName(), oldMovie.getSynopsis(), oldMovie.getDirector(), oldMovie.getCast(), oldMovie.getStatus());
+                return false;
+            }
+            return false;
+        }
+	
+	/**
          * removes the movie based on its unique ID.
          * if movie is not found, return null object
          * @param movieId
          * @return
          */
+	//Add this to class diagram
         public Movie removeMovie(int movieId){
             for (int i = 0; i < movieList.size() - 1; i++)
             {
