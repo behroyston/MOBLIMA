@@ -13,7 +13,7 @@ public class Staff extends Person{
 	Scanner sc = new Scanner(System.in);
 	
 	//class constructor
-	public Staff(String password, String name, int mobileNumber, String email, int staffID) {
+	public Staff(String password, String name, String mobileNumber, String email, int staffID) {
 		super(password, name, mobileNumber, email);//abstract
 		this.staffID = staffID;
 	}
@@ -48,4 +48,14 @@ public class Staff extends Person{
 		
 		return false;
 	}
+
+    @Override
+    public boolean validateIdentity(String email, String password) {
+        return false;
+    }
+
+    public void showStaffInfo(){
+	    System.out.println(this.getStaffID() + "\n" + this.getName() +"\n" + this.getPassword() + "\n" + this.getEmail()
+        + "\n" + this.getMobileNumber());
+    }
 }

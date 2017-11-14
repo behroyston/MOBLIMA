@@ -26,13 +26,17 @@ public class BookingController extends DatabaseController{
 		return Instance;
 	}
 
+	 /** Summary: Text in order: String transactionId , int movieScreeningID, String userName, String mobileNum,
+      * String emailAddress
+     * These variables are parsed into the Booking objects and stored when the Booking Controller is initalized.
+     */
 	@Override
 	protected void readDB() {
 		bookingList.clear();
 		if (checkDirectoryExist(BASEDIR + DIR)) {
 			try{
 				for (File f : getListofFiles(BASEDIR + DIR)) {
-					List<String> text = retrieveData(BASEDIR + DIR + "Booking.dat");
+					List<String> text = retrieveData(BASEDIR + DIR + "Bookings.dat");
 					StringTokenizer aStr;
 					Booking booking;
 					for (String line : text) {
@@ -61,12 +65,15 @@ public class BookingController extends DatabaseController{
 
 	}
 
+	/** Each line in the Bookings.dat file is a booking object
+	 * Summary: Text in order: String transactionId , int movieScreeningID, String userName, String mobileNum, String emailAddress
+     * These will be appended into the Bookings.dat file in sequence.
+     */
 	@Override
 	protected void writeDB() {
 		List<String> text = new ArrayList<>();
 		StringBuilder str = new StringBuilder();
-		/* Summary: Text in order: String transactionId , int movieScreeningID, String userName, String mobileNum, String emailAddress
-		 */
+
 		for (Booking booking : bookingList) {
 			if (checkDirectoryExist(BASEDIR + DIR)) {
 				str.setLength(0); // Reset Buffer
@@ -84,7 +91,7 @@ public class BookingController extends DatabaseController{
 
 				// Attempt to save to file
 				try {
-					saveData(BASEDIR + DIR + "Booking" + ".dat", text); // Write to file
+					saveData(BASEDIR + DIR + "Bookings" + ".dat", text); // Write to file
 				} catch (Exception ex) {
 					System.out.println("Error! Unable to write to file!");
 				}

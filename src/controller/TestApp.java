@@ -1,10 +1,6 @@
 package controller;
 
-import model.Cinema;
-import model.Cineplex;
-import model.Movie;
-import model.MovieGoer;
-import model.MovieScreening;
+import model.*;
 import ui.MovieGoerUI;
 
 import java.io.*;
@@ -15,16 +11,23 @@ import java.util.List;
 
 public class TestApp {
     public static void main(String[] args) {
-    	MovieGoerController movieGoerController = MovieGoerController.getInstance();
-    	ArrayList<MovieGoer> movieGoerList = createMovieGoerSample();
-    	movieGoerController.setMovieGoerList(movieGoerList);
-    	for (MovieGoer movieGoer : movieGoerList)
-    		movieGoer.printInfo();
-    	movieGoerController.writeDB();
-    	movieGoerController.readDB();
-    	System.out.println("----------------------------");
-    	for (MovieGoer movieGoer : movieGoerList)
-    		movieGoer.printInfo();
+//    	MovieGoerController movieGoerController = MovieGoerController.getInstance();
+//    	ArrayList<MovieGoer> movieGoerList = createMovieGoerSample();
+//    	movieGoerController.setMovieGoerList(movieGoerList);
+//    	for (MovieGoer movieGoer : movieGoerList)
+//    		movieGoer.printInfo();
+//    	movieGoerController.writeDB();
+//    	movieGoerController.readDB();
+//    	System.out.println("----------------------------");
+//    	for (MovieGoer movieGoer : movieGoerList)
+//    		movieGoer.printInfo();
+
+    	StaffController staffController = StaffController.getInstance();
+//        ArrayList<Staff> staffList = createStaffSample();
+//        staffController.setStaffList(staffList);
+//        staffController.writeDB();
+        staffController.readDB();
+        staffController.printStaffList();
     	
 
         MovieController movieController = MovieController.getInstance();
@@ -304,6 +307,18 @@ public class TestApp {
     	movieGoerList.add(movieGoer);
     	return movieGoerList;
     }
+
+    private static ArrayList<Staff> createStaffSample(){
+        ArrayList<Staff> staffList = new ArrayList<>();
+        Staff staff = new Staff("123456", "Ah Gao", "98765432", "staffabc@hotmail.com", 1);
+        staffList.add(staff);
+        staff = new Staff("654321", "Ah Tan", "91234567", "staffcba@hotmail.com", 2);
+        staffList.add(staff);
+        staff = new Staff("651234", "Ah Meow", "92345678", "staffpeon@hotmail.com", 3);
+        staffList.add(staff);
+        return staffList;
+    }
+
     
 	/*public static void printMovieTimings(ArrayList<model.MovieScreening> at){
 		for (model.MovieScreening movie: at){
