@@ -34,7 +34,7 @@ public class MovieGoerController extends DatabaseController{
 					for (String line : text) {
 						aStr = new StringTokenizer(line, DELIMITER);
 						String name = aStr.nextToken();
-						int mobileNumber = Integer.parseInt(aStr.nextToken());
+						String mobileNumber = (aStr.nextToken());
 						String password = aStr.nextToken();
 						String email = aStr.nextToken();
 						int cusID = Integer.parseInt(aStr.nextToken());
