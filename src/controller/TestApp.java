@@ -85,8 +85,13 @@ public class TestApp {
 //        staffController.printStaffList();
 //        StaffUI staffUI = StaffUI.getInstance();
 //        staffUI.display();
+<<<<<<< HEAD
 
 
+=======
+
+
+>>>>>>> b82964c3f455e23b99c1ecb1e3efbf779e0a676b
 
 //        MovieController movieController = MovieController.getInstance();
 //        movieController.setMovieList(createSampleMovie());
@@ -302,6 +307,9 @@ public class TestApp {
         seatsLayout[7][14] = ' ';
         cin.add(new Cinema(2, CinemaClassType.PLATINUM, seatsLayout));
 
+<<<<<<< HEAD
+>>>>>>> b82964c3f455e23b99c1ecb1e3efbf779e0a676b
+=======
 >>>>>>> b82964c3f455e23b99c1ecb1e3efbf779e0a676b
 
 		/*Calendar aDate, startTime, endTime;
@@ -322,6 +330,7 @@ public class TestApp {
 		System.out.println(cin.get(1).addMovieScreening(startTime, endTime, "2D", 3));
 		printMovieTimings(at);*/
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 		cineplexList.add(new Cineplex("Bugis Cineplex", "Bugis", cin));
 		System.out.println("LOL3!~~~~~~~~~~");
@@ -462,6 +471,8 @@ public class TestApp {
 	}
 
 =======
+=======
+>>>>>>> b82964c3f455e23b99c1ecb1e3efbf779e0a676b
         cineplexList.add(new Cineplex("Bugis Cineplex", "Bugis", cin));
         System.out.println("LOL3!~~~~~~~~~~");
         ArrayList<Cinema> cin2 = new ArrayList<>();
