@@ -14,10 +14,11 @@ public class Cinema{
 	private int cinemaID;
 	
 	/**
-	 * The class of this cinema (e.g Platinum model.Movie Suites).
+	 * The class of this cinema (e.g Platinum).
 	 */
-	private String classType;
-	
+	private CinemaClassType cinemaClassType;
+
+
 	/**
 	 * model.Seat layout of this cinema.
 	 * Entries are 1 for a seat and 0 for a space.
@@ -33,12 +34,12 @@ public class Cinema{
 	 * Creates a new model.Cinema with its given ID, classType and seats.
 	 * Also initalise the movieScreenings.
 	 * @param cinemaID model.Cinema ID corresponding to this cinema.
-	 * @param classType Class of this cinema.
+	 * @param cinemaClassType Class of this cinema.
 	 * @param seatLayout
 	 */
-	public Cinema(int cinemaID, String classType, char[][] seatLayout){
+	public Cinema(int cinemaID, CinemaClassType cinemaClassType, char[][] seatLayout){
 		this.cinemaID = cinemaID;
-		this.classType = classType;
+		this.cinemaClassType = cinemaClassType;
 		setSeatLayout(seatLayout);
 	}
 	
@@ -46,7 +47,7 @@ public class Cinema{
 	 * Print this cinema attributes
 	 */
 	public void printCineplexInfo(){
-		System.out.println("Cinema " + cinemaID + "(Class Type: " + classType + ")");
+		System.out.println("Cinema " + cinemaID + "(Class Type: " + cinemaClassType + ")");
 	}
 	
 		
@@ -70,19 +71,18 @@ public class Cinema{
 	 * Gets the class of this cinema.
 	 * @return Class of this cinema.
 	 */
-	public String getClassType(){
-		return classType;
-	}
-	
-	/**
-	 * Change the class of this cinema.
-	 * @param classType New class of this cinema.
-	 */
-	public void setClassType(String classType){
-		this.classType = classType;
-	}
-	
-	/**
+    public CinemaClassType getCinemaClassType() {
+        return cinemaClassType;
+    }
+    /**
+     * Change the class of this cinema.
+     * @param cinemaClassType New class of this cinema.
+     */
+    public void setCinemaClassType(CinemaClassType cinemaClassType) {
+        this.cinemaClassType = cinemaClassType;
+    }
+
+    /**
 	 * Get the seat layout of this cinema.
 	 * @return model.Seat layout of this cinema
 	 */
@@ -198,5 +198,4 @@ public class Cinema{
 		return true;
 	}*/
 
-	
 }

@@ -3,6 +3,7 @@ package controller;
 import model.Movie;
 import model.MovieSalesComparator;
 import model.MovieRatingsComparator;
+import model.MovieShowingStatus;
 
 import java.io.File;
 import java.io.IOException;
@@ -52,7 +53,7 @@ public class MovieController extends DatabaseController{
 						aStr = new StringTokenizer(line, DELIMITER);
 						int movieID = Integer.parseInt(aStr.nextToken());
 						String movieName = aStr.nextToken();
-						String status = aStr.nextToken();
+						MovieShowingStatus status = MovieShowingStatus.valueOf(aStr.nextToken());
 						String synopsis = aStr.nextToken();
 						String director = aStr.nextToken();
 						String cast = aStr.nextToken();
@@ -211,7 +212,7 @@ public class MovieController extends DatabaseController{
 	 * @param director
 	 * @param cast
 	 */
-	public void addMovie(int movieId, String movieName, String synopsis, String director, String cast, String status){
+	public void addMovie(int movieId, String movieName, String synopsis, String director, String cast, MovieShowingStatus status){
 		Movie newMovie = new Movie(movieId, movieName, synopsis, director, cast, status);
 		movieList.add(newMovie);
 	}

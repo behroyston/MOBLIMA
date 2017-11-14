@@ -1,6 +1,7 @@
 package controller;
 
 import model.Booking;
+import model.SystemSettings;
 
 import java.io.File;
 import java.io.IOException;
@@ -143,7 +144,8 @@ public class BookingController extends DatabaseController{
 	 * Update the total sales of the model.Movie by using the MovieID.
 	 */
 	private void updateSales(int movieID){
-		// calls controller.MovieController.get(movieID).addSales(SystemSettings.money);
+        double basePrice = SystemSettings.getInstance().getBase_price();
+
 	}
 
 	public void setBookingList(ArrayList<Booking> bookingList) {

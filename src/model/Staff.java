@@ -51,7 +51,8 @@ public class Staff extends Person{
 
     @Override
     public boolean validateIdentity(String email, String password) {
-        return false;
+	    // same as MovieGoer
+        return email.equals(super.email) && password.equals(super.password);
     }
 
     public void showStaffInfo(){

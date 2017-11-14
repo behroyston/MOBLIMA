@@ -1,5 +1,6 @@
 package controller;
 
+import model.MovieClassType;
 import model.MovieScreening;
 import model.Seat;
 
@@ -54,7 +55,7 @@ public class MovieScreeningController extends DatabaseController {
                             startTime.setTimeInMillis(Long.parseLong(aStr.nextToken()));    // Start Time
                             Calendar endTime = Calendar.getInstance();
                             endTime.setTimeInMillis(Long.parseLong(aStr.nextToken()));        // End Time
-                            String movieType = aStr.nextToken();                            // movieType
+                            MovieClassType movieType = MovieClassType.valueOf(aStr.nextToken());                            // movieType
                             boolean isExpired = Boolean.parseBoolean(aStr.nextToken()); // isExpired
 
                             Seat[][] mSeats = new Seat[8][15];
@@ -117,7 +118,7 @@ public class MovieScreeningController extends DatabaseController {
                 str.append(DELIMITER);
                 str.append(movieScreening.getEndTime().getTimeInMillis()); // store Calendar endTime in milliseconds
                 str.append(DELIMITER);
-                str.append(movieScreening.getMovieType());
+                str.append(movieScreening.getMovieClassType());
                 str.append(DELIMITER);
                 str.append(Boolean.toString(movieScreening.getIsExpired()));
                 str.append(DELIMITER);
@@ -163,7 +164,7 @@ public class MovieScreeningController extends DatabaseController {
      * @param startTime the starting time of the movie
      * @return
      */
-    public boolean addMovieScreening(int cinemaID, int movieID, Calendar startTime, String movieType)
+    public boolean addMovieScreening(int cinemaID, int movieID, Calendar startTime, MovieClassType movieType)
     {
         Calendar endTime = startTime;
         endTime.add(Calendar.MINUTE, MovieController.getInstance().getMovie(movieID).getDuration());
@@ -191,7 +192,7 @@ public class MovieScreeningController extends DatabaseController {
      * @return
      */
     public boolean updateMovieScreening(int movieScreeningID, int newCinemaID, int newMovieID, Calendar newStartTime,
-                                        String movieType)
+                                        MovieClassType movieType)
     {
         MovieScreening oldMovieScreening = removeMovieScreening(movieScreeningID);
         if (addMovieScreening(newCinemaID,newMovieID, newStartTime, movieType) && oldMovieScreening != null)

@@ -1,7 +1,13 @@
 package ui;
 
-import java.util.Scanner;
+import controller.MovieController;
+import controller.MovieScreeningController;
+import controller.StaffController;
+import model.MovieClassType;
+import model.SystemSettings;
+
 import java.util.Calendar;
+import java.util.Scanner;
 
 public class StaffUI {
 
@@ -141,8 +147,21 @@ public class StaffUI {
 		int newCID = sc.nextInt();
 		System.out.println("Enter Movie ID: ");
 		int newMID = sc.nextInt();
-		System.out.println("Enter Movie Type: ");
-		String newType = sc.next();
+		System.out.println("Enter Movie Type: \n" +
+                "1) 2D\n" + "2) 3D\n");
+		int newType = sc.nextInt();
+        MovieClassType movieClassType;
+		switch (newType){
+            case (1) :
+                movieClassType = MovieClassType.CLASS2D;
+                break;
+            case (2) :
+                movieClassType = MovieClassType.CLASS3D;
+                break;
+            default:
+                movieClassType = MovieClassType.CLASS2D;
+                break;
+        }
 		System.out.println("Movie Start Time:\n");
 		System.out.println("Enter Year of screening: ");
 		int newYear = sc.nextInt();
@@ -157,7 +176,7 @@ public class StaffUI {
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(newYear, newMonth, newDay, newHour,newMin, 0);
 		
-		MovieScreeningController.getInstance().addMovieScreening(newCID, newMID, calendar, newType);
+		MovieScreeningController.getInstance().addMovieScreening(newCID, newMID, calendar, movieClassType);
 		
 		
 	}
@@ -312,3 +331,4 @@ public class StaffUI {
 		return instance;
 	}
 }
+>>>>>>> a967083b49fe7b562c5464c8491a669aece4d4e1

@@ -2,6 +2,7 @@ package controller;
 
 import model.Cinema;
 import model.Cineplex;
+import model.CinemaClassType;
 
 import java.io.File;
 import java.util.Arrays;
@@ -85,6 +86,7 @@ public class CineplexController extends DatabaseController {
 						aStr = new StringTokenizer(line, DELIMITER);
 						int cinemaID = Integer.parseInt(aStr.nextToken());	// CinemaID
 						String classType = aStr.nextToken();				// Type of model.Cinema
+						CinemaClassType cinemaClassType = CinemaClassType.valueOf(classType);
 
 						// model.Seat Layout
 						char[][] seatLayout = new char[8][15];
@@ -97,7 +99,7 @@ public class CineplexController extends DatabaseController {
 								seatLayout[i][j] = col.charAt(j);
 							i++;
 						}
-						cinemaList.add(new Cinema(cinemaID, classType, seatLayout));
+						cinemaList.add(new Cinema(cinemaID, cinemaClassType, seatLayout));
 					}
 					cineplexList.add(new Cineplex(cineplexName, cineplexLocation, cinemaList));
 
@@ -140,7 +142,7 @@ public class CineplexController extends DatabaseController {
 					str.setLength(0); // Reset Buffer
 					str.append(cinema.getCinemaID());	// model.Cinema ID
 					str.append(DELIMITER);
-					str.append(cinema.getClassType());	// model.Cinema Class type
+					str.append(cinema.getCinemaClassType());	// model.Cinema Class type
 					str.append(DELIMITER);
 
 					// model.Seat layout of the cinema
