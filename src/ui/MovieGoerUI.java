@@ -24,17 +24,33 @@ public class MovieGoerUI {
 	public void display(){
 		// Validation first
 		System.out.println("-------------------- Welcome to MOBLIMA! --------------------");
-		String emailAddress = loginValidation();
-		if (emailAddress == null){
-			return;
-		}
+		int choice;
+		String emailAddress = null;
+		do{
+			System.out.println("Do you have a account with us?");
+			System.out.println("1. No and would like to register one");
+			System.out.println("2. Yes and would like to login");
+			System.out.println("3. Go back to previous menu");
+			System.out.print("Enter choice: ");
+			choice = checkIfInt(4);
+			switch (choice){
+			case 1:
+				registerNewAccount();
+			case 2:
+				emailAddress = loginValidation();
+				break;
+			case 3:
+				return;
+			default:
+				System.out.println("Invalid choice! Please re-enter...");
+			}
+		}while(choice != 1 && choice != 2);
 
 		// Movie-Goer Options
-		int choice;
 		do{
 			System.out.println();
 			System.out.println("1. Search/List movie");
-			System.out.println("2. View movie details - including review and ratings");
+			System.out.println("2. View movie details and book tickets");
 			System.out.println("3. List the Top 5 ranking by ticket sales OR by overall reviewers' ratings");
 			System.out.println("4. View booking history");
 			System.out.println("5. Enter review or rating for a movie you have watched");
@@ -56,6 +72,7 @@ public class MovieGoerUI {
 				break;
 			case 5:
 				enterReviewRating(emailAddress);
+				break;
 			case 6:
 				break; 
 			default:
@@ -72,9 +89,24 @@ public class MovieGoerUI {
 		return sc.nextInt();
 	}
 
-	// Current display seems to be implemented in MovieGoer - may need to revise this
+	private void registerNewAccount(){
+		sc.nextLine();			// Clear buffer
+		System.out.print("Please enter your name: ");
+		String name = sc.nextLine();
+		System.out.print("Please enter your email address: ");
+		String email = sc.next();
+		System.out.print("Please enter your password: ");
+		String password = sc.next();
+		System.out.print("Please enter your mobile number: ");
+		String mobileNumber = sc.next();
+		System.out.print("Please enter your age: ");
+		int age = sc.nextInt();
+		MovieGoerController.getInstance().addMovieGoer(password, name, mobileNumber, email, age);
+	}
+	
 	private String loginValidation(){
 		String email, password;
+		System.out.println("Login System:");
 		while (true){
 			System.out.print("Please enter your email address: ");
 			email = sc.next();
@@ -143,11 +175,13 @@ public class MovieGoerUI {
 				sc.nextLine();                // Clear buffer
 				String movieName = sc.nextLine();
 				Movie showingMovie = MovieController.getInstance().getShowingMovieByName(movieName);
-				int movieID = showingMovie.getMovieId();
 				if (showingMovie != null) {
 					showingMovie.printInfo();
+					int movieID = showingMovie.getMovieId();
 					listTimings(movieID);
 				}
+				else
+					System.out.println("No such movie!");
 				break;
 			case 2:
 				ArrayList<Movie> movieList = MovieController.getInstance().getShowingMovieList();
@@ -158,7 +192,7 @@ public class MovieGoerUI {
 					System.out.println("Invalid Number!");
 				else {
 					movieList.get(num-1).printInfo();
-					listTimings(num-1);
+					listTimings(movieList.get(num-1).getMovieId());
 				}
 				break;
 			case 3:
@@ -171,6 +205,17 @@ public class MovieGoerUI {
 
 	private void listTimings(int movieID){
 		ArrayList<MovieScreening> movieScreenings = MovieScreeningController.getInstance().getMovieScreeningsByMovieID(movieID);
+		char isBooking;
+		while (true){
+			System.out.println("Would like to book a ticket now? (y/n)");
+			isBooking = sc.next().charAt(0);
+			if (isBooking == 'y')
+				break;
+			else if (isBooking == 'n')
+				return;
+			else
+				System.out.println("Invalid input! Please re-enter...");
+		}
 		System.out.println("MovieScreenings:");
 		for (int i = 0; i< movieScreenings.size(); i++)
 		{
@@ -225,7 +270,7 @@ public class MovieGoerUI {
 		MovieController movieController = MovieController.getInstance();
 		MovieScreeningController movieScreeningController = MovieScreeningController.getInstance();
 		ArrayList<Integer> movieIDs = new ArrayList<>();
-		
+
 		for (Booking booking : userBookings){
 			int screeningID = booking.getMovieScreeningID();
 			MovieScreening movieScreening = movieScreeningController.getMovieScreeningByScreeningID(screeningID);
@@ -396,8 +441,10 @@ public class MovieGoerUI {
 		ArrayList<Booking> bookings = BookingController.getInstance().getAllBookingByUser(emailAddress);
 		for (Booking booking : bookings) {
 			int moviescreeningID = booking.getMovieScreeningID();
-			MovieScreening movieScreening = MovieScreeningController.getInstance().getMovieScreenings().get(moviescreeningID);
+			System.out.println(moviescreeningID);
+			MovieScreening movieScreening = MovieScreeningController.getInstance().getMovieScreeningByScreeningID(moviescreeningID);
 			int movieID = movieScreening.getMovieID();
+			System.out.println(movieID);
 			String movieName = MovieController.getInstance().getMovie(movieID).getMovieName();
 
 			System.out.println(

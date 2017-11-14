@@ -1,6 +1,7 @@
 package controller;
 
 import model.*;
+import ui.MovieGoerUI;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -11,16 +12,16 @@ import java.util.List;
 public class TestApp {
     public static void main(String[] args) {
 
-//    	MovieGoerController movieGoerController = MovieGoerController.getInstance();
-//    	ArrayList<MovieGoer> movieGoerList = createMovieGoerSample();
-//    	movieGoerController.setMovieGoerList(movieGoerList);
+    	MovieGoerController movieGoerController = MovieGoerController.getInstance();
+    	ArrayList<MovieGoer> movieGoerList = createMovieGoerSample();
+    	movieGoerController.setMovieGoerList(movieGoerList);
 //    	for (MovieGoer movieGoer : movieGoerList)
-//    		movieGoer.printInfo();
+//  		movieGoer.printInfo();
 //    	movieGoerController.writeDB();
-//    	movieGoerController.readDB();
+    	movieGoerController.readDB();
 //    	System.out.println("----------------------------");
-//    	for (MovieGoer movieGoer : movieGoerList)
-//    		movieGoer.printInfo();
+    	for (MovieGoer movieGoer : movieGoerController.getMovieGoerList())
+    		movieGoer.printInfo();
 
 //    	StaffController staffController = StaffController.getInstance();
 ////        ArrayList<Staff> staffList = createStaffSample();
@@ -33,24 +34,25 @@ public class TestApp {
 
 
 
-//        MovieController movieController = MovieController.getInstance();
-//        movieController.setMovieList(createSampleMovie());
-//        movieController.writeDB();
-//        movieController.readDB();
+        MovieController movieController = MovieController.getInstance();
+        movieController.setMovieList(createSampleMovie());
+        movieController.writeDB();
+        movieController.readDB();
 //        movieController.printMovieLists();
 //
-//        BookingController bookingController = BookingController.getInstance();
-//////        bookingController.setBookingList(createSampleBooking());
-//////        bookingController.writeDB();
-//        bookingController.readDB();
+        BookingController bookingController = BookingController.getInstance();
+        bookingController.setBookingList(createSampleBooking());
+        bookingController.writeDB();
+        bookingController.readDB();
 //
-////        bookingController.printBookingList();
+ //       bookingController.printBookingList();
 //
         MovieScreeningController movieScreeningController= MovieScreeningController.getInstance();
 //        movieScreeningController.setMovieScreenings(createSampleMovieScreening());
 //        movieScreeningController.writeDB();
         movieScreeningController.readDB();
         movieScreeningController.printMovieScreenings();
+        MovieGoerUI.getInstance().display();
 //        MovieGoerUI.getInstance().showSeatsAvailability(movieScreeningController.getMovieScreenings().get(0));
 //
 //        // Manual text format - preferred here because it simulates the allowance of staff to add new cineplex/cinema to DB
@@ -326,6 +328,17 @@ public class TestApp {
         return staffList;
     }
 
+    private static ArrayList<Booking> createSampleBooking(){
+ 	    Booking booking1 = new Booking(1,"Ah Tock","91234567","abc@hotmail.com",1);
+         Booking booking2 = new Booking(1,"Ah Baka","91234568","cba@hotmail.com",1);
+        Booking booking3 = new Booking(1,"Peon","91234569","peon@hotmail.com",1);
+         ArrayList<Booking> bookings = new ArrayList<>();
+         bookings.add(booking1);
+         bookings.add(booking2);
+         bookings.add(booking3);
+
+         return bookings;
+     }
     
 	/*public static void printMovieTimings(ArrayList<model.MovieScreening> at){
 		for (model.MovieScreening movie: at){
