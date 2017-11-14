@@ -13,7 +13,7 @@ public class Staff extends Person{
 	Scanner sc = new Scanner(System.in);
 	
 	//class constructor
-	public Staff(String password, String name, int mobileNumber, String email, int staffID) {
+	public Staff(String password, String name, String mobileNumber, String email, int staffID) {
 		super(password, name, mobileNumber, email);//abstract
 		this.staffID = staffID;
 	}
