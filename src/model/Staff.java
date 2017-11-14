@@ -48,4 +48,14 @@ public class Staff extends Person{
 		
 		return false;
 	}
+
+    @Override
+    public boolean validateIdentity(String email, String password) {
+        return false;
+    }
+
+    public void showStaffInfo(){
+	    System.out.println(this.getStaffID() + "\n" + this.getName() +"\n" + this.getPassword() + "\n" + this.getEmail()
+        + "\n" + this.getMobileNumber());
+    }
 }
