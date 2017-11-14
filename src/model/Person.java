@@ -5,12 +5,12 @@ public abstract class Person {
 
 	//Attributes
 	protected String name;
-	protected int mobileNumber;
+	protected String mobileNumber;
 	protected String password;
 	protected String email;
 	
 	//Class constructor
-	public Person(String password, String name, int mobileNumber, String email) {
+	public Person(String password, String name, String mobileNumber, String email) {
 		this.name = name;
 		this.mobileNumber = mobileNumber;
 		this.password = password;
@@ -42,12 +42,12 @@ public abstract class Person {
 		}
 	
 	//access private number
-	public int getMobileNumber() {
+	public String getMobileNumber() {
 		return this.mobileNumber;
 	}
 	
 	//mutate private number
-		public void setMobleNumber(int mobileNumber) {
+		public void setMobleNumber(String mobileNumber) {
 			this.mobileNumber = mobileNumber;
 			return;
 		}
