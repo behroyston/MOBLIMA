@@ -10,7 +10,7 @@ public class MovieGoer extends Person {
 	//Attributes
 	private int cusID;
 	private int age;
-	private boolean isStudent;
+	//private boolean isStudent;
 	
 	Scanner sc = new Scanner(System.in);
 	
