@@ -40,13 +40,13 @@ public abstract class DatabaseController {
 	 * Method to allow specialized controllers to handle the structure
 	 * of the model file during model retrieval
 	 */
-	public abstract void readDB();
+	protected abstract void readDB();
 	
 	/**
 	 * Method to allow specialized controllers to handle the structure of 
 	 * model file during model storing
 	 */
-	public abstract void writeDB();
+	protected abstract void writeDB();
 
 	/**
 	 * Check if the directory in database exists.

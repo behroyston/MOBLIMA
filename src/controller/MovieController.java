@@ -40,7 +40,7 @@ public class MovieController extends DatabaseController{
 	}
 
 	@Override
-	public void readDB() {
+	protected void readDB() {
 		movieList.clear();
 		if (checkDirectoryExist(BASEDIR + DIR)) {
 			try{
@@ -106,7 +106,7 @@ public class MovieController extends DatabaseController{
 	}
 
 	@Override
-	public void writeDB() {
+	protected void writeDB() {
 		List<String> text = new ArrayList<>();
 		StringBuilder str = new StringBuilder();
 		/* Summary: Text in order: int movieId, String movieName, String status, String synopsis, String director, String cast, double avg_rating,

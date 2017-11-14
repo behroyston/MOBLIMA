@@ -30,7 +30,7 @@ public class MovieScreeningController extends DatabaseController {
     }
 
     @Override
-    public void readDB(){
+    protected void readDB(){
         movieScreenings.clear();
         if (checkDirectoryExist(BASEDIR + DIR)) {
             try{
@@ -100,7 +100,7 @@ public class MovieScreeningController extends DatabaseController {
     }
 
     @Override
-    public void writeDB() {
+    protected void writeDB() {
 
         List<String> text = new ArrayList<>();
         StringBuilder str = new StringBuilder();
@@ -223,7 +223,7 @@ public class MovieScreeningController extends DatabaseController {
      * @return
      */
     public MovieScreening removeMovieScreening(int movieScreeningID){
-        for (int i = 0; i < movieScreenings.size() - 1; i++)
+        for (int i = 0; i < movieScreenings.size(); i++)
         {
             if (movieScreenings.get(i).getMovieScreeningID() == movieScreeningID) {
                 return movieScreenings.remove(i);
