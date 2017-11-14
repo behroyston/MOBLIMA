@@ -27,7 +27,7 @@ public class BookingController extends DatabaseController{
     }
 
     @Override
-    public void readDB() {
+    protected void readDB() {
         bookingList.clear();
         if (checkDirectoryExist(BASEDIR + DIR)) {
             try{
@@ -62,7 +62,7 @@ public class BookingController extends DatabaseController{
     }
 
     @Override
-    public void writeDB() {
+    protected void writeDB() {
         List<String> text = new ArrayList<>();
         StringBuilder str = new StringBuilder();
 		/* Summary: Text in order: String transactionId , int movieScreeningID, String userName, String mobileNum, String emailAddress

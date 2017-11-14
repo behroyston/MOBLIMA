@@ -66,7 +66,7 @@ public class CineplexController extends DatabaseController {
 	 * Retrieve the model.Cineplex model from database.
 	 */
 	@Override
-	public void readDB() {
+	protected void readDB() {
 		cineplexList.clear();
 
 		if (checkDirectoryExist(BASEDIR + DIR)) {
@@ -117,7 +117,7 @@ public class CineplexController extends DatabaseController {
 	 * Each cineplex will be divided into individual file.
 	 */
 	@Override
-	public void writeDB() {
+	protected void writeDB() {
 		List<String> text = new ArrayList<>();
 		StringBuilder str = new StringBuilder();
 		/* Summary: 1st line of the file will be the cineplex attributes

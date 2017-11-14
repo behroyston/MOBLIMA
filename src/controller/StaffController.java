@@ -1,11 +1,16 @@
 package controller;
 
+import model.Booking;
 import model.Staff;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
-public class StaffController {
+public class StaffController extends DatabaseController{
 
 	
 	//Attributes
@@ -21,16 +26,81 @@ public class StaffController {
 	private StaffController() {
 		
 	}
-	
-	//database methods
-	protected void readDB() {
-		//to be added
-	}
-	protected void writeDB() {
-		//to be added
-	}
-	
-	//static 'instance' method
+
+    @Override
+    protected void readDB() {
+        staffList.clear();
+        if (checkDirectoryExist(BASEDIR + DIR)) {
+            try{
+                //int staffID, String name, String password, int mobileNumber, String email
+                for (File f : getListofFiles(BASEDIR + DIR)) {
+                    List<String> text = retrieveData(BASEDIR + DIR + "Staff.dat");
+                    StringTokenizer aStr;
+                    Booking booking;
+                    for (String line : text) {
+                        // model.MovieScreening Attributes
+                        aStr = new StringTokenizer(line, DELIMITER);
+//                        int staffID = aStr.nextToken();
+//                        int movieScreeningID = Integer.parseInt(aStr.nextToken());
+//                        String userName = aStr.nextToken();
+//                        String mobileNum = aStr.nextToken();
+//                        String emailAddress = aStr.nextToken();
+//                        booking = new Booking(movieScreeningID,userName,mobileNum,emailAddress,transactionID);
+//                        bookingList.add(booking);
+                    }
+                }
+
+            }
+            catch (IOException io)
+            {
+                System.out.println("Error! Unable to retrieve model from file.");
+            }
+        }
+        else
+        {
+            System.out.println("Error, Directory not found! Database for Booking is not loaded!");
+        }
+
+    }
+
+    @Override
+    protected void writeDB() {
+
+        //int staffID, String name, String password, int mobileNumber, String email
+        List<String> text = new ArrayList<>();
+        StringBuilder str = new StringBuilder();
+
+        for (Staff staff : staffList){
+            text.clear();
+            if (checkDirectoryExist(BASEDIR + DIR)) {
+                // model.Cineplex Attributes
+                str.setLength(0); // Reset Buffer
+                str.append(staff.getStaffID());
+                str.append(DELIMITER);              // StaffID
+                str.append(staff.getName());		// Name
+                str.append(DELIMITER);
+                str.append(staff.getPassword()); // Password
+                str.append(DELIMITER);
+                str.append(staff.getMobileNumber());   //  mobileNumber
+                str.append(DELIMITER);
+                str.append(staff.getEmail());     // staffID
+                str.append(DELIMITER);
+                text.add(str.toString());			// Write to line
+
+                // Attempt to save to file
+                try {
+                    saveData(BASEDIR + DIR + "Staff.dat", text); // Write to file
+                } catch (Exception ex) {
+                    System.out.println("Error! Unable to write to file!");
+                }
+            } else {
+                System.out.println("Error! Directory cannot be found!");
+            }
+        }
+
+    }
+
+    //static 'instance' method
 	public static StaffController getInstance() {
 		if(instance == null) {
 			instance = new StaffController();
