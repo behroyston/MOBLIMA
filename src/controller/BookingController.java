@@ -47,7 +47,8 @@ public class BookingController extends DatabaseController{
 						String userName = aStr.nextToken();
 						String mobileNum = aStr.nextToken();
 						String emailAddress = aStr.nextToken();
-						booking = new Booking(movieScreeningID,userName,mobileNum,emailAddress,transactionID);
+						int cinemaID = Integer.parseInt(aStr.nextToken());
+						booking = new Booking(movieScreeningID,userName,mobileNum,emailAddress,transactionID, cinemaID);
 						bookingList.add(booking);
 					}
 				}
@@ -66,7 +67,7 @@ public class BookingController extends DatabaseController{
 	}
 
 	/** Each line in the Bookings.dat file is a booking object
-	 * Summary: Text in order: String transactionId , int movieScreeningID, String userName, String mobileNum, String emailAddress
+	 * Summary: Text in order: String transactionId , int movieScreeningID, String userName, String mobileNum, String emailAddress, int cinemaID
      * These will be appended into the Bookings.dat file in sequence.
      */
 	@Override
@@ -86,6 +87,8 @@ public class BookingController extends DatabaseController{
 				str.append(booking.getMobileNum());
 				str.append(DELIMITER);
 				str.append(booking.getEmailAddress());
+				str.append(DELIMITER);
+				str.append(booking.getCinemaID());
 				str.append(DELIMITER);
 				text.add(str.toString());
 
@@ -130,8 +133,8 @@ public class BookingController extends DatabaseController{
 
 	public ArrayList<Booking> getAllBookingByUser(String emailAddress){
 		ArrayList<Booking> userBookings = new ArrayList<>();
-		for (Booking booking : userBookings)
-			if (emailAddress.equals(booking.getEmailAddress()))
+		for (Booking booking : bookingList)
+			if (emailAddress.equalsIgnoreCase(booking.getEmailAddress()))
 				userBookings.add(booking);
 		return userBookings;
 	}

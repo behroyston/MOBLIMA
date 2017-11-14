@@ -27,7 +27,7 @@ public class Booking {
         formatTransactionID();
     }
 
-    public Booking(int movieScreeningID, String userName, String mobileNum, String emailAddress, String transactionId){
+    public Booking(int movieScreeningID, String userName, String mobileNum, String emailAddress, String transactionId, int cinemaID){
         this.movieScreeningID = movieScreeningID;
         this.userName = userName;
         this.mobileNum = mobileNum;

@@ -167,7 +167,7 @@ public class MovieScreeningController extends DatabaseController {
     {
         Calendar endTime = startTime;
         endTime.add(Calendar.MINUTE, MovieController.getInstance().getMovie(movieID).getDuration());
-        for (int i = 0; i < movieScreenings.size() - 1 ; i ++){
+        for (int i = 0; i < movieScreenings.size(); i ++){
             MovieScreening movieScreening = movieScreenings.get(i);
             if (movieScreening.getCinemaID() == cinemaID){
                 // if startTime is lesser than one of the moviescreening's endTime
@@ -235,6 +235,13 @@ public class MovieScreeningController extends DatabaseController {
         for (int i = 0; i < movieScreenings.size(); i ++){
             movieScreenings.get(i).printMovieScreeningInfo();
         }
+    }
+    
+    public MovieScreening getMovieScreeningByScreeningID(int screeningID){
+    	for (MovieScreening movieScreening : movieScreenings)
+    		if (movieScreening.getMovieScreeningID() == screeningID)
+    			return movieScreening;
+    	return null;
     }
 
     public ArrayList<MovieScreening> getMovieScreeningsByMovieID(int movieID){

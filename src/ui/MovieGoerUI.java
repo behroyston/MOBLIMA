@@ -28,7 +28,7 @@ public class MovieGoerUI {
 		if (emailAddress == null){
 			return;
 		}
-		
+
 		// Movie-Goer Options
 		int choice;
 		do{
@@ -52,7 +52,7 @@ public class MovieGoerUI {
 				listTopRankings();
 				break;
 			case 4:
-				viewBookingHistory();
+				viewBookingHistory(emailAddress);
 				break;
 			case 5:
 				enterReviewRating(emailAddress);
@@ -222,14 +222,37 @@ public class MovieGoerUI {
 	private void enterReviewRating(String emailAddress){
 		// TODO: Validate that the movie-goer has watched the movie
 		ArrayList<Booking> userBookings = BookingController.getInstance().getAllBookingByUser(emailAddress);
-		System.out.println("You have watched the following movies:");
-		/*for (int i = 1; i <= userBookings.size(); i++){
-			System.out.println(userBookings.get(i-1).);
+		MovieController movieController = MovieController.getInstance();
+		MovieScreeningController movieScreeningController = MovieScreeningController.getInstance();
+		ArrayList<Integer> movieIDs = new ArrayList<>();
+		
+		for (Booking booking : userBookings){
+			int screeningID = booking.getMovieScreeningID();
+			MovieScreening movieScreening = movieScreeningController.getMovieScreeningByScreeningID(screeningID);
+			int movieID = movieScreening.getMovieID();
+			if (!movieIDs.contains(movieID))
+				movieIDs.add(movieID);
 		}
-		 */
+
 		// Enter review
-		int movieID = 1;
-		Movie movie = MovieController.getInstance().getMovie(movieID);
+		if (movieIDs.size() == 0){
+			System.out.println("You have not watched any movies yet.");
+			return;
+		}
+		else
+			System.out.println("You have watched the following movies:");
+		for (int i = 1; i <= movieIDs.size(); i++)
+			System.out.println(i + ") " + movieController.getMovie(movieIDs.get(i-1)).getMovieName());
+		int choice;
+		while (true){
+			System.out.print("Enter the index corresponding to the movie: ");
+			choice = checkIfInt(-1);
+			if (choice > movieIDs.size() || choice < 1)
+				System.out.println("Invalid choice. Please re-enter...");
+			else
+				break;
+		}
+		Movie movie = MovieController.getInstance().getMovie(movieIDs.get(choice-1));
 		System.out.print("Enter your rating: ");
 		double rating = sc.nextDouble();
 		movie.addRating(rating);
@@ -368,9 +391,9 @@ public class MovieGoerUI {
 		showSeatsAvailability(movieScreeningID);
 	}
 
-	public void viewBookingHistory() {
+	public void viewBookingHistory(String emailAddress) {
 		System.out.println("Booking History: \n");
-		ArrayList<Booking> bookings = BookingController.getInstance().getBookingList();
+		ArrayList<Booking> bookings = BookingController.getInstance().getAllBookingByUser(emailAddress);
 		for (Booking booking : bookings) {
 			int moviescreeningID = booking.getMovieScreeningID();
 			MovieScreening movieScreening = MovieScreeningController.getInstance().getMovieScreenings().get(moviescreeningID);

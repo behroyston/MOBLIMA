@@ -61,8 +61,8 @@ public abstract class DatabaseController {
 		return f.exists();
 	}
 	
-	public File[] getListofFiles(String fileName){
-		File folder = new File(fileName);
+	public File[] getListofFiles(String folderName){
+		File folder = new File(folderName);
 		File[] listOfFiles = folder.listFiles();
 		List<File> relevantFiles = new ArrayList<>();
 		for (File f : listOfFiles)
@@ -71,6 +71,18 @@ public abstract class DatabaseController {
 		File [] outputFiles = new File[relevantFiles.size()];
 		return relevantFiles.toArray(outputFiles);
 	}
+
+	public File[] getListofFiles(String folderName, String fileName){
+		File folder = new File(folderName);
+		File[] listOfFiles = folder.listFiles();
+		List<File> relevantFiles = new ArrayList<>();
+		for (File f : listOfFiles)
+			if (f.isFile() && f.getName().charAt(0) != '.' && f.getName().equals(fileName))
+				relevantFiles.add(f);
+		File [] outputFiles = new File[relevantFiles.size()];
+		return relevantFiles.toArray(outputFiles);
+	}
+	
 	/**
 	 * Store a specified model into database
 	 * @param fileName	Name of the model file to store model
