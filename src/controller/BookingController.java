@@ -121,6 +121,14 @@ public class BookingController extends DatabaseController{
         updateSales(MovieScreeningController.getInstance().getMovieScreenings().get(movieScreeningID).getMovieID());
     }
 
+    public ArrayList<Booking> getAllBookingByUser(String emailAddress){
+    	ArrayList<Booking> userBookings = new ArrayList<>();
+    	for (Booking booking : userBookings)
+    		if (emailAddress.equals(booking.getEmailAddress()))
+    			userBookings.add(booking);
+    	return userBookings;
+    }
+    
     /**
      * Update the total sales of the model.Movie by using the MovieID.
      */

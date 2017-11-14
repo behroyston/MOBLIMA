@@ -1,5 +1,6 @@
 package ui;
 
+import model.Booking;
 import model.Movie;
 import model.MovieScreening;
 import model.Seat;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import controller.BookingController;
 import controller.MovieController;
 
 public class MovieGoerUI {
@@ -25,7 +27,8 @@ public class MovieGoerUI {
 	public void display(){
 		// Validation first
 		System.out.println("-------------------- Welcome to MOBLIMA! --------------------");
-		if (!loginValidation()){
+		String emailAddress = loginValidation();
+		if (emailAddress != null){
 			return;
 		}
 		
@@ -36,14 +39,14 @@ public class MovieGoerUI {
 			System.out.println();
 			System.out.println("1. Search/List movie");
 			System.out.println("2. View movie details - including review and ratings");
-			System.out.println("3. Check seat availability and selection of seats");
-			System.out.println("4. Book and purchase ticket");
-			System.out.println("5. View booking history");
-			System.out.println("6. List the Top 5 ranking by ticket sales OR by overall reviewers' ratings");
-			System.out.println("7. Go back to previous menu");
+			System.out.println("3. List the Top 5 ranking by ticket sales OR by overall reviewers' ratings");
+			System.out.println("4. Check seat availability and selection of seats");
+			System.out.println("5. Book and purchase ticket");
+			System.out.println("6. View booking history");
+			System.out.println("7. Enter review or rating for a movie you have watched");
+			System.out.println("8. Go back to previous menu");
 			System.out.print("Enter choice: ");
 			choice = checkIfInt(8);
-			System.out.println(choice);
 			switch (choice){
 			case 1:
 				listSearchMovies();
@@ -52,23 +55,25 @@ public class MovieGoerUI {
 				viewMovieDetail();
 				break;
 			case 3:
-				//showSeatsAvailability();
-				break;
-			case 4:
-				//bookTickets();
-				break;
-			case 5:
-				//viewBookingHistory();
-				break;
-			case 6:
 				listTopRankings();
 				break;
+			case 4:
+				//showSeatsAvailability();
+				break;
+			case 5:
+				//bookTickets();
+				break;
+			case 6:
+				//viewBookingHistory();
+				break;
 			case 7:
-				return; 
+				enterReviewRating(emailAddress);
+			case 8:
+				break; 
 			default:
 				System.out.println("Invalid choice! Please re-enter...");
 			}
-		}while(choice != 7);
+		}while(choice != 8);
 	}
 	
 	private int checkIfInt(int value){
@@ -82,8 +87,8 @@ public class MovieGoerUI {
 	}
 
 	// Current display seems to be implemented in MovieGoer - may need to revise this
-	private boolean loginValidation(){
-		return true;
+	private String loginValidation(){
+		return "absce@hotmail.com";
 	}
 
 	// We need a logic to check that 'Now Showing' & 'Preview' should set isShowing == true
@@ -196,6 +201,26 @@ public class MovieGoerUI {
 				System.out.println("Invalid choice! Please re-enter...");
 			}
 		}while (choice > 3 || choice < 1);
+	}
+	
+	private void enterReviewRating(String emailAddress){
+		// TODO: Validate that the movie-goer has watched the movie
+		ArrayList<Booking> userBookings = BookingController.getInstance().getAllBookingByUser(emailAddress);
+		System.out.println("You have watched the following movies:");
+		/*for (int i = 1; i <= userBookings.size(); i++){
+			System.out.println(userBookings.get(i-1).);
+		}
+		*/
+		// Enter review
+		int movieID = 1;
+		Movie movie = MovieController.getInstance().getMovie(movieID);
+		System.out.print("Enter your rating: ");
+		double rating = sc.nextDouble();
+		movie.addRating(rating);
+		System.out.print("Enter your review: ");
+		sc.nextLine(); 			// Clear buffer
+		String review = sc.nextLine();
+		movie.addReview(review);
 	}
 
 	public static MovieGoerUI getInstance() {
