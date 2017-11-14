@@ -14,19 +14,19 @@ public class MovieScreening {
 
     private Calendar endTime;
 
-    private String movieType;
+    private MovieClassType movieClassType;
 
     private Seat[][] seats;
 
     private boolean isExpired;
 
-    public MovieScreening(int movieScreeningID, Calendar startTime, Calendar endTime, String movieType,
+    public MovieScreening(int movieScreeningID, Calendar startTime, Calendar endTime, MovieClassType movieType,
                           int cinemaID, int movieID){
         this.movieScreeningID = movieScreeningID;
         this.startTime = startTime;
         this.endTime = endTime;
         this.cinemaID = cinemaID;
-        this.movieType = movieType;
+        this.movieClassType = movieType;
         this.movieID = movieID;
         isExpired = false;
 
@@ -45,24 +45,24 @@ public class MovieScreening {
         }
     }
 
-    public MovieScreening(int movieScreeningID, Calendar startTime, Calendar endTime, String movieType,
+    public MovieScreening(int movieScreeningID, Calendar startTime, Calendar endTime, MovieClassType movieType,
                           int cinemaID, int movieID, Seat[][] seats){
         this.movieScreeningID = movieScreeningID;
         this.startTime = startTime;
         this.endTime = endTime;
         this.cinemaID = cinemaID;
-        this.movieType = movieType;
+        this.movieClassType = movieType;
         this.movieID = movieID;
         isExpired = false;
         this.seats = seats;
     }
 
-    public String getMovieType() {
-        return movieType;
+    public MovieClassType getMovieClassType() {
+        return movieClassType;
     }
 
-    public void setMovieType(String movieType) {
-        this.movieType = movieType;
+    public void setMovieClassType(MovieClassType movieClassType) {
+        this.movieClassType = movieClassType;
     }
 
     public Calendar getStartTime() {
@@ -121,7 +121,7 @@ public class MovieScreening {
         this.movieScreeningID = movieScreeningID;
     }
 
-    public void printMovieScreeningInfo(){
+    public void printMovieScreeningSeatsInfo(){
         for (int i = 0; i < seats.length; i++){
             System.out.print(i+1 + " ");
             for (int j = 0; j < seats[i].length; j++)
@@ -134,6 +134,14 @@ public class MovieScreening {
                     System.out.print("X");
             System.out.println();
         }
+    }
+
+    public void printMovieScreeningInfo(){
+        System.out.println("MovieScreeningID: " + movieScreeningID);
+        System.out.println("MovieID: " + movieID);
+        System.out.println("CinemaID: " + cinemaID);
+        System.out.println("Movie Class Type: " + movieClassType);
+
     }
 
     public void getStartDateTime(){

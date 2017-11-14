@@ -1,12 +1,11 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 
 public class Movie{
 	private int movieId;
 	private String movieName;
-	private String status;
+	private MovieShowingStatus movieShowingStatus;
 	private String synopsis;
 	private String director;
 	private String cast;
@@ -17,25 +16,25 @@ public class Movie{
 	private double ticketSales;
 	private int duration;
 
-	public Movie(int movieId, String movieName, String synopsis, String director, String cast, String status){
+	public Movie(int movieId, String movieName, String synopsis, String director, String cast, MovieShowingStatus status){
 		this.movieId = movieId;
 		this.movieName = movieName;
 		this.synopsis = synopsis;
 		this.director = director;
 		this.cast = cast;
-		this.status = status;
+		this.movieShowingStatus = status;
 		this.reviews = new ArrayList<>();
 		this.ratingList = new ArrayList<>();
 	}
 
-	public Movie(int movieId, String movieName, String synopsis, String director, String cast, String status, double avg_rating, boolean isShowing, double ticketSales, int duration,
+	public Movie(int movieId, String movieName, String synopsis, String director, String cast, MovieShowingStatus status, double avg_rating, boolean isShowing, double ticketSales, int duration,
 			ArrayList<String> reviews, ArrayList<Double> ratingList){
 		this.movieId = movieId;
 		this.movieName = movieName;
 		this.synopsis = synopsis;
 		this.director = director;
 		this.cast = cast;
-		this.status = status;
+		this.movieShowingStatus = status;
 		this.avg_rating = avg_rating;
 		this.isShowing = isShowing;
 		this.ticketSales = ticketSales;
@@ -53,8 +52,8 @@ public class Movie{
 		return movieName;
 	}
 
-	public String getStatus() {
-		return status;
+	public MovieShowingStatus getStatus() {
+		return movieShowingStatus;
 	}
 
 	public String getSynopsis() {
@@ -93,8 +92,8 @@ public class Movie{
 		return duration;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setStatus(MovieShowingStatus status) {
+		this.movieShowingStatus = status;
 	}
 
 	public void setAvg_rating(double avg_rating) {
@@ -141,7 +140,7 @@ public class Movie{
 	public void printInfo(){
 		System.out.println("MovieID: " + movieId);
 		System.out.println("MovieName: " + movieName);
-		System.out.println("Movie Status: " + status);
+		System.out.println("Movie Status: " + movieShowingStatus);
 		System.out.println("Movie Synopsis: " + synopsis);
 		System.out.println("Movie Director: " + director);
 		System.out.println("Movie Cast: " + cast);
