@@ -130,7 +130,8 @@ public class BookingController extends DatabaseController{
 		//
 		Booking newBooking = new Booking(movieScreeningID,userName,mobileNum,emailAddress,cinemaID);
 		bookingList.add(newBooking);
-		updateSales(MovieScreeningController.getInstance().getMovieScreenings().get(movieScreeningID).getMovieID());
+		writeDB();
+		//updateSales(MovieScreeningController.getInstance().getMovieScreenings().get(movieScreeningID).getMovieID());
 	}
 
 	public ArrayList<Booking> getAllBookingByUser(String emailAddress){
@@ -146,8 +147,8 @@ public class BookingController extends DatabaseController{
 	 */
 	private void updateSales(int movieID){
         double basePrice = SystemSettings.getInstance().getBase_price();
-
 	}
+
 
 	public void setBookingList(ArrayList<Booking> bookingList) {
 		this.bookingList = bookingList;

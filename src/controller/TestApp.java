@@ -1,7 +1,7 @@
 package controller;
 
 import model.*;
-import ui.StaffUI;
+import ui.MovieGoerUI;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -12,13 +12,13 @@ import java.util.List;
 public class TestApp {
     public static void main(String[] args) {
 
-//    	MovieGoerController movieGoerController = MovieGoerController.getInstance();
+    	MovieGoerController movieGoerController = MovieGoerController.getInstance();
 //    	ArrayList<MovieGoer> movieGoerList = createMovieGoerSample();
 //    	movieGoerController.setMovieGoerList(movieGoerList);
 ////    	for (MovieGoer movieGoer : movieGoerList)
 ////  		movieGoer.printInfo();
 ////    	movieGoerController.writeDB();
-//    	movieGoerController.readDB();
+    	movieGoerController.readDB();
 ////    	System.out.println("----------------------------");
 //    	for (MovieGoer movieGoer : movieGoerController.getMovieGoerList())
 //    		movieGoer.printInfo();
@@ -29,31 +29,31 @@ public class TestApp {
 //////        staffController.writeDB();
 //        staffController.readDB();
 ////        staffController.printStaffList();
-        StaffUI staffUI = StaffUI.getInstance();
+//        StaffUI staffUI = StaffUI.getInstance();
 //
 //
 //
-//        MovieController movieController = MovieController.getInstance();
+        MovieController movieController = MovieController.getInstance();
 //        movieController.setMovieList(createSampleMovie());
 //        movieController.writeDB();
-//        movieController.readDB();
+        movieController.readDB();
 ////        movieController.printMovieLists();
 ////
-//        BookingController bookingController = BookingController.getInstance();
+        BookingController bookingController = BookingController.getInstance();
 //        bookingController.setBookingList(createSampleBooking());
 //        bookingController.writeDB();
-//        bookingController.readDB();
+        bookingController.readDB();
 //
  //       bookingController.printBookingList();
 //
         MovieScreeningController movieScreeningController= MovieScreeningController.getInstance();
-//        movieScreeningController.setMovieScreenings(createSampleMovieScreening());
-//        movieScreeningController.writeDB();
- //       movieScreeningController.readDB();
-        movieScreeningController.printMovieScreenings();
-//        MovieGoerUI.getInstance().display();
-//        MovieGoerUI.getInstance().showSeatsAvailability(movieScreeningController.getMovieScreenings().get(0));
-        staffUI.display();
+////        movieScreeningController.setMovieScreenings(createSampleMovieScreening());
+////        movieScreeningController.writeDB();
+        movieScreeningController.readDB();
+//        movieScreeningController.printMovieScreenings();
+        MovieGoerUI.getInstance().display();
+////        MovieGoerUI.getInstance().showSeatsAvailability(movieScreeningController.getMovieScreenings().get(0));
+//        staffUI.display();
 
 //        // Manual text format - preferred here because it simulates the allowance of staff to add new cineplex/cinema to DB
 //        CineplexController control = CineplexController.getInstance();

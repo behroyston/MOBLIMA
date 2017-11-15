@@ -278,5 +278,26 @@ public class MovieScreeningController extends DatabaseController {
         return movieScreenings;
     }
 
+    /**
+     * check if the seat for the particular moviescreening can be set,
+     * if yes, return true, else return false;
+     * @param movieScreeningID
+     * @param verticalIndex
+     * @param horizontalIndex
+     * @return
+     */
+    public boolean setSeatSelected(int movieScreeningID, int verticalIndex, int horizontalIndex){
+        Seat[][] movieScreeningSeats = movieScreenings.get(movieScreeningID).getSeats();
+        Seat seat = movieScreeningSeats[verticalIndex][horizontalIndex];
+        if (seat.getIsBooked()){
+            return false;
+        }
+        else {
+            seat.setIsBooked(true);
+            writeDB();
+            return true;
+        }
+    }
+
 
 }

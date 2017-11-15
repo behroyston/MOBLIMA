@@ -1,6 +1,5 @@
 package controller;
 
-import model.Movie;
 import model.MovieGoer;
 
 import java.io.File;
@@ -118,12 +117,13 @@ public class MovieGoerController extends DatabaseController{
 		return null;
 	}
 
-	public boolean validateCustomer(String email, String password){
+	public MovieGoer validateCustomer(String email, String password){
 		MovieGoer movieGoer = getMovieGoerByEmail(email);
 		if (movieGoer != null){
-			return movieGoer.validateIdentity(email, password);
+			if (movieGoer.validateIdentity(email, password))
+				return movieGoer;
 		}
-		return false;
+		return null;
 	}
 
 	//static 'instance' method	

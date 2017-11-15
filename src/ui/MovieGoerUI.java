@@ -1,22 +1,22 @@
 package ui;
 
-import controller.BookingController;
-import controller.CineplexController;
-import controller.MovieController;
-import controller.MovieGoerController;
-import controller.MovieScreeningController;
-import model.Booking;
-import model.Movie;
-import model.MovieScreening;
-import model.Seat;
+import controller.*;
+import model.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
 
 public class MovieGoerUI {
 
 	private static MovieGoerUI instance = null;
 
 	Scanner sc = new Scanner(System.in);
+
+	private MovieGoer movieGoer;
+
+	private String emailAddress;
 
 	private final List<String> stringList = Arrays.asList("A", "B", "C", "D", "E", "F", "G", " ", "H", "I", "J", "K", "L","M","N");
 
@@ -26,7 +26,6 @@ public class MovieGoerUI {
 		// Validation first
 		System.out.println("-------------------- Welcome to MOBLIMA! --------------------");
 		int choice;
-		String emailAddress = null;
 		do{
 			System.out.println("Do you have a account with us?");
 			System.out.println("1. No and would like to register one");
@@ -110,18 +109,21 @@ public class MovieGoerUI {
 
 	private String loginValidation(){
 		String email, password;
+		MovieGoer movieGoer;
 		System.out.println("Login System:");
 		
 		System.out.print("Please enter your email address: ");
 		email = sc.next();
 		System.out.print("Please enter your password: ");
 		password = sc.next();
+        movieGoer = MovieGoerController.getInstance().validateCustomer(email, password);
 		
-		if (!MovieGoerController.getInstance().validateCustomer(email, password)){
+		if (movieGoer == null){
 			System.out.println("Invalid login details!");
 			return null;
 		}
-		return email;
+		this.movieGoer = movieGoer;
+		return movieGoer.getEmail();
 	}
 
 	// We need a logic to check that 'Now Showing' & 'Preview' should set isShowing == true
@@ -430,14 +432,12 @@ public class MovieGoerUI {
 		// x
 		int horizontalIndex = stringList.indexOf(alphabet);
 
-		Seat[][] seats = movieScreening.getSeats();
+        boolean setSeat = MovieScreeningController.getInstance().setSeatSelected(movieScreeningID-1,number-1,horizontalIndex);
 
-
-		Seat selectedSeat = seats[number-1][horizontalIndex];
-		if (!selectedSeat.getIsBooked()) {
+        if (setSeat) {
 			//TODO AddBooking through the BookingManager
-			//BookingController.getInstance().addBooking(//user,);
-			selectedSeat.setIsBooked(true);
+            int cinemaID = movieScreening.getCinemaID();
+            BookingController.getInstance().addBooking(movieGoer.getName(),movieGoer.getMobileNumber(),movieGoer.getEmail(),cinemaID,movieScreeningID-1);
 		}
 		else
 			System.out.println("The seat is booked! Please select another seat.");
