@@ -2,47 +2,59 @@ package model;
 
 import java.io.*;
 import java.util.List;
+import java.util.StringTokenizer;
 import java.util.ArrayList;
 
 public class SystemSettings implements Serializable{
 
 	//Attributes
 	private static SystemSettings instance = null;
-	private double base_price=10;
-	private double threeDExtra=5;
-	private double platinumExtra=7;
-	private double seniorDiscount=3;
-	private double childDiscount=2;
-	private double weekend_HolidayExtra=2;
-	private double goldExtra=5;
-	
+	private double basePrice;
+	private double threeDExtra;
+	private double platinumExtra;
+	private double seniorDiscount;
+	private double childDiscount;
+	private double weekend_HolidayExtra;
+	private double goldExtra;
+
 	//Class constructor
 	private SystemSettings() {
+		try{
+			readSettings("database/SystemSettings.dat");
+		}
+		catch(IOException io){
+			basePrice=10;
+			threeDExtra=5;
+			platinumExtra=7;
+			seniorDiscount=3;
+			childDiscount=2;
+			weekend_HolidayExtra=2;
+			goldExtra=5;
+			writeSettings("database/SystemSettings.dat");
+		}
 	}
-	
+
 	//access private base price
-	public double getBase_price() {
-		return this.base_price;
+	public double getBasePrice() {
+		return this.basePrice;
 	}
 	//mutate private base price
-	public void setBase_price(double base_price) {
-		this.base_price = base_price;
-		SystemSettings sS = SystemSettings.getInstance();
-		writeSettings("SystemSettings.dat", sS);
+	public void setBasePrice(double basePrice) {
+		this.basePrice = basePrice;
+		writeSettings("database/SystemSettings.dat");
 		return;
 	}
-	
+
 	//access private 3d extra
 	public double getThreeDExtra() {
 		return this.threeDExtra;
 	}
 	public void setThreeDExtra(double threeDExtra) {
 		this.threeDExtra = threeDExtra;
-		SystemSettings sS = SystemSettings.getInstance();
-		writeSettings("SystemSettings.dat", sS);
+		writeSettings("database/SystemSettings.dat");
 		return;
 	}
-	
+
 	//access private plat xtra
 	public double getPlatinumExtra() {
 		return this.platinumExtra;
@@ -50,11 +62,10 @@ public class SystemSettings implements Serializable{
 	//mutate private plat xtra
 	public void setPlatinumExtra(double platinumExtra) {
 		this.platinumExtra = platinumExtra;
-		SystemSettings sS = SystemSettings.getInstance();
-		writeSettings("SystemSettings.dat", sS);
+		writeSettings("database/SystemSettings.dat");
 		return;
 	}
-	
+
 	//access private snr disc
 	public double getSeniorDiscount() {
 		return this.seniorDiscount;
@@ -62,11 +73,10 @@ public class SystemSettings implements Serializable{
 	//mutate private snr disc
 	public void setSeniorDiscount(double seniorDiscount) {
 		this.seniorDiscount = seniorDiscount;
-		SystemSettings sS = SystemSettings.getInstance();
-		writeSettings("SystemSettings.dat", sS);
+		writeSettings("database/SystemSettings.dat");
 		return;
 	}
-	
+
 	//access private child disc
 	public double getChildDiscount() {
 		return this.childDiscount;
@@ -74,11 +84,10 @@ public class SystemSettings implements Serializable{
 	//mutate private child disc
 	public void setChildDiscount(double childDiscount) {
 		this.childDiscount = childDiscount;
-		SystemSettings sS = SystemSettings.getInstance();
-		writeSettings("SystemSettings.dat", sS);
+		writeSettings("database/SystemSettings.dat");
 		return;
 	}
-	
+
 	//access private wkend/hols xtra
 	public double getWeekend_HolidayExtra() {
 		return this.weekend_HolidayExtra;
@@ -86,77 +95,81 @@ public class SystemSettings implements Serializable{
 	//mutate private wkend/hols xtra
 	public void setWeekend_HolidayExtra(double weekend_HolidayExtra) {
 		this.weekend_HolidayExtra = weekend_HolidayExtra;
-		SystemSettings sS = SystemSettings.getInstance();
-		writeSettings("SystemSettings.dat", sS);
+		writeSettings("database/SystemSettings.dat");
 		return;
 	}
-	
+
 	//access private gold class extra
-		public double getGold() {
-			return this.goldExtra;
-		}
-		//mutate private gold class extra
-		public void setGold(double goldExtra) {
-			this.goldExtra = goldExtra;
-			SystemSettings sS = SystemSettings.getInstance();
-			writeSettings("SystemSettings.dat", sS);
-			return;
-		}
-	
+	public double getGoldExtra() {
+		return this.goldExtra;
+	}
+	//mutate private gold class extra
+	public void setGoldExtra(double goldExtra) {
+		this.goldExtra = goldExtra;
+		writeSettings("database/SystemSettings.dat");
+		return;
+	}
+
 	//static 'instance' method
 	public static SystemSettings getInstance(){
 		if(instance == null) {
 			instance = new SystemSettings();
-			readSettings("SystemSettings.dat");
 		}
 		return instance;
 	}
-	
-	
-	public static SystemSettings readSettings(String filename) {
-		SystemSettings sS = SystemSettings.getInstance();
-		FileInputStream fis = null;
-		ObjectInputStream in = null;
-		try {
-			fis = new FileInputStream(filename);
-			in = new ObjectInputStream(fis);
-			sS = (SystemSettings) in.readObject();
-			in.close();
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		} catch (ClassNotFoundException ex) {
-			ex.printStackTrace();
-		}
-		// print out the size
-		//System.out.println(" Details Size: " + sSDetails.size());
-		//System.out.println();
-		return sS;
+
+
+	public void readSettings(String fileName) throws IOException{
+		FileReader frStream = new FileReader(fileName);
+		BufferedReader brStream = new BufferedReader(frStream);
+		String text = brStream.readLine();
+		StringTokenizer aStr = new StringTokenizer(text, ";");
+		basePrice = Double.parseDouble(aStr.nextToken());
+		platinumExtra = Double.parseDouble(aStr.nextToken());
+		seniorDiscount = Double.parseDouble(aStr.nextToken());
+		childDiscount = Double.parseDouble(aStr.nextToken());
+		weekend_HolidayExtra = Double.parseDouble(aStr.nextToken());
+		goldExtra = Double.parseDouble(aStr.nextToken());
+		brStream.close();
 	}
 
-	public static void writeSettings(String filename, SystemSettings sS) {
-		FileOutputStream fos = null;
-		ObjectOutputStream out = null;
-		try {
-			fos = new FileOutputStream(filename);
-			out = new ObjectOutputStream(fos);
-			out.writeObject(sS);
-			out.close();
-		//	System.out.println("Object Persisted");
-		} catch (IOException ex) {
-			ex.printStackTrace();
+	public void writeSettings(String fileName) {
+		try{
+			FileWriter fwStream = new FileWriter(fileName);
+			BufferedWriter bwStream = new BufferedWriter(fwStream);
+			PrintWriter pwStream = new PrintWriter(bwStream);
+			StringBuilder str = new StringBuilder();
+			str.setLength(0); // Reset Buffer
+			str.append(basePrice);		
+			str.append(';');
+			str.append(platinumExtra);
+			str.append(';');
+			str.append(seniorDiscount);
+			str.append(';');
+			str.append(childDiscount);
+			str.append(';');
+			str.append(weekend_HolidayExtra);
+			str.append(';');
+			str.append(goldExtra);
+			str.append(';');
+			pwStream.println(str.toString());
+			pwStream.close();
+		}
+		catch (IOException io){
+			System.out.println("Error. Failed to save System Settings!");
 		}
 	}
 
 	//for testing purposes
 	/*public static void main(String[] args) {
-		
+
 		SystemSettings sS = SystemSettings.getInstance();
-		
+
 		try	{
 				// read from serialized file
 				sS = (SystemSettings)readSettings("SystemSettings.dat");
 				System.out.println("Base Price: " + sS.getBase_price() );
-				
+
 
 				// write to serialized file - update/insert/delete
 				writeSettings("SystemSettings.dat", sS);

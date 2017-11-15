@@ -1,11 +1,16 @@
 package controller;
 
 import model.Booking;
+import model.Cinema;
+import model.CinemaClassType;
+import model.MovieClassType;
+import model.MovieScreening;
 import model.SystemSettings;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -140,13 +145,48 @@ public class BookingController extends DatabaseController{
 			if (emailAddress.equalsIgnoreCase(booking.getEmailAddress()))
 				userBookings.add(booking);
 		return userBookings;
+	}/*
+	private double basePrice=10;
+	private double threeDExtra=5;
+	private double platinumExtra=7;
+	private double seniorDiscount=3;
+	private double childDiscount=2;
+	private double weekend_HolidayExtra=2;
+	private double goldExtra=5;*/
+	public double calculatePrice(int type, int movieScreeningID){
+		SystemSettings sysSettings = SystemSettings.getInstance();
+		MovieScreening movieScreening = MovieScreeningController.getInstance().getMovieScreeningByScreeningID(movieScreeningID);
+		CinemaClassType classType = CineplexController.getInstance().getCinema(movieScreening.getCinemaID()).getCinemaClassType();
+		double price = sysSettings.getBasePrice();
+		
+		// Children or Senior discount
+		if (type == 1)
+			price -= sysSettings.getChildDiscount();
+		else if (type == 2)
+			price -= sysSettings.getSeniorDiscount();
+		
+		// Cinema Type
+		if (classType == CinemaClassType.GOLDCLASS)
+			price += sysSettings.getGoldExtra();
+		else if (classType == CinemaClassType.PLATINUM)
+			price += sysSettings.getPlatinumExtra();
+		
+		// 2D or 3D
+		if (movieScreening.getMovieClassType() == MovieClassType.CLASS3D)
+			price += sysSettings.getThreeDExtra();
+		
+		int dayOfWeek = movieScreening.getStartTime().get(Calendar.DAY_OF_WEEK);
+		if (dayOfWeek == Calendar.SATURDAY || dayOfWeek == Calendar.SUNDAY)
+			price += sysSettings.getWeekend_HolidayExtra();
+		
+		return price;
 	}
-
+	
 	/**
 	 * Update the total sales of the model.Movie by using the MovieID.
 	 */
 	private void updateSales(int movieID){
-        double basePrice = SystemSettings.getInstance().getBase_price();
+        double basePrice = SystemSettings.getInstance().getBasePrice();
 	}
 
 

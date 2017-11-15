@@ -291,6 +291,21 @@ public class MovieController extends DatabaseController{
 		return new ArrayList<>(sortedMovieList.subList(0, size));
 	}
 	
+	public void updateMovieSales(int movieID, double sales){
+		getMovie(movieID).addTicketSales(sales);
+		writeDB();
+	}
+	
+	public void addMovieReview(int movieID, String review){
+		getMovie(movieID).addReview(review);
+		writeDB();
+	}
+	
+	public void addMovieRating(int movieID, double rating){
+		getMovie(movieID).addRating(rating);
+		writeDB();
+	}
+	
 	public void setMovieList(ArrayList<Movie> movieList) {
 		this.movieList = movieList;
 	}

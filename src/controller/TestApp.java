@@ -2,6 +2,7 @@ package controller;
 
 import model.*;
 import ui.MovieGoerUI;
+import ui.StaffUI;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -51,9 +52,9 @@ public class TestApp {
 ////        movieScreeningController.writeDB();
  //       movieScreeningController.readDB();
         movieScreeningController.printMovieScreenings();
-        MovieGoerUI.getInstance().display();
+//        MovieGoerUI.getInstance().display();
 ////        MovieGoerUI.getInstance().showSeatsAvailability(movieScreeningController.getMovieScreenings().get(0));
-//        staffUI.display();
+        StaffUI.getInstance().display();
 
 //        // Manual text format - preferred here because it simulates the allowance of staff to add new cineplex/cinema to DB
 //        CineplexController control = CineplexController.getInstance();

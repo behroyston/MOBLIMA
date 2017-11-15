@@ -71,10 +71,10 @@ public class MovieGoerUI {
 				listTopRankings();
 				break;
 			case 4:
-				viewBookingHistory(emailAddress);
+				viewBookingHistory();
 				break;
 			case 5:
-				enterReviewRating(emailAddress);
+				enterReviewRating();
 				break;
 			case 6:
 				break; 
@@ -111,13 +111,13 @@ public class MovieGoerUI {
 		String email, password;
 		MovieGoer movieGoer;
 		System.out.println("Login System:");
-		
+
 		System.out.print("Please enter your email address: ");
 		email = sc.next();
 		System.out.print("Please enter your password: ");
 		password = sc.next();
-        movieGoer = MovieGoerController.getInstance().validateCustomer(email, password);
-		
+		movieGoer = MovieGoerController.getInstance().validateCustomer(email, password);
+
 		if (movieGoer == null){
 			System.out.println("Invalid login details!");
 			return null;
@@ -274,7 +274,7 @@ public class MovieGoerUI {
 		}while (choice > 3 || choice < 1);
 	}
 
-	private void enterReviewRating(String emailAddress){
+	private void enterReviewRating(){
 		// TODO: Validate that the movie-goer has watched the movie
 		ArrayList<Booking> userBookings = BookingController.getInstance().getAllBookingByUser(emailAddress);
 		MovieController movieController = MovieController.getInstance();
@@ -307,14 +307,14 @@ public class MovieGoerUI {
 			else
 				break;
 		}
-		Movie movie = MovieController.getInstance().getMovie(movieIDs.get(choice-1));
+		int movieID = movieIDs.get(choice-1);
 		System.out.print("Enter your rating: ");
 		double rating = sc.nextDouble();
-		movie.addRating(rating);
+		movieController.addMovieRating(movieID, rating);
 		System.out.print("Enter your review: ");
 		sc.nextLine(); 			// Clear buffer
 		String review = sc.nextLine();
-		movie.addReview(review);
+		movieController.addMovieReview(movieID, review);
 	}
 
 	public static MovieGoerUI getInstance() {
@@ -324,58 +324,6 @@ public class MovieGoerUI {
 		return instance;
 	}
 
-
-	//    ArrayList<Movie> movieList = MovieController.getMovieList();
-	//
-	//    Scanner sc = new Scanner(System.in);
-	//
-	//    private static MovieGoerUI Instance = null;
-	//
-	//    public static MovieGoerUI getInstance() {
-	//        if (Instance == null) {
-	//            Instance = new MovieGoerUI();
-	//        }
-	//        return Instance;
-	//    }
-	//
-	//    public void loginValidation(){
-	//        System.out.println("-----------------------USER LOGIN------------------------");
-	//        if (MovieGoer.login())
-	//                System.out.println("Login Successfully!");
-	//        System.out.println("-------------------"+MovieGoer.getCusID()+"-----------------");
-	//    }
-	//
-	//    public void listMovies(){
-	//        System.out.println("Now showing: ");
-	//        for (Movie movie : movieList)
-	//            if (movie.getIsShowing())
-	//                System.out.println("ID: "+ movie.getId()+ " Name: "+ movie.getMovieName());
-	//    }
-	//
-	//    public void viewMovieDetail(){
-	//        System.out.println("Enter movie ID for viewing detail: ");
-	//        int movieId = sc.nextInt();
-	//        for (Movie movie : movieList)
-	//            if (movie.getId() == movieId)
-	//                System.out.println("ID: "+ movie.getId()+ " Name: "+ movie.getMovieName()+ " Synopsis: "+ movie.getSynopsis()+ " Director: " + movie.getDirector() + " Cast: " + movie.getCast());
-	//    }
-	//    /**
-	//     * print out booking history
-	//     */
-	//    public void viewBookingHistory(){
-	//        System.out.println("This is your booking history: ");
-	//        for (Booking booking : BookingController.getBookingList())
-	//            System.out.println(booking.transactionID + booking.cinemaID + booking.movieScreening);
-	//    }
-	//
-	//    /**
-	//     * ask the user to enter a review
-	//     */
-	//    public void enterReviewRating(){
-	//        System.out.println("Please enter your review: ");
-	//        String newReview = sc.next();
-	//        Movie.addReviews(Movie.reviews) = newReview;
-	//    }
 	// traverses through MovieController.getCineplex(position).getCinema(position).getMovieScreening(position).getSeatsForThisMovie
 	public void showSeatsAvailability(int movieScreeningID){
 
@@ -429,22 +377,37 @@ public class MovieGoerUI {
 			number = sc.nextInt();
 		} while (number <= 0);
 
+
 		// x
-		int horizontalIndex = stringList.indexOf(alphabet);
+		int horizontalIndex = stringList.indexOf(alphabet.toUpperCase());
+		boolean setSeat = MovieScreeningController.getInstance().setSeatSelected(movieScreeningID-1,number-1,horizontalIndex);
 
-        boolean setSeat = MovieScreeningController.getInstance().setSeatSelected(movieScreeningID-1,number-1,horizontalIndex);
-
-        if (setSeat) {
+		if (setSeat) {
 			//TODO AddBooking through the BookingManager
-            int cinemaID = movieScreening.getCinemaID();
-            BookingController.getInstance().addBooking(movieGoer.getName(),movieGoer.getMobileNumber(),movieGoer.getEmail(),cinemaID,movieScreeningID-1);
+			int cinemaID = movieScreening.getCinemaID();
+			int age = movieGoer.getAge();
+			int type = 0;
+			if (age <= 10)
+				type = 1;
+			else if (age >= 65)
+				type = 2;
+
+			// Ask for payment
+			double price = BookingController.getInstance().calculatePrice(type, movieScreeningID);
+			System.out.printf("Please make payment of SGD %.2f\n", price);
+			System.out.print("Enter anything to pay :");
+			sc.next();
+			BookingController.getInstance().addBooking(movieGoer.getName(),movieGoer.getMobileNumber(),movieGoer.getEmail(),cinemaID,movieScreeningID-1);
+			MovieController.getInstance().updateMovieSales(movieScreening.getMovieID(), price);
+
+
 		}
 		else
 			System.out.println("The seat is booked! Please select another seat.");
 		showSeatsAvailability(movieScreeningID);
 	}
 
-	public void viewBookingHistory(String emailAddress) {
+	public void viewBookingHistory() {
 		ArrayList<Booking> bookings = BookingController.getInstance().getAllBookingByUser(emailAddress);
 		if (bookings.size() == 0){
 			System.out.println("You have not made any bookings!");
