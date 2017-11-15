@@ -42,9 +42,10 @@ public class StaffUI {
 			System.out.println("4. Create Cinema Showtimes");
 			System.out.println("5. Update Cinema Showtimes");
 			System.out.println("6. Remove Cinema Showtimes");
-			System.out.println("7. Configure System Settings");
-			System.out.println("8. Exit");
-			choice1 = checkIfInt(9);
+			System.out.println("7. List Top 5 Movies by Sales or by Ratings");
+			System.out.println("8. Configure System Settings");
+			System.out.println("9. Exit");
+			choice1 = checkIfInt(10);
 
 			switch (choice1) {
 			case 1:
@@ -66,6 +67,9 @@ public class StaffUI {
 				removeCinemaShowtimes();
 				break;
 			case 7:
+				listTopRankings();
+				break;
+			case 8:
 				configSystemSettings();
 				break;
 			}
@@ -340,6 +344,31 @@ public class StaffUI {
 				break;
 			}
 		} while (choice != 0);
+	}
+	
+	private void listTopRankings(){
+		MovieController movieController = MovieController.getInstance();
+		int choice;
+		System.out.println("Select an option to view the Top 5 Rankings:");
+		do{
+			System.out.println("1. List the Top 5 Movies by Ticket Sales");
+			System.out.println("2. List the Top 5 Movies by Overall Reviewer's Rating");
+			System.out.println("3. Go back to previous menu");
+			System.out.print("Enter choice: ");
+			choice = checkIfInt(4);
+			switch (choice){
+			case 1:
+				movieController.printTopFiveBySales();
+				break;
+			case 2:
+				movieController.printTopFiveByRatings();
+				break;
+			case 3:
+				return;
+			default:
+				System.out.println("Invalid choice! Please re-enter...");
+			}
+		}while (choice > 3 || choice < 1);
 	}
 
 	//static 'instance' method

@@ -267,28 +267,29 @@ public class MovieController extends DatabaseController{
 	}
 	
 	// Add this to class diagram
-	public ArrayList<Movie> getTopFiveBySales(){
+	public void printTopFiveBySales(){
 		ArrayList<Movie> sortedMovieList = new ArrayList<>(getShowingMovieList());
 		Collections.sort(sortedMovieList, new MovieSalesComparator());
-		int size = 5;
-		if (size > sortedMovieList.size())
-			size = sortedMovieList.size();
-		return new ArrayList<>(sortedMovieList.subList(0, size));
+		String[] postfix = {"st", "nd", "rd", "th"};
+		int size = Math.min(5, sortedMovieList.size());
+		for (int i = 1; i <= size; i++){
+			Movie movie = sortedMovieList.subList(0, size).get(i-1);
+			System.out.println(i + postfix[Math.min(i, postfix.length)-1] + ": " + movie.getMovieName() + 
+					" (Ticket Sales - $" + movie.getTicketSales() + ")");
+		}
 	}
 	
 	// Add this to class diagram
-	public ArrayList<Movie> getTopFiveByRatings(){
+	public void printTopFiveByRatings(){
 		ArrayList<Movie> sortedMovieList = new ArrayList<>(getShowingMovieList());
 		Collections.sort(sortedMovieList, new MovieRatingsComparator());
-		for (int i = 0 ; i < sortedMovieList.size(); i++)
-			if (!sortedMovieList.get(i).isShowing()){
-				sortedMovieList.remove(i);
-				i--;
-			}
-		int size = 5;
-		if (size > sortedMovieList.size())
-			size = sortedMovieList.size();
-		return new ArrayList<>(sortedMovieList.subList(0, size));
+		String[] postfix = {"st", "nd", "rd", "th"};
+		int size = Math.min(5, sortedMovieList.size());
+		for (int i = 1; i <= size; i++){
+			Movie movie = sortedMovieList.subList(0, size).get(i-1);
+			System.out.println(i + postfix[Math.min(i, postfix.length)-1] + ": " + movie.getMovieName() + 
+					" (Overall Rating - " + movie.getAvg_rating() + "/5)");
+		}
 	}
 	
 	public void updateMovieSales(int movieID, double sales){

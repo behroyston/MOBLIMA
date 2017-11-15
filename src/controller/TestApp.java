@@ -47,11 +47,11 @@ public class TestApp {
 ////
 // //       bookingController.printBookingList();
 ////
-        MovieScreeningController movieScreeningController= MovieScreeningController.getInstance();
+//        MovieScreeningController movieScreeningController= MovieScreeningController.getInstance();
 ////        movieScreeningController.setMovieScreenings(createSampleMovieScreening());
 ////        movieScreeningController.writeDB();
  //       movieScreeningController.readDB();
-        movieScreeningController.printMovieScreenings();
+//        movieScreeningController.printMovieScreenings();
 //        MovieGoerUI.getInstance().display();
 ////        MovieGoerUI.getInstance().showSeatsAvailability(movieScreeningController.getMovieScreenings().get(0));
         StaffUI.getInstance().display();

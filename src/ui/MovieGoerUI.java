@@ -39,6 +39,7 @@ public class MovieGoerUI {
 					System.out.println("The email account already exists!");
 					break;
 				}
+				System.out.println("Your account has been created! Please login now.");
 			case 2:
 				emailAddress = loginValidation();
 				break;
@@ -51,7 +52,7 @@ public class MovieGoerUI {
 
 		// Movie-Goer Options
 		do{
-			System.out.println();
+			System.out.println("-------------------- Main Menu --------------------");
 			System.out.println("1. Search/List movie");
 			System.out.println("2. View movie details and book tickets");
 			System.out.println("3. List the Top 5 ranking by ticket sales OR by overall reviewers' ratings");
@@ -240,7 +241,6 @@ public class MovieGoerUI {
 
 	private void listTopRankings(){
 		MovieController movieController = MovieController.getInstance();
-		String[] postfix = {"st", "nd", "rd", "th"};
 		int choice;
 		System.out.println("Select an option to view the Top 5 Rankings:");
 		do{
@@ -251,20 +251,10 @@ public class MovieGoerUI {
 			choice = checkIfInt(4);
 			switch (choice){
 			case 1:
-				ArrayList<Movie> topMoviesBySales = movieController.getTopFiveBySales();
-				for (int i = 1; i <= topMoviesBySales.size(); i++){
-					Movie movie = topMoviesBySales.get(i-1);
-					System.out.println(i + postfix[Math.min(i, postfix.length)-1] + ": " + movie.getMovieName() + 
-							" (Ticket Sales - $" + movie.getTicketSales() + ")");
-				}
+				movieController.printTopFiveBySales();
 				break;
 			case 2:
-				ArrayList<Movie> topMoviesByRatings = movieController.getTopFiveByRatings();
-				for (int i = 1; i <= topMoviesByRatings.size(); i++){
-					Movie movie = topMoviesByRatings.get(i-1);
-					System.out.println(i + postfix[Math.min(i, postfix.length)-1] + ": " + movie.getMovieName() + 
-							" (Overall Rating - " + movie.getAvg_rating() + "/5)");
-				}
+				movieController.printTopFiveByRatings();
 				break;
 			case 3:
 				return;
