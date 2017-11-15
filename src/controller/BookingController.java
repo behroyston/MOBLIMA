@@ -137,6 +137,7 @@ public class BookingController extends DatabaseController{
 		bookingList.add(newBooking);
 		updateSales(MovieScreeningController.getInstance().getMovieScreeningByScreeningID(movieScreeningID).getMovieID(), price);
 		writeDB();
+		System.out.println("Thank you! Your booking is confirmed!(Transaction ID: " + newBooking.getTransactionID() + ")");
 	}
 
 	public ArrayList<Booking> getAllBookingByUser(String emailAddress){
@@ -181,7 +182,7 @@ public class BookingController extends DatabaseController{
 		if (dayOfWeek == Calendar.SATURDAY || dayOfWeek == Calendar.SUNDAY || isHoliday)
 			price += sysSettings.getWeekend_HolidayExtra();
 		
-		return price;
+		return price*1.07;
 	}
 	
 	/**

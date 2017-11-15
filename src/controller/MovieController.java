@@ -8,6 +8,7 @@ import model.MovieShowingStatus;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.StringTokenizer;
 import java.util.Collections;
@@ -20,9 +21,9 @@ public class MovieController extends DatabaseController{
 	/**
 	 * the instance of this database, default is NULL
 	 */
-	private static MovieController Instance = null;
+	private static MovieController instance = null;
 
-	private ArrayList<Movie> movieList;
+	private static ArrayList<Movie> movieList;
 
 	/**
 	 * controller.MovieController can only be created itself
@@ -36,9 +37,10 @@ public class MovieController extends DatabaseController{
 	 * @return controller.MovieController
 	 */
 	public static MovieController getInstance() {
-		if (Instance == null)
-			Instance = new MovieController();
-		return Instance;
+		if (instance == null)
+			instance = new MovieController();
+		checkAllMovies();
+		return instance;
 	}
 
 	@Override
@@ -62,6 +64,14 @@ public class MovieController extends DatabaseController{
 						boolean isShowing = Boolean.parseBoolean(aStr.nextToken());
 						double ticketSales = Double.parseDouble(aStr.nextToken());
 						int duration = Integer.parseInt(aStr.nextToken());
+						String showStr = aStr.nextToken();
+						Calendar showingEndDate;
+						if (showStr.equals("NONE"))
+							showingEndDate = null;
+						else{
+							showingEndDate = (Calendar) Calendar.getInstance().clone();
+							showingEndDate.setTimeInMillis(Long.parseLong(showStr));
+						}
 						String review = aStr.nextToken();
 						ArrayList<String> reviewList = new ArrayList<>();
 						if (review.equals(NIL)){
@@ -89,7 +99,7 @@ public class MovieController extends DatabaseController{
 								rating = aStr.nextToken();
 							}
 						}
-						movie = new Movie(movieID,movieName,synopsis,director,cast,status,avg_rating,isShowing,ticketSales,duration,reviewList,ratingList);
+						movie = new Movie(movieID,movieName,synopsis,director,cast,status,avg_rating,isShowing,ticketSales,duration,showingEndDate,reviewList,ratingList);
 						movieList.add(movie);
 					}
 				}
@@ -136,6 +146,11 @@ public class MovieController extends DatabaseController{
 				str.append(DELIMITER);
 				str.append(movie.getDuration());
 				str.append(DELIMITER);
+				if (movie.getShowingEndDate() == null)
+					str.append("NONE");
+				else
+					str.append(movie.getShowingEndDate().getTimeInMillis());
+				str.append(DELIMITER);
 				int sizeOfMovieReviews = movie.getReviews().size();
 				if (sizeOfMovieReviews == 0){
 					str.append(NIL);
@@ -159,7 +174,6 @@ public class MovieController extends DatabaseController{
 					}
 				}
 				text.add(str.toString());
-				System.out.println("MovieAdded!");
 			}
 			// Attempt to save to file
 			try {
@@ -171,15 +185,6 @@ public class MovieController extends DatabaseController{
 		} else {
 			System.out.println("Error! Directory cannot be found!");
 		}
-	}
-
-	//add this method to class diagram
-	/**
-	 * exposes the private directory to initialize the retrieval of model.
-	 * @return controller.MovieController path
-	 */
-	public String getDir(){
-		return DIR;
 	}
 
 	private boolean isDouble(String value) {
@@ -203,6 +208,7 @@ public class MovieController extends DatabaseController{
 				showingMovies.remove(i);
 		return showingMovies;
 	}
+	
 
 	/**
 	 * add model.Movie into the movieList after staff has key in all the details required by the StaffUI.
@@ -265,6 +271,11 @@ public class MovieController extends DatabaseController{
 		return null;
 	}
 	
+	public void updateMovieEndOfShowing(int movieID, Calendar showingEndDate){
+		getMovie(movieID).setShowingEndDate(showingEndDate);
+		writeDB();
+	}
+	
 	// Add this to class diagram
 	public void printTopFiveBySales(){
 		ArrayList<Movie> sortedMovieList = new ArrayList<>(getShowingMovieList());
@@ -306,10 +317,15 @@ public class MovieController extends DatabaseController{
 		writeDB();
 	}
 	
-	public void setMovieList(ArrayList<Movie> movieList) {
-		this.movieList = movieList;
+	public void setMovieList(ArrayList<Movie> newMovieList) {
+		movieList = newMovieList;
 	}
 
+	private static void checkAllMovies(){
+		for (Movie movie : movieList)
+			movie.checkIfBookable();
+	}
+	
 	public void printMovieLists(){
 		System.out.println("Size of movie: " + movieList.size());
 		for (int i = 0; i < movieList.size();i++){
@@ -319,7 +335,8 @@ public class MovieController extends DatabaseController{
 
 	public void printMovieNames() {
 		for (int i = 0; i < movieList.size(); i++) {
-			System.out.println((i + 1) + ") " + movieList.get(i).getMovieName());
+			if (movieList.get(i).getStatus() != MovieShowingStatus.END_OF_SHOWING)
+				System.out.println((i + 1) + ") " + movieList.get(i).getMovieName() + " - " + movieList.get(i).getStatus());
 		}
 	}
 }

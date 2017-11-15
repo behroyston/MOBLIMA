@@ -63,7 +63,7 @@ public class MovieGoerUI {
 			choice = checkIfInt(7);
 			switch (choice){
 			case 1:
-				listSearchMovies();
+				listMovies();
 				break;
 			case 2:
 				viewMovieDetail();
@@ -128,35 +128,9 @@ public class MovieGoerUI {
 	}
 
 	// We need a logic to check that 'Now Showing' & 'Preview' should set isShowing == true
-	private void listSearchMovies(){
-		int choice;
-		System.out.println("Select if you would like to search for a movie or list all available movies:");
-		do{
-			System.out.println("1. Search for a movie");
-			System.out.println("2. List all available movies");
-			System.out.println("3. Go back to previous menu");
-			System.out.print("Enter choice: ");
-			choice = checkIfInt(4);
-			switch (choice){
-			case 1:
-				System.out.println("Please enter the name of the movie: ");
-				sc.nextLine();                      // Clear buffer
-				String movieName = sc.nextLine();
-				Movie showingMovie = MovieController.getInstance().getShowingMovieByName(movieName);
-				if (showingMovie == null)
-					System.out.println("Movie not found. It is either not showing currently or you have mistyped the movie name");
-				else
-					System.out.println(showingMovie.getMovieName() + " is currently showing.");
-				break;
-			case 2:
-				printShowingMovies();
-				break;
-			case 3:
-				return;
-			default:
-				System.out.println("Invalid choice! Please re-enter...");
-			}
-		}while (choice > 3 || choice < 1);
+	private void listMovies(){
+		System.out.println("The movies that are coming soon, previewing or showing: ");
+		MovieController.getInstance().printMovieNames();
 	}
 
 	private void printShowingMovies(){
@@ -349,7 +323,7 @@ public class MovieGoerUI {
 		int number;
 		String alphabet;
 		MovieScreening movieScreening = MovieScreeningController.getInstance().getMovieScreeningByScreeningID(movieScreeningID);
-		System.out.println("\"Please enter the Seat Alphabet you wished to book!");
+		System.out.println("Please enter the Seat Alphabet you wished to book!");
 		while (!sc.hasNext("[ABCDEFGHIJKLMNabcdefghijklmn]")) {
 			System.out.println("That's not an Alphabet");
 			sc.next(); // this is important!
@@ -383,12 +357,11 @@ public class MovieGoerUI {
 
 			// Ask for payment
 			double price = BookingController.getInstance().calculatePrice(type, movieScreeningID);
-			System.out.printf("Please make payment of SGD %.2f\n", price);
+			System.out.printf("Please make payment of SGD %.2f\n (inclusive of 7% GST)", price);
 			System.out.print("Enter anything to pay :");
 			sc.nextLine(); sc.nextLine();
 			BookingController.getInstance().addBooking(movieGoer.getName(),movieGoer.getMobileNumber(),
 					movieGoer.getEmail(),cinemaID,movieScreeningID, price);
-			System.out.println("Thank you! Your booking is confirmed!");
 		}
 		else
 			System.out.println("The seat is booked! Please select another seat.");

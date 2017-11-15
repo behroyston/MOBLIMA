@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class Movie{
 	private int movieId;
@@ -15,6 +16,7 @@ public class Movie{
 	private boolean isShowing;
 	private double ticketSales;
 	private int duration;
+	private Calendar showingEndDate;
 
 	public Movie(int movieId, String movieName, String synopsis, String director, String cast, MovieShowingStatus status, int duration){
 		this.movieId = movieId;
@@ -26,11 +28,12 @@ public class Movie{
 		this.reviews = new ArrayList<>();
 		this.ratingList = new ArrayList<>();
 		this.duration = duration;
-		setIsShowing();
+		this.showingEndDate = null;
+		checkIfBookable();
 	}
 
 	public Movie(int movieId, String movieName, String synopsis, String director, String cast, MovieShowingStatus status, double avg_rating, boolean isShowing, double ticketSales, int duration,
-			ArrayList<String> reviews, ArrayList<Double> ratingList){
+			Calendar showingEndDate, ArrayList<String> reviews, ArrayList<Double> ratingList){
 		this.movieId = movieId;
 		this.movieName = movieName;
 		this.synopsis = synopsis;
@@ -41,9 +44,10 @@ public class Movie{
 		this.isShowing = isShowing;
 		this.ticketSales = ticketSales;
 		this.duration = duration;
+		this.showingEndDate = showingEndDate;
 		this.reviews = reviews;
 		this.ratingList = ratingList;
-
+		checkIfBookable();
 	}
 
 	public int getMovieId() {
@@ -86,11 +90,18 @@ public class Movie{
 		return isShowing;
 	}
 	
-	private void setIsShowing(){
-		if (movieShowingStatus == MovieShowingStatus.PREVIEW || movieShowingStatus == MovieShowingStatus.NOW_SHOWING)
-			isShowing = true;
-		else
-			isShowing = false;
+	public void setShowingEndDate(Calendar showingEndDate){
+		this.showingEndDate = showingEndDate;
+	}
+	
+	public Calendar getShowingEndDate(){
+		return showingEndDate;
+	}
+	
+	public void checkIfBookable(){
+		if (showingEndDate != null && Calendar.getInstance().after(showingEndDate))
+			movieShowingStatus = MovieShowingStatus.END_OF_SHOWING;
+		isShowing = movieShowingStatus == MovieShowingStatus.PREVIEW || movieShowingStatus == MovieShowingStatus.NOW_SHOWING;
 	}
 
 	public double getTicketSales() {
@@ -103,7 +114,7 @@ public class Movie{
 
 	public void setStatus(MovieShowingStatus status) {
 		this.movieShowingStatus = status;
-		setIsShowing();
+		checkIfBookable();
 	}
 
 	public void setAvg_rating(double avg_rating) {

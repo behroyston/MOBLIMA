@@ -55,9 +55,9 @@ public class TestApp {
 ////        movieScreeningController.writeDB();
  //       movieScreeningController.readDB();
 //        movieScreeningController.printMovieScreenings();
-        MovieGoerUI.getInstance().display();
+//        MovieGoerUI.getInstance().display();
 ////        MovieGoerUI.getInstance().showSeatsAvailability(movieScreeningController.getMovieScreenings().get(0));
-//        StaffUI.getInstance().display();
+        StaffUI.getInstance().display();
 
 //        // Manual text format - preferred here because it simulates the allowance of staff to add new cineplex/cinema to DB
 //        CineplexController control = CineplexController.getInstance();
@@ -245,8 +245,7 @@ public class TestApp {
 
         Movie movie1 = new Movie(1,"Kingsman","abc","Matthew Vaughn","Taron Egerton", MovieShowingStatus.NOW_SHOWING, 120);
         Movie movie2 = new Movie(2,"Marvel's Thor: Ragnarok", "abcd", "Taika Waititi","Chris Hemworth", MovieShowingStatus.NOW_SHOWING,100);
-        Movie movie3 = new Movie(3, "Ah Boys to Men 4","abcde", "Jack Neo", "Joshua Tan", MovieShowingStatus.NOW_SHOWING,2,true,10,130,
-                reviews, ratingList );
+        Movie movie3 = new Movie(3, "Ah Boys to Men 4","abcde", "Jack Neo", "Joshua Tan", MovieShowingStatus.NOW_SHOWING,2,true,10,130,null, reviews, ratingList );
         ArrayList <Movie> movieLists = new ArrayList<>();
         movieLists.add(movie1);
         movieLists.add(movie2);

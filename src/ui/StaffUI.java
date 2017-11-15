@@ -42,13 +42,14 @@ public class StaffUI {
 			System.out.println("1. Create Movie Listing");
 			System.out.println("2. Update Movie Listing");
 			System.out.println("3. Remove Movie Listing");
-			System.out.println("4. Create Cinema Showtimes");
-			System.out.println("5. Update Cinema Showtimes");
-			System.out.println("6. Remove Cinema Showtimes");
-			System.out.println("7. List Top 5 Movies by Sales or by Ratings");
-			System.out.println("8. Configure System Settings");
-			System.out.println("9. Exit");
-			choice1 = checkIfInt(10);
+			System.out.println("4. Add/Update/Remove a End Of Showing Date to an movie listing");
+			System.out.println("5. Create Cinema Showtimes");
+			System.out.println("6. Update Cinema Showtimes");
+			System.out.println("7. Remove Cinema Showtimes");
+			System.out.println("8. List Top 5 Movies by Sales or by Ratings");
+			System.out.println("9. Configure System Settings");
+			System.out.println("10. Exit");
+			choice1 = checkIfInt(11);
 
 			switch (choice1) {
 			case 1:
@@ -61,22 +62,25 @@ public class StaffUI {
 				removeMovieListing();
 				break;
 			case 4:
-				createCinemaShowtimes();
+				updateEndOfShowingDate();
 				break;
 			case 5:
-				updateCinemaShowtimes();
+				createCinemaShowtimes();
 				break;
 			case 6:
-				removeCinemaShowtimes();
+				updateCinemaShowtimes();
 				break;
 			case 7:
-				listTopRankings();
+				removeCinemaShowtimes();
 				break;
 			case 8:
+				listTopRankings();
+				break;
+			case 9:
 				configSystemSettings();
 				break;
 			}
-		} while (choice1 != 8);
+		} while (choice1 != 10);
 	}
 
 	private int checkIfInt(int value){
@@ -173,6 +177,33 @@ public class StaffUI {
 		}
 		else
 			System.out.println("Movie is not found!");
+	}
+
+	private void updateEndOfShowingDate(){
+		System.out.println("-----------------ADD/UPDATE/REMOVE END OF SHOWING DATE-----------------");
+		for (Movie movie : MovieController.getInstance().getMovieList()){
+			System.out.print(movie.getMovieName() + " - MovieID " + movie.getMovieId() + " - End Date: ");
+			if  (movie.getShowingEndDate() == null)
+				System.out.println("None");
+			else
+				System.out.println(movie.getShowingEndDate().getTime());
+		}
+		System.out.print("Enter MovieID of the movie you would like to update: ");
+		int movieID = sc.nextInt();
+		System.out.print("Enter the end date in yyyy-mm-dd format or 'None' to remove:");
+		String movieEndDate = sc.next();
+		if (movieEndDate.equalsIgnoreCase("None"))
+			MovieController.getInstance().updateMovieEndOfShowing(movieID, null);
+		else{
+			try {
+				Date date = new SimpleDateFormat("yyyy-MM-dd").parse(movieEndDate);
+				Calendar endDate = Calendar.getInstance();
+				endDate.setTime(date);
+				MovieController.getInstance().updateMovieEndOfShowing(movieID, endDate);
+			} catch (ParseException e) {
+				System.out.println("Invalid input!");
+			}
+		}
 	}
 
 	private void createCinemaShowtimes(){
@@ -360,12 +391,12 @@ public class StaffUI {
 				} catch (ParseException e) {
 					System.out.println("Invalid input!");
 				}
-				
+
 				break;
 			}
 		} while (choice != 0);
 	}
-	
+
 	private void listTopRankings(){
 		MovieController movieController = MovieController.getInstance();
 		int choice;
