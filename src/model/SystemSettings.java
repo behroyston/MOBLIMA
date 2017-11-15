@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.List;
 import java.util.StringTokenizer;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class SystemSettings implements Serializable{
 
@@ -16,9 +17,11 @@ public class SystemSettings implements Serializable{
 	private double childDiscount;
 	private double weekend_HolidayExtra;
 	private double goldExtra;
+	private ArrayList<Calendar> holidays;
 
 	//Class constructor
 	private SystemSettings() {
+		holidays = new ArrayList<>();
 		try{
 			readSettings("database/SystemSettings.dat");
 		}
@@ -103,11 +106,25 @@ public class SystemSettings implements Serializable{
 	public double getGoldExtra() {
 		return this.goldExtra;
 	}
+	
 	//mutate private gold class extra
 	public void setGoldExtra(double goldExtra) {
 		this.goldExtra = goldExtra;
 		writeSettings("database/SystemSettings.dat");
 		return;
+	}
+	
+	public ArrayList<Calendar> getHolidays() {
+		return this.holidays;
+	}
+	
+	public boolean addHoliday(Calendar holiday) {
+		for (Calendar cal : holidays)
+			if (holiday.compareTo(cal) == 0)
+				return false;
+		holidays.add(holiday);
+		writeSettings("database/SystemSettings.dat");
+		return true;
 	}
 
 	//static 'instance' method
@@ -130,6 +147,13 @@ public class SystemSettings implements Serializable{
 		childDiscount = Double.parseDouble(aStr.nextToken());
 		weekend_HolidayExtra = Double.parseDouble(aStr.nextToken());
 		goldExtra = Double.parseDouble(aStr.nextToken());
+		holidays.clear();
+		while (aStr.hasMoreTokens()){
+			Calendar cal = Calendar.getInstance();
+			Calendar holiday = (Calendar)cal.clone();
+			holiday.setTimeInMillis(Long.parseLong(aStr.nextToken()));
+			holidays.add(holiday);
+		}
 		brStream.close();
 	}
 
@@ -152,6 +176,10 @@ public class SystemSettings implements Serializable{
 			str.append(';');
 			str.append(goldExtra);
 			str.append(';');
+			for (Calendar cal : holidays){
+				str.append(cal.getTimeInMillis());
+				str.append(';');
+			}
 			pwStream.println(str.toString());
 			pwStream.close();
 		}

@@ -318,7 +318,6 @@ public class MovieGoerUI {
 	public void showSeatsAvailability(int movieScreeningID){
 
 		MovieScreening movieScreening = MovieScreeningController.getInstance().getMovieScreeningByScreeningID(movieScreeningID);
-		System.out.println(movieScreeningID);
 		// 14
 		System.out.println("\t <<<EXIT>>>\t");
 		System.out.print("  ");
@@ -386,7 +385,7 @@ public class MovieGoerUI {
 			double price = BookingController.getInstance().calculatePrice(type, movieScreeningID);
 			System.out.printf("Please make payment of SGD %.2f\n", price);
 			System.out.print("Enter anything to pay :");
-			sc.nextLine();
+			sc.nextLine(); sc.nextLine();
 			BookingController.getInstance().addBooking(movieGoer.getName(),movieGoer.getMobileNumber(),
 					movieGoer.getEmail(),cinemaID,movieScreeningID, price);
 			System.out.println("Thank you! Your booking is confirmed!");

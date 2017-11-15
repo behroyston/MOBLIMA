@@ -8,7 +8,10 @@ import model.MovieClassType;
 import model.MovieShowingStatus;
 import model.SystemSettings;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Scanner;
 
 public class StaffUI {
@@ -255,6 +258,7 @@ public class StaffUI {
 			System.out.println("4. Configure Senior Citizen Disocunt");
 			System.out.println("5. Configure Child Discount");
 			System.out.println("6. Configure Weekend/Holiday Surcharge");
+			System.out.println("6. Add a Holiday Date");
 			System.out.println("0. Exit\n");
 			System.out.print("Enter choice: ");
 			choice = sc.nextInt();
@@ -341,6 +345,22 @@ public class StaffUI {
 				else if(choice2 != 0 && choice2 != 1) {
 					System.out.println("INVALID OPTION");
 				}
+				break;
+			case 7:
+				System.out.println("Add a Holiday Date: ");
+				System.out.print("Enter the date in yyyy-mm-dd: ");
+				sc.nextLine(); // Clear buffer
+				String dateStr = sc.nextLine();
+				try {
+					Date date = new SimpleDateFormat("yyyy-MM-dd").parse(dateStr);
+					Calendar holiday = Calendar.getInstance();
+					holiday.setTime(date);
+					if (!SystemSettings.getInstance().addHoliday(holiday))
+						System.out.println("You have already set this day as a holiday date!");
+				} catch (ParseException e) {
+					System.out.println("Invalid input!");
+				}
+				
 				break;
 			}
 		} while (choice != 0);

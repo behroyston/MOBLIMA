@@ -169,9 +169,16 @@ public class BookingController extends DatabaseController{
 		if (movieScreening.getMovieClassType() == MovieClassType.CLASS3D)
 			price += sysSettings.getThreeDExtra();
 		
-		// Weekend
-		int dayOfWeek = movieScreening.getStartTime().get(Calendar.DAY_OF_WEEK);
-		if (dayOfWeek == Calendar.SATURDAY || dayOfWeek == Calendar.SUNDAY)
+		// Weekend or Holiday
+		Calendar cal = movieScreening.getStartTime();
+		int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+		boolean isHoliday = false;
+		
+		for (Calendar holiday : sysSettings.getHolidays())
+			isHoliday = cal.get(Calendar.YEAR) == holiday.get(Calendar.YEAR) &&
+					cal.get(Calendar.DAY_OF_YEAR) == holiday.get(Calendar.DAY_OF_YEAR);
+		
+		if (dayOfWeek == Calendar.SATURDAY || dayOfWeek == Calendar.SUNDAY || isHoliday)
 			price += sysSettings.getWeekend_HolidayExtra();
 		
 		return price;

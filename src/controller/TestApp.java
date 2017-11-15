@@ -5,14 +5,17 @@ import ui.MovieGoerUI;
 import ui.StaffUI;
 
 import java.io.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Scanner;
 
 public class TestApp {
-    public static void main(String[] args) {
-//
+    public static void main(String[] args) throws ParseException {
 //    	MovieGoerController movieGoerController = MovieGoerController.getInstance();
 ////    	ArrayList<MovieGoer> movieGoerList = createMovieGoerSample();
 ////    	movieGoerController.setMovieGoerList(movieGoerList);
@@ -47,7 +50,7 @@ public class TestApp {
 ////
 // //       bookingController.printBookingList();
 ////
-//        MovieScreeningController movieScreeningController= MovieScreeningController.getInstance();
+ //       MovieScreeningController movieScreeningController= MovieScreeningController.getInstance();
 ////        movieScreeningController.setMovieScreenings(createSampleMovieScreening());
 ////        movieScreeningController.writeDB();
  //       movieScreeningController.readDB();
