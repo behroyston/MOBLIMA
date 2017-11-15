@@ -411,7 +411,7 @@ public class MovieGoerUI {
 	private void bookTickets(int movieScreeningID){
 		int number;
 		String alphabet;
-		MovieScreening movieScreening = MovieScreeningController.getInstance().getMovieScreenings().get(movieScreeningID);
+		MovieScreening movieScreening = MovieScreeningController.getInstance().getMovieScreeningByScreeningID(movieScreeningID);
 		System.out.println("\"Please enter the Seat Alphabet you wished to book!");
 		while (!sc.hasNext("[ABCDEFGHIJKLMNabcdefghijklmn]")) {
 			System.out.println("That's not an Alphabet");
@@ -445,8 +445,13 @@ public class MovieGoerUI {
 	}
 
 	public void viewBookingHistory(String emailAddress) {
-		System.out.println("Booking History: \n");
 		ArrayList<Booking> bookings = BookingController.getInstance().getAllBookingByUser(emailAddress);
+		if (bookings.size() == 0){
+			System.out.println("You have not made any bookings!");
+			return;
+		}
+
+		System.out.println("Booking History: \n");
 		for (Booking booking : bookings) {
 			int moviescreeningID = booking.getMovieScreeningID();
 			System.out.println(moviescreeningID);

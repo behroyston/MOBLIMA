@@ -275,7 +275,7 @@ public class MovieScreeningController extends DatabaseController {
                 movieScreeningList.add(movieScreening);
             }
         }
-        return movieScreenings;
+        return movieScreeningList;
     }
 
     /**
