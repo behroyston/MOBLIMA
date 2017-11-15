@@ -258,7 +258,7 @@ public class StaffUI {
 			System.out.println("4. Configure Senior Citizen Disocunt");
 			System.out.println("5. Configure Child Discount");
 			System.out.println("6. Configure Weekend/Holiday Surcharge");
-			System.out.println("6. Add a Holiday Date");
+			System.out.println("7. Add a Holiday Date");
 			System.out.println("0. Exit\n");
 			System.out.print("Enter choice: ");
 			choice = sc.nextInt();
