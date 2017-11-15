@@ -184,6 +184,11 @@ public class StaffUI {
 	//methods to edit cinema showtimes
 	private void createOrUpdateCinemaShowtimes(boolean create) {
 		//consider adding exception handling for wrong Cinema/Movie ID?
+        int movieScreeningID = -1;
+        if (!create) {
+            System.out.println("Enter the movie screening ID: ");
+            movieScreeningID = sc.nextInt();
+        }
 		System.out.println("Enter Cinema ID: ");
 		int newCID = sc.nextInt();
 		System.out.println("Enter Movie ID: ");
@@ -218,9 +223,9 @@ public class StaffUI {
 		calendar.set(newYear, newMonth - 1, newDay, newHour,newMin, 0);
 
 		if (create)
-		    MovieScreeningController.getInstance().addMovieScreening(newCID, newMID, calendar, movieClassType);
+		    MovieScreeningController.getInstance().addMovieScreening(movieScreeningID, newCID, newMID, calendar, movieClassType);
 		else
-            MovieScreeningController.getInstance().updateMovieScreening(newCID, newCID, newMID, calendar, movieClassType);
+            MovieScreeningController.getInstance().updateMovieScreening(movieScreeningID, newCID, newMID, calendar, movieClassType);
 
     }
 

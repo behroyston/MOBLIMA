@@ -2,17 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ed6268a8-6d06-4e72-94cb-131ed4fa5168" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/MOBLIMA/controller/BookingController.class" afterPath="$PROJECT_DIR$/out/production/MOBLIMA/controller/BookingController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/MOBLIMA/controller/CineplexController.class" afterPath="$PROJECT_DIR$/out/production/MOBLIMA/controller/CineplexController.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/MOBLIMA/controller/MovieController.class" afterPath="$PROJECT_DIR$/out/production/MOBLIMA/controller/MovieController.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/MOBLIMA/controller/MovieScreeningController.class" afterPath="$PROJECT_DIR$/out/production/MOBLIMA/controller/MovieScreeningController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/MOBLIMA/model/Movie.class" afterPath="$PROJECT_DIR$/out/production/MOBLIMA/model/Movie.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/MOBLIMA/model/MovieScreening.class" afterPath="$PROJECT_DIR$/out/production/MOBLIMA/model/MovieScreening.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database/booking/Bookings.dat" afterPath="$PROJECT_DIR$/database/booking/Bookings.dat" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database/movie/Movie.dat" afterPath="$PROJECT_DIR$/database/movie/Movie.dat" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database/moviescreening/MovieScreenings.dat" afterPath="$PROJECT_DIR$/database/moviescreening/MovieScreenings.dat" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/controller/MovieController.java" afterPath="$PROJECT_DIR$/src/controller/MovieController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/controller/MovieScreeningController.java" afterPath="$PROJECT_DIR$/src/controller/MovieScreeningController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/controller/TestApp.java" afterPath="$PROJECT_DIR$/src/controller/TestApp.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/Movie.java" afterPath="$PROJECT_DIR$/src/model/Movie.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ui/StaffUI.java" afterPath="$PROJECT_DIR$/src/ui/StaffUI.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -31,8 +28,20 @@
       <file leaf-file-name="TestApp.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/controller/TestApp.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="258">
-              <caret line="238" column="28" lean-forward="true" selection-start-line="238" selection-start-column="28" selection-end-line="238" selection-end-column="28" />
+            <state relative-caret-position="320">
+              <caret line="251" column="0" lean-forward="true" selection-start-line="251" selection-start-column="0" selection-end-line="251" selection-end-column="0" />
+              <folding>
+                <marker date="1510709422000" expanded="false" signature="9789:9797" ph="&lt;~&gt;" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MovieScreenings.dat" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/database/moviescreening/MovieScreenings.dat">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="420">
+              <caret line="28" column="3" lean-forward="false" selection-start-line="28" selection-start-column="3" selection-end-line="28" selection-end-column="3" />
               <folding />
             </state>
           </provider>
@@ -51,21 +60,13 @@
       <file leaf-file-name="MovieScreeningController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/controller/MovieScreeningController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="438">
-              <caret line="176" column="141" lean-forward="false" selection-start-line="176" selection-start-column="139" selection-end-line="176" selection-end-column="141" />
+            <state relative-caret-position="480">
+              <caret line="197" column="0" lean-forward="true" selection-start-line="197" selection-start-column="0" selection-end-line="197" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#6822#6823#0" expanded="true" />
+                <element signature="e#6860#6861#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MovieScreenings.dat" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/database/moviescreening/MovieScreenings.dat">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -73,8 +74,8 @@
       <file leaf-file-name="StaffUI.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ui/StaffUI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="309">
-              <caret line="213" column="35" lean-forward="true" selection-start-line="213" selection-start-column="35" selection-end-line="213" selection-end-column="35" />
+            <state relative-caret-position="422">
+              <caret line="225" column="87" lean-forward="false" selection-start-line="225" selection-start-column="87" selection-end-line="225" selection-end-column="87" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -86,10 +87,36 @@
         <entry file="file://$PROJECT_DIR$/src/controller/MovieController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1137">
-              <caret line="220" column="101" lean-forward="true" selection-start-line="220" selection-start-column="101" selection-end-line="220" selection-end-column="101" />
+              <caret line="221" column="101" lean-forward="false" selection-start-line="221" selection-start-column="101" selection-end-line="221" selection-end-column="101" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <marker date="1510672778000" expanded="true" signature="6294:6797" ph="/**...*/" />
+                <marker date="1510709422000" expanded="false" signature="710:725" ph=" }" />
+                <marker date="1510709422000" expanded="true" signature="727:821" ph="/**...*/" />
+                <marker date="1510709422000" expanded="true" signature="867:951" ph="{...}" />
+                <marker date="1510709422000" expanded="true" signature="989:3043" ph="{...}" />
+                <marker date="1510709422000" expanded="true" signature="3082:5117" ph="{...}" />
+                <marker date="1510709422000" expanded="true" signature="5156:5280" ph="/**...*/" />
+                <marker date="1510709422000" expanded="false" signature="5304:5308" ph=" { " />
+                <marker date="1510709422000" expanded="false" signature="5319:5322" ph=" }" />
+                <marker date="1510709422000" expanded="true" signature="5364:5481" ph="{...}" />
+                <marker date="1510709422000" expanded="false" signature="5523:5527" ph=" { " />
+                <marker date="1510709422000" expanded="false" signature="5544:5547" ph=" }" />
+                <marker date="1510709422000" expanded="true" signature="5596:5813" ph="{...}" />
+                <marker date="1510709422000" expanded="true" signature="5816:6023" ph="/**...*/" />
+                <marker date="1510709422000" expanded="true" signature="6164:6302" ph="{...}" />
+                <marker date="1510709422000" expanded="true" signature="6306:6809" ph="/**...*/" />
+                <marker date="1510709422000" expanded="true" signature="6463:6637" ph="{...}" />
+                <marker date="1510709422000" expanded="true" signature="6643:6809" ph="/**...*/" />
+                <marker date="1510709422000" expanded="true" signature="6848:7048" ph="{...}" />
+                <marker date="1510709422000" expanded="true" signature="7052:7141" ph="/**...*/" />
+                <marker date="1510709422000" expanded="true" signature="7177:7283" ph="{...}" />
+                <marker date="1510709422000" expanded="true" signature="7368:7515" ph="{...}" />
+                <marker date="1510709422000" expanded="true" signature="7592:7885" ph="{...}" />
+                <marker date="1510709422000" expanded="true" signature="7964:8401" ph="{...}" />
+                <marker date="1510709422000" expanded="false" signature="8457:8462" ph=" { " />
+                <marker date="1510709422000" expanded="false" signature="8489:8492" ph=" }" />
+                <marker date="1510709422000" expanded="true" signature="8524:8670" ph="{...}" />
+                <marker date="1510709422000" expanded="true" signature="8703:8831" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -99,7 +126,7 @@
         <entry file="file://$PROJECT_DIR$/src/model/Movie.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="435">
-              <caret line="29" column="5" lean-forward="true" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
+              <caret line="29" column="5" lean-forward="false" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -108,9 +135,11 @@
       <file leaf-file-name="MovieScreening.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/model/MovieScreening.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1654">
-              <caret line="145" column="0" lean-forward="true" selection-start-line="145" selection-start-column="0" selection-end-line="145" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="1669">
+              <caret line="146" column="0" lean-forward="false" selection-start-line="146" selection-start-column="0" selection-end-line="146" selection-end-column="0" />
+              <folding>
+                <marker date="1510709422000" expanded="true" signature="4282:4333" ph="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -147,6 +176,7 @@
       <find>printMovieScreeningSeatsInfo</find>
       <find>createMovi</find>
       <find>MovieSc</find>
+      <find>after</find>
       <find>createSampleMovie</find>
     </findStrings>
     <replaceStrings>
@@ -201,8 +231,8 @@
         <option value="$PROJECT_DIR$/src/model/Movie.java" />
         <option value="$PROJECT_DIR$/src/controller/TestApp.java" />
         <option value="$PROJECT_DIR$/src/controller/MovieController.java" />
-        <option value="$PROJECT_DIR$/src/ui/StaffUI.java" />
         <option value="$PROJECT_DIR$/database/movie/Movie.dat" />
+        <option value="$PROJECT_DIR$/src/ui/StaffUI.java" />
         <option value="$PROJECT_DIR$/src/controller/MovieScreeningController.java" />
         <option value="$PROJECT_DIR$/database/moviescreening/MovieScreenings.dat" />
       </list>
@@ -483,12 +513,12 @@
       <workItem from="1510122463323" duration="9424000" />
       <workItem from="1510214220952" duration="1089000" />
       <workItem from="1510472663979" duration="31382000" />
-      <workItem from="1510579555510" duration="34305000" />
+      <workItem from="1510579555510" duration="36011000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="85789000" />
+    <option name="totallyTimeSpent" value="87495000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1366" y="271" width="1920" height="1010" extended-state="0" />
@@ -828,7 +858,7 @@
           <caret line="27" column="37" lean-forward="false" selection-start-line="27" selection-start-column="37" selection-end-line="27" selection-end-column="37" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1510651369000" expanded="true" signature="2722:3314" ph="{...}" />
+            <marker date="1510709422000" expanded="true" signature="3462:3587" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -845,11 +875,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="618">
           <caret line="126" column="9" lean-forward="true" selection-start-line="126" selection-start-column="9" selection-end-line="126" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#3827#3828#0" expanded="true" />
-            <element signature="e#3854#3855#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -866,16 +892,8 @@
         <state relative-caret-position="895">
           <caret line="108" column="0" lean-forward="true" selection-start-line="108" selection-start-column="0" selection-end-line="108" selection-end-column="0" />
           <folding>
-            <marker date="1510654441000" expanded="true" signature="4707:4708" ph="{...}" />
+            <marker date="1510709422000" expanded="true" signature="4719:4720" ph="{...}" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/person/Staff.dat">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="10" lean-forward="false" selection-start-line="0" selection-start-column="10" selection-end-line="0" selection-end-column="10" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -891,16 +909,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/model/MovieScreening.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1654">
-          <caret line="145" column="0" lean-forward="true" selection-start-line="145" selection-start-column="0" selection-end-line="145" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="1669">
+          <caret line="146" column="0" lean-forward="false" selection-start-line="146" selection-start-column="0" selection-end-line="146" selection-end-column="0" />
+          <folding>
+            <marker date="1510709422000" expanded="true" signature="4282:4333" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/model/Movie.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="435">
-          <caret line="29" column="5" lean-forward="true" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
+          <caret line="29" column="5" lean-forward="false" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
           <folding />
         </state>
       </provider>
@@ -913,29 +933,55 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/controller/TestApp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="258">
-          <caret line="238" column="28" lean-forward="true" selection-start-line="238" selection-start-column="28" selection-end-line="238" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/controller/MovieController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1137">
-          <caret line="220" column="101" lean-forward="true" selection-start-line="220" selection-start-column="101" selection-end-line="220" selection-end-column="101" />
+          <caret line="221" column="101" lean-forward="false" selection-start-line="221" selection-start-column="101" selection-end-line="221" selection-end-column="101" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1510672778000" expanded="true" signature="6294:6797" ph="/**...*/" />
+            <marker date="1510709422000" expanded="false" signature="710:725" ph=" }" />
+            <marker date="1510709422000" expanded="true" signature="727:821" ph="/**...*/" />
+            <marker date="1510709422000" expanded="true" signature="867:951" ph="{...}" />
+            <marker date="1510709422000" expanded="true" signature="989:3043" ph="{...}" />
+            <marker date="1510709422000" expanded="true" signature="3082:5117" ph="{...}" />
+            <marker date="1510709422000" expanded="true" signature="5156:5280" ph="/**...*/" />
+            <marker date="1510709422000" expanded="false" signature="5304:5308" ph=" { " />
+            <marker date="1510709422000" expanded="false" signature="5319:5322" ph=" }" />
+            <marker date="1510709422000" expanded="true" signature="5364:5481" ph="{...}" />
+            <marker date="1510709422000" expanded="false" signature="5523:5527" ph=" { " />
+            <marker date="1510709422000" expanded="false" signature="5544:5547" ph=" }" />
+            <marker date="1510709422000" expanded="true" signature="5596:5813" ph="{...}" />
+            <marker date="1510709422000" expanded="true" signature="5816:6023" ph="/**...*/" />
+            <marker date="1510709422000" expanded="true" signature="6164:6302" ph="{...}" />
+            <marker date="1510709422000" expanded="true" signature="6306:6809" ph="/**...*/" />
+            <marker date="1510709422000" expanded="true" signature="6463:6637" ph="{...}" />
+            <marker date="1510709422000" expanded="true" signature="6643:6809" ph="/**...*/" />
+            <marker date="1510709422000" expanded="true" signature="6848:7048" ph="{...}" />
+            <marker date="1510709422000" expanded="true" signature="7052:7141" ph="/**...*/" />
+            <marker date="1510709422000" expanded="true" signature="7177:7283" ph="{...}" />
+            <marker date="1510709422000" expanded="true" signature="7368:7515" ph="{...}" />
+            <marker date="1510709422000" expanded="true" signature="7592:7885" ph="{...}" />
+            <marker date="1510709422000" expanded="true" signature="7964:8401" ph="{...}" />
+            <marker date="1510709422000" expanded="false" signature="8457:8462" ph=" { " />
+            <marker date="1510709422000" expanded="false" signature="8489:8492" ph=" }" />
+            <marker date="1510709422000" expanded="true" signature="8524:8670" ph="{...}" />
+            <marker date="1510709422000" expanded="true" signature="8703:8831" ph="{...}" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/person/Staff.dat">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="10" lean-forward="false" selection-start-line="0" selection-start-column="10" selection-end-line="0" selection-end-column="10" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ui/StaffUI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="309">
-          <caret line="213" column="35" lean-forward="true" selection-start-line="213" selection-start-column="35" selection-end-line="213" selection-end-column="35" />
+        <state relative-caret-position="422">
+          <caret line="225" column="87" lean-forward="false" selection-start-line="225" selection-start-column="87" selection-end-line="225" selection-end-column="87" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -944,18 +990,30 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/controller/MovieScreeningController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="438">
-          <caret line="176" column="141" lean-forward="false" selection-start-line="176" selection-start-column="139" selection-end-line="176" selection-end-column="141" />
+        <state relative-caret-position="480">
+          <caret line="197" column="0" lean-forward="true" selection-start-line="197" selection-start-column="0" selection-end-line="197" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#6822#6823#0" expanded="true" />
+            <element signature="e#6860#6861#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/controller/TestApp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="251" column="0" lean-forward="true" selection-start-line="251" selection-start-column="0" selection-end-line="251" selection-end-column="0" />
+          <folding>
+            <marker date="1510709422000" expanded="false" signature="9789:9797" ph="&lt;~&gt;" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/database/moviescreening/MovieScreenings.dat">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+        <state relative-caret-position="420">
+          <caret line="28" column="3" lean-forward="false" selection-start-line="28" selection-start-column="3" selection-end-line="28" selection-end-column="3" />
           <folding />
         </state>
       </provider>

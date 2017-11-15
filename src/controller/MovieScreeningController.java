@@ -165,7 +165,7 @@ public class MovieScreeningController extends DatabaseController {
      * @param startTime the starting time of the movie
      * @return
      */
-    public boolean addMovieScreening(int cinemaID, int movieID, Calendar startTime, MovieClassType movieType)
+    public boolean addMovieScreening(int movieScreeningID, int cinemaID, int movieID, Calendar startTime, MovieClassType movieType)
     {
         Calendar endTime = (Calendar)(startTime.clone());
         endTime.add(Calendar.MINUTE, MovieController.getInstance().getMovie(movieID).getDuration());
@@ -183,14 +183,19 @@ public class MovieScreeningController extends DatabaseController {
                     return false;
                 }*/
             	// Take negation, so if there exists one existing movieScreening such that the new start time is before or equal to this movie screening
-            	// end time AND the new end time is after or equal to this movie screening
+            	// end time AND the new end time is after or equal to this movie screening's start time
                 if (!startTime.after(movieScreening.getEndTime()) && !endTime.before(movieScreening.getStartTime())){
                 	System.out.println("This moviescreening's timing clashes with another moviescreening's timing!");
                     return false;
                 }
             }
         }
-        MovieScreening newMovieScreening = new MovieScreening(movieScreenings.size()+1,startTime, endTime, movieType, cinemaID,movieID);
+        // if movie is created instead of updated
+        if (movieScreeningID == -1) {
+            movieScreeningID = movieScreenings.size()+1;
+        }
+        MovieScreening newMovieScreening = new MovieScreening(movieScreeningID,startTime, endTime, movieType, cinemaID,movieID);
+
         movieScreenings.add(newMovieScreening);
         writeDB();
         return true;
@@ -208,11 +213,11 @@ public class MovieScreeningController extends DatabaseController {
                                         MovieClassType movieType)
     {
         MovieScreening oldMovieScreening = removeMovieScreening(movieScreeningID);
-        if (addMovieScreening(newCinemaID,newMovieID, newStartTime, movieType) && oldMovieScreening != null) {
+        if (addMovieScreening(movieScreeningID,newCinemaID,newMovieID, newStartTime, movieType) && oldMovieScreening != null) {
             return true;
         }
         else if (oldMovieScreening != null){
-            addMovieScreening(oldMovieScreening.getCinemaID(),oldMovieScreening.getMovieID(),
+            addMovieScreening(movieScreeningID,oldMovieScreening.getCinemaID(),oldMovieScreening.getMovieID(),
                     oldMovieScreening.getStartTime(), movieType);
             return false;
         }
