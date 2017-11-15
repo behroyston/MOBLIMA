@@ -45,7 +45,7 @@ public class Booking {
     private void formatTransactionID(){
         DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmm");
         Date date = new Date();
-        transactionId = (cinemaID + dateFormat.format(date));
+        transactionId = String.format("%03d%s", cinemaID, dateFormat.format(date));
     }
 
     public String getEmailAddress(){

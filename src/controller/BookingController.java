@@ -131,12 +131,12 @@ public class BookingController extends DatabaseController{
 	 * @param movieScreeningID
 	 * Add model.Booking into the BookingList after user has key in all the details required by the ui.MovieGoerUI.
 	 */
-	public void addBooking(String userName, String mobileNum, String emailAddress, int cinemaID, int movieScreeningID){
+	public void addBooking(String userName, String mobileNum, String emailAddress, int cinemaID, int movieScreeningID, double price){
 		//
 		Booking newBooking = new Booking(movieScreeningID,userName,mobileNum,emailAddress,cinemaID);
 		bookingList.add(newBooking);
+		updateSales(MovieScreeningController.getInstance().getMovieScreeningByScreeningID(movieScreeningID).getMovieID(), price);
 		writeDB();
-		//updateSales(MovieScreeningController.getInstance().getMovieScreenings().get(movieScreeningID).getMovieID());
 	}
 
 	public ArrayList<Booking> getAllBookingByUser(String emailAddress){
@@ -145,14 +145,8 @@ public class BookingController extends DatabaseController{
 			if (emailAddress.equalsIgnoreCase(booking.getEmailAddress()))
 				userBookings.add(booking);
 		return userBookings;
-	}/*
-	private double basePrice=10;
-	private double threeDExtra=5;
-	private double platinumExtra=7;
-	private double seniorDiscount=3;
-	private double childDiscount=2;
-	private double weekend_HolidayExtra=2;
-	private double goldExtra=5;*/
+	}
+	
 	public double calculatePrice(int type, int movieScreeningID){
 		SystemSettings sysSettings = SystemSettings.getInstance();
 		MovieScreening movieScreening = MovieScreeningController.getInstance().getMovieScreeningByScreeningID(movieScreeningID);
@@ -175,6 +169,7 @@ public class BookingController extends DatabaseController{
 		if (movieScreening.getMovieClassType() == MovieClassType.CLASS3D)
 			price += sysSettings.getThreeDExtra();
 		
+		// Weekend
 		int dayOfWeek = movieScreening.getStartTime().get(Calendar.DAY_OF_WEEK);
 		if (dayOfWeek == Calendar.SATURDAY || dayOfWeek == Calendar.SUNDAY)
 			price += sysSettings.getWeekend_HolidayExtra();
@@ -185,8 +180,8 @@ public class BookingController extends DatabaseController{
 	/**
 	 * Update the total sales of the model.Movie by using the MovieID.
 	 */
-	private void updateSales(int movieID){
-        double basePrice = SystemSettings.getInstance().getBasePrice();
+	private void updateSales(int movieID, double price){
+		MovieController.getInstance().updateMovieSales(movieID, price);
 	}
 
 

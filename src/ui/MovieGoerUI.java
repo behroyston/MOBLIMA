@@ -370,7 +370,7 @@ public class MovieGoerUI {
 
 		// x
 		int horizontalIndex = stringList.indexOf(alphabet.toUpperCase());
-		boolean setSeat = MovieScreeningController.getInstance().setSeatSelected(movieScreeningID-1,number-1,horizontalIndex);
+		boolean setSeat = MovieScreeningController.getInstance().setSeatSelected(movieScreeningID,number-1,horizontalIndex);
 
 		if (setSeat) {
 			//TODO AddBooking through the BookingManager
@@ -386,11 +386,10 @@ public class MovieGoerUI {
 			double price = BookingController.getInstance().calculatePrice(type, movieScreeningID);
 			System.out.printf("Please make payment of SGD %.2f\n", price);
 			System.out.print("Enter anything to pay :");
-			sc.next();
-			BookingController.getInstance().addBooking(movieGoer.getName(),movieGoer.getMobileNumber(),movieGoer.getEmail(),cinemaID,movieScreeningID-1);
-			MovieController.getInstance().updateMovieSales(movieScreening.getMovieID(), price);
-
-
+			sc.nextLine();
+			BookingController.getInstance().addBooking(movieGoer.getName(),movieGoer.getMobileNumber(),
+					movieGoer.getEmail(),cinemaID,movieScreeningID, price);
+			System.out.println("Thank you! Your booking is confirmed!");
 		}
 		else
 			System.out.println("The seat is booked! Please select another seat.");
@@ -410,7 +409,6 @@ public class MovieGoerUI {
 			System.out.println(moviescreeningID);
 			MovieScreening movieScreening = MovieScreeningController.getInstance().getMovieScreeningByScreeningID(moviescreeningID);
 			int movieID = movieScreening.getMovieID();
-			System.out.println(movieID);
 			String movieName = MovieController.getInstance().getMovie(movieID).getMovieName();
 
 			System.out.println(

@@ -89,7 +89,6 @@ public class MovieController extends DatabaseController{
 								rating = aStr.nextToken();
 							}
 						}
-						System.out.println("MovieAdded!");
 						movie = new Movie(movieID,movieName,synopsis,director,cast,status,avg_rating,isShowing,ticketSales,duration,reviewList,ratingList);
 						movieList.add(movie);
 					}

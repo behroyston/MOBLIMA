@@ -52,9 +52,9 @@ public class TestApp {
 ////        movieScreeningController.writeDB();
  //       movieScreeningController.readDB();
 //        movieScreeningController.printMovieScreenings();
-//        MovieGoerUI.getInstance().display();
+        MovieGoerUI.getInstance().display();
 ////        MovieGoerUI.getInstance().showSeatsAvailability(movieScreeningController.getMovieScreenings().get(0));
-        StaffUI.getInstance().display();
+//        StaffUI.getInstance().display();
 
 //        // Manual text format - preferred here because it simulates the allowance of staff to add new cineplex/cinema to DB
 //        CineplexController control = CineplexController.getInstance();
