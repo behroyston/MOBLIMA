@@ -15,9 +15,9 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         int choice;
         do{
-        	System.out.println("Are you a staff or a moviegoer?");
+        	System.out.println("Are you a staff or a customer?");
         	System.out.println("1) Staff");
-        	System.out.println("2) MovieGoer");
+        	System.out.println("2) Customer");
         	System.out.println("3) Quit");
         	System.out.print("Enter choice: ");
         	choice = sc.nextInt();
