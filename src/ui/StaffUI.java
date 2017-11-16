@@ -13,20 +13,32 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
-
+/**
+ * A user interface for Staff to interact and configure settings in MOBLIMA.
+ * @author Amos
+ * @version 1.0
+ * @since 2017-11-06
+ */
 public class StaffUI {
-
-	//attributes
+	/**
+	 * Instance of the MovieGoerUI.
+	 */
 	private static StaffUI instance = null;
-
+	
+	/**
+	 * Scanner object to take in inputs from the MovieGoer.
+	 */
 	Scanner sc = new Scanner(System.in);
 
-	//class constructor
-	private StaffUI() {
+	/**
+	 * Creates a StaffUI object.
+	 */
+	private StaffUI() {}
 
-	}
-
-	//display
+	/**
+	 * Central interface that display all the options avaliable to the staff.
+	 * Will ask the Staff to login first before proceeding.
+	 */
 	public void display() {
 		// Validation first
 		System.out.println("-------------------- Welcome to MOBLIMA! --------------------");
@@ -36,6 +48,7 @@ public class StaffUI {
 		}
 
 		int choice1;
+		// Options for staff
 		do {
 			System.out.println("-----------------STAFF CONSOLE-----------------");
 			System.out.println("What would you like to do?\n");
@@ -82,7 +95,12 @@ public class StaffUI {
 			}
 		} while (choice1 != 10);
 	}
-
+	
+	/**
+	 * Check if the value entered is integer.
+	 * @param value	Value to return in user enter an non-integer value.
+	 * @return		Value entered by user if it is integer. Otherwise, returns the input parameter of this method. 
+	 */
 	private int checkIfInt(int value){
 		if (!sc.hasNextInt()){
 			sc.next(); // Remove the invalid input
@@ -91,7 +109,10 @@ public class StaffUI {
 		return sc.nextInt();
 	}
 
-	//login
+	/**
+	 * Interact with the staff to login and perform validation. 
+	 * @return	Email address of the staff if validated successfully. null object otherwise.
+	 */
 	private String loginValidation() {
 
 		String email, password;
@@ -108,18 +129,29 @@ public class StaffUI {
 		return email;
 	}
 
+	/**
+	 * Interact with the staff to create a new movie for listing.
+	 */
 	private void createMovieListing(){
 		System.out.println("-----------------CREATE MOVIE LISTINGS-----------------");
 		System.out.println("Add new Movie Listing: \n");
 		createOrUpdateMovieListing(true);
 	}
 
+	/**
+	 * Interact with the staff to update an existing movie.
+	 */
 	private void updateMovieListing(){
 		System.out.println("-----------------EDIT MOVIE LISTINGS-----------------");
 		System.out.println("Update Existing Movie Listing: \n");
 		createOrUpdateMovieListing(false);
 	}
-
+	
+	/**
+	 * The central logic for staff to create/update a movie listing and will handle all the 
+	 * interactions.
+	 * @param create	true to add new movie listing. false to update an existing movie listing.
+	 */
 	private void createOrUpdateMovieListing(boolean create) {
 		System.out.println("List of Movie Listings: \n");
 		MovieController.getInstance().printMovieNames();
@@ -166,6 +198,10 @@ public class StaffUI {
 			MovieController.getInstance().updateMovie(newMID, newName, newSyn, newDir, newCast, movieShowingStatus, duration);
 
 	}
+	
+	/**
+	 * Interact with the staff to remove an movie.
+	 */
 	private void removeMovieListing() {
 		System.out.println("-----------------EDIT MOVIE LISTINGS-----------------");
 		System.out.println("Remove Existing Movie Listing: \n");
@@ -179,8 +215,11 @@ public class StaffUI {
 			System.out.println("Movie is not found!");
 	}
 
+	/**
+	 * Interact with the staff to update an movie End of Showing Date.
+	 */
 	private void updateEndOfShowingDate(){
-		System.out.println("-----------------ADD/UPDATE/REMOVE END OF SHOWING DATE-----------------");
+		System.out.println("-----------------EDIT END OF SHOWING DATE-----------------");
 		for (Movie movie : MovieController.getInstance().getMovieList()){
 			System.out.print(movie.getMovieName() + " - MovieID " + movie.getMovieId() + " - End Date: ");
 			if  (movie.getShowingEndDate() == null)
@@ -206,12 +245,18 @@ public class StaffUI {
 		}
 	}
 
+	/**
+	 * Interact with the staff to create a new movie screening.
+	 */
 	private void createCinemaShowtimes(){
 		System.out.println("-----------------CREATE CINEMA SHOWTIMES-----------------");
 		System.out.println("Add New Showtime:\n");
 		createOrUpdateCinemaShowtimes(true);
 	}
-
+	
+	/**
+	 * Interact with the staff to update an existing movie screening.
+	 */
 	private void updateCinemaShowtimes(){
 		System.out.println("-----------------EDIT CINEMA SHOWTIMES-----------------");
 		System.out.println("Edit New Showtime:\n");
@@ -219,7 +264,11 @@ public class StaffUI {
 
 	}
 
-	//methods to edit cinema showtimes
+	/**
+	 * The central logic for staff to create/update a movie screening and will handle all the 
+	 * interactions.
+	 * @param create	true to add new movie screening. false to update an existing movie screening.
+	 */
 	private void createOrUpdateCinemaShowtimes(boolean create) {
 		//consider adding exception handling for wrong Cinema/Movie ID?
 		int movieScreeningID = -1;
@@ -267,6 +316,9 @@ public class StaffUI {
 
 	}
 
+	/**
+	 * Interact with the staff to remove an movie screening.
+	 */
 	private void removeCinemaShowtimes() {
 		System.out.println("-----------------EDIT CINEMA SHOWTIMES-----------------");
 		System.out.println("Remove Existing Showtime:\n");
@@ -277,7 +329,10 @@ public class StaffUI {
 
 		MovieScreeningController.getInstance().removeMovieScreening(newSID);
 	}
-
+	
+	/**
+	 * Interact with staff to configure the system settings.
+	 */
 	private void configSystemSettings() {
 		int choice, choice2;
 		do {
@@ -396,7 +451,10 @@ public class StaffUI {
 			}
 		} while (choice != 0);
 	}
-
+	
+	/**
+	 * Interact with the moviegoer to display the top rankings either by sales or overall ratings.
+	 */
 	private void listTopRankings(){
 		MovieController movieController = MovieController.getInstance();
 		int choice;
@@ -422,7 +480,11 @@ public class StaffUI {
 		}while (choice > 3 || choice < 1);
 	}
 
-	//static 'instance' method
+	/**
+	 * Gets the channel reference of the StaffUI.
+	 * Creates the channel reference if it do not exists.
+	 * @return Instance of the StaffUI.
+	 */
 	public static StaffUI getInstance(){
 		if(instance == null) {
 			instance = new StaffUI();

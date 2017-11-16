@@ -301,24 +301,4 @@ public class SystemSettings {
 			System.out.println("Error. Failed to save System Settings!");
 		}
 	}
-
-	//for testing purposes
-	/*public static void main(String[] args) {
-
-		SystemSettings sS = SystemSettings.getInstance();
-
-		try	{
-				// read from serialized file
-				sS = (SystemSettings)readSettings("SystemSettings.dat");
-				System.out.println("Base Price: " + sS.getBase_price() );
-
-
-				// write to serialized file - update/insert/delete
-				writeSettings("SystemSettings.dat", sS);
-
-		}  catch ( Exception e ) {
-					System.out.println( "Exception >> " + e.getMessage() );
-		}
-	}*/
-
 }

@@ -7,21 +7,48 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-
+/**
+ * A user interface for MovieGoer to interact and book tickets.
+ * @author Wong Jing Lun
+ * @version 1.0
+ * @since 2017-11-06
+ */
 public class MovieGoerUI {
 
+	/**
+	 * Instance of the MovieGoerUI.
+	 */
 	private static MovieGoerUI instance = null;
 
+	/**
+	 * Scanner object to take in inputs from the MovieGoer.
+	 */
 	Scanner sc = new Scanner(System.in);
 
+	/**
+	 * MovieGoer object to store the details of the MovieGoer after validation.
+	 */
 	private MovieGoer movieGoer;
 
+	/**
+	 * Store the Email of MovieGoer after validation for easy access subsequently.
+	 */
 	private String emailAddress;
 
+	/**
+	 * The column letters used in the seats layout display and booking
+	 */
 	private final List<String> stringList = Arrays.asList("A", "B", "C", "D", "E", "F", "G", " ", "H", "I", "J", "K", "L","M","N");
 
+	/**
+	 * Creates a MovieGoerUI object.
+	 */
 	private MovieGoerUI(){};
 
+	/**
+	 * Central interface that display all the options avaliable to a moviegoer.
+	 * Will ask the moviegoer to login first before proceeding.
+	 */
 	public void display(){
 		// Validation first
 		System.out.println("-------------------- Welcome to MOBLIMA! --------------------");
@@ -85,6 +112,11 @@ public class MovieGoerUI {
 		}while(choice != 6);
 	}
 
+	/**
+	 * Check if the value entered is integer.
+	 * @param value	Value to return in user enter an non-integer value.
+	 * @return		Value entered by user if it is integer. Otherwise, returns the input parameter of this method. 
+	 */
 	private int checkIfInt(int value){
 		if (!sc.hasNextInt()){
 			sc.next(); // Remove the invalid input
@@ -93,6 +125,10 @@ public class MovieGoerUI {
 		return sc.nextInt();
 	}
 
+	/**
+	 * Interact with the moviegoer to register a new account. It will also check if the account already exists.
+	 * @return	true if account is created successfully. false otherwise.
+	 */
 	private boolean registerNewAccount(){
 		sc.nextLine();			// Clear buffer
 		System.out.print("Please enter your name: ");
@@ -108,6 +144,10 @@ public class MovieGoerUI {
 		return MovieGoerController.getInstance().addMovieGoer(password, name, mobileNumber, email, age);
 	}
 
+	/**
+	 * Interact with the moviegoer to login and perform validation. 
+	 * @return	Email address of the moviegoer if validated successfully. null object otherwise.
+	 */
 	private String loginValidation(){
 		String email, password;
 		MovieGoer movieGoer;
@@ -117,7 +157,7 @@ public class MovieGoerUI {
 		email = sc.next();
 		System.out.print("Please enter your password: ");
 		password = sc.next();
-		movieGoer = MovieGoerController.getInstance().validateCustomer(email, password);
+		movieGoer = MovieGoerController.getInstance().validateCustomer(email, password);	// Validate the movie-goer
 
 		if (movieGoer == null){
 			System.out.println("Invalid login details!");
@@ -127,12 +167,17 @@ public class MovieGoerUI {
 		return movieGoer.getEmail();
 	}
 
-	// We need a logic to check that 'Now Showing' & 'Preview' should set isShowing == true
+	/**
+	 * Display all the movies that is coming soon, previewing or showing.
+	 */
 	private void listMovies(){
 		System.out.println("The movies that are coming soon, previewing or showing: ");
 		MovieController.getInstance().printMovieNames();
 	}
 
+	/**
+	 * Display all movies that are available for booking.
+	 */
 	private void printShowingMovies(){
 		ArrayList<Movie> movieList = MovieController.getInstance().getShowingMovieList();
 		System.out.println("The list of movies that are currently showing: ");
@@ -141,6 +186,10 @@ public class MovieGoerUI {
 		}
 	}
 
+	/**
+	 * Interact with the moviegoer to display the movie detail and display those that can be booked.
+	 * Let the moviegoer booked ticket subsequently.
+	 */
 	private void viewMovieDetail(){
 		int choice;
 		System.out.println("Select an option to view the Movie details:");
@@ -184,6 +233,10 @@ public class MovieGoerUI {
 		} while (choice > 3 || choice < 1);
 	}
 
+	/**
+	 * Interact with the user to display the movie screenings for booking.
+	 * @param movieID	MovieID of the movie selected by moviegoer.
+	 */
 	private void listTimings(int movieID){
 		ArrayList<MovieScreening> movieScreenings = MovieScreeningController.getInstance().getMovieScreeningsByMovieID(movieID);
 		char isBooking;
@@ -213,6 +266,9 @@ public class MovieGoerUI {
 		showSeatsAvailability(movieScreenings.get(selection-1).getMovieScreeningID());
 	}
 
+	/**
+	 * Interact with the moviegoer to display the top rankings either by sales or overall ratings.
+	 */
 	private void listTopRankings(){
 		MovieController movieController = MovieController.getInstance();
 		int choice;
@@ -238,13 +294,16 @@ public class MovieGoerUI {
 		}while (choice > 3 || choice < 1);
 	}
 
+	/**
+	 * Interact with the moviegoer to enter review and rating for movies that he has watched.
+	 */
 	private void enterReviewRating(){
-		// TODO: Validate that the movie-goer has watched the movie
 		ArrayList<Booking> userBookings = BookingController.getInstance().getAllBookingByUser(emailAddress);
 		MovieController movieController = MovieController.getInstance();
 		MovieScreeningController movieScreeningController = MovieScreeningController.getInstance();
 		ArrayList<Integer> movieIDs = new ArrayList<>();
 
+		// Get all unique movieIDs the user have watched.
 		for (Booking booking : userBookings){
 			int screeningID = booking.getMovieScreeningID();
 			MovieScreening movieScreening = movieScreeningController.getMovieScreeningByScreeningID(screeningID);
@@ -253,14 +312,14 @@ public class MovieGoerUI {
 				movieIDs.add(movieID);
 		}
 
-		// Enter review
+		// Prompt the user to enter a review or rating if they have watched a movie
 		if (movieIDs.size() == 0){
 			System.out.println("You have not watched any movies yet.");
 			return;
 		}
 		else
 			System.out.println("You have watched the following movies:");
-		for (int i = 1; i <= movieIDs.size(); i++)
+		for (int i = 1; i <= movieIDs.size(); i++)	// Print a list of movies watched for the user to select
 			System.out.println(i + ") " + movieController.getMovie(movieIDs.get(i-1)).getMovieName());
 		int choice;
 		while (true){
@@ -278,16 +337,14 @@ public class MovieGoerUI {
 		sc.nextLine(); 			// Clear buffer
 		String review = sc.nextLine();
 		movieController.addMovieReviewRating(movieID, review, rating);
+		System.out.println("Your review and rating have been recorded. Thank you!");
 	}
 
-	public static MovieGoerUI getInstance() {
-		if (instance == null) {
-			instance = new MovieGoerUI();
-		}
-		return instance;
-	}
-
-	// traverses through MovieController.getCineplex(position).getCinema(position).getMovieScreening(position).getSeatsForThisMovie
+	/**
+	 * Display the seats availability for selected movie screening. It will prompt
+	 * the user if it want to book seats now.
+	 * @param movieScreeningID	MovieScreeningID selected by the user for booking.
+	 */
 	public void showSeatsAvailability(int movieScreeningID){
 
 		MovieScreening movieScreening = MovieScreeningController.getInstance().getMovieScreeningByScreeningID(movieScreeningID);
@@ -313,11 +370,16 @@ public class MovieGoerUI {
 		switch (choice) {
 		case (1): bookTickets(movieScreeningID);
 		break;
-		case (2): //TODO: Add in the show main menu function
+		case (2): // Return to main menu
 			break;
 		}
 	}
 
+	/**
+	 * Interact with the user to book the seat.
+	 * If the user confirm the seat, it will proceed to make payment and the booking is confirmed.
+	 * @param movieScreeningID MovieScreeningID selected by the user for booking.
+	 */
 	private void bookTickets(int movieScreeningID){
 		int number;
 		String alphabet;
@@ -345,7 +407,6 @@ public class MovieGoerUI {
 		boolean setSeat = MovieScreeningController.getInstance().setSeatSelected(movieScreeningID,number-1,horizontalIndex);
 
 		if (setSeat) {
-			//TODO AddBooking through the BookingManager
 			int cinemaID = movieScreening.getCinemaID();
 			int age = movieGoer.getAge();
 			int type = 0;
@@ -388,6 +449,18 @@ public class MovieGoerUI {
 			System.out.printf("Time watched: " );
 			movieScreening.getStartDateTime();
 		}
+	}
+	
+	/**
+	 * Gets the channel reference of the MovieGoerUI.
+	 * Creates the channel reference if it do not exists.
+	 * @return Instance of the MovieGoerUI.
+	 */
+	public static MovieGoerUI getInstance() {
+		if (instance == null) {
+			instance = new MovieGoerUI();
+		}
+		return instance;
 	}
 
 }
