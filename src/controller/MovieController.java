@@ -159,7 +159,7 @@ public class MovieController extends DatabaseController{
 				str.append(DELIMITER);
 				str.append(movie.getAvg_rating());
 				str.append(DELIMITER);
-				str.append(movie.isShowing());
+				str.append(movie.getIsShowing());
 				str.append(DELIMITER);
 				str.append(movie.getTicketSales());
 				str.append(DELIMITER);
@@ -235,7 +235,7 @@ public class MovieController extends DatabaseController{
 	public ArrayList<Movie> getShowingMovieList(){
 		ArrayList<Movie> showingMovies = new ArrayList<>(movieList);
 		for (int i = showingMovies.size() - 1 ; i >= 0; i--)
-			if (!showingMovies.get(i).isShowing())
+			if (!showingMovies.get(i).getIsShowing())
 				showingMovies.remove(i);
 		return showingMovies;
 	}
@@ -311,7 +311,7 @@ public class MovieController extends DatabaseController{
 	 */
 	public Movie getShowingMovieByName(String movieName){
 		for (Movie movie : movieList)
-			if (movie.getMovieName().equalsIgnoreCase(movieName) && movie.isShowing())
+			if (movie.getMovieName().equalsIgnoreCase(movieName) && movie.getIsShowing())
 				return movie;
 		return null;
 	}

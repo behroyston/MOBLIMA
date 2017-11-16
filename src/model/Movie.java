@@ -209,7 +209,7 @@ public class Movie{
 	 * Get the availability of the movie for booking.
 	 * @return	Availability of the movie for booking.
 	 */
-	public boolean isShowing() {
+	public boolean getIsShowing() {
 		return isShowing;
 	}
 

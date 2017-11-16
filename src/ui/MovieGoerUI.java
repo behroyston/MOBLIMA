@@ -355,7 +355,7 @@ public class MovieGoerUI {
 	 * the user if it want to book seats now.
 	 * @param movieScreeningID	MovieScreeningID selected by the user for booking.
 	 */
-	public void showSeatsAvailability(int movieScreeningID){
+	private void showSeatsAvailability(int movieScreeningID){
 
 		MovieScreening movieScreening = MovieScreeningController.getInstance().getMovieScreeningByScreeningID(movieScreeningID);
 		// 14
@@ -374,7 +374,6 @@ public class MovieGoerUI {
 		System.out.println("\t<<<SCREEN>>>\t");
 		movieScreening.printMovieScreeningInfo();
 
-		Scanner sc = new Scanner(System.in);
 		System.out.println("1. Book Seat\n2. Go Back to Main Menu");
 		int choice = checkIfInt(2);
 		switch (choice) {
@@ -438,7 +437,7 @@ public class MovieGoerUI {
 		showSeatsAvailability(movieScreeningID);
 	}
 
-	public void viewBookingHistory() {
+	private void viewBookingHistory() {
 		ArrayList<Booking> bookings = BookingController.getInstance().getAllBookingByUser(emailAddress);
 		if (bookings.size() == 0){
 			System.out.println("You have not made any bookings!");

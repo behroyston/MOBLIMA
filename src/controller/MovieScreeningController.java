@@ -266,7 +266,7 @@ public class MovieScreeningController extends DatabaseController {
     	for (MovieScreening movieScreening : movieScreenings){
     		Movie movie = MovieController.getInstance().getMovie(movieScreening.getMovieID());
     		if (Calendar.getInstance().after(movieScreening.getStartTime()) || movie.getStatus() == MovieShowingStatus.END_OF_SHOWING)
-    			movieScreening.setExpired(true);
+    			movieScreening.setIsExpired(true);
     	}
     }
 
