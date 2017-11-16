@@ -167,7 +167,7 @@ public class StaffUI {
 		String newDir = sc.nextLine();
 		System.out.println("Enter Cast List: ");
 		String newCast = sc.nextLine();
-		System.out.println("Enter Duration of Movie: ");
+		System.out.println("Enter Duration of Movie (in mins): ");
 		int duration = sc.nextInt();
 
 		System.out.println("Enter Movie Showing Status: \n" +
@@ -271,6 +271,8 @@ public class StaffUI {
 	 */
 	private void createOrUpdateCinemaShowtimes(boolean create) {
 		//consider adding exception handling for wrong Cinema/Movie ID?
+		System.out.println("List of Movie Screenings: \n");
+		MovieScreeningController.getInstance().printMovieScreenings();
 		int movieScreeningID = -1;
 		if (!create) {
 			System.out.println("Enter the movie screening ID: ");
