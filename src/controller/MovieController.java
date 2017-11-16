@@ -419,6 +419,19 @@ public class MovieController extends DatabaseController{
 		return instance;
 	}
 	
+	/**
+	 * Checks for movieID clashes prior to creation of new movie listing.
+	 * @param movieID	MovieID of the movie.
+	 * @return true/false for clash
+	 */
+	public boolean checkMovieIDClash(int movieId) {
+		for (int i = 0; i < movieList.size(); i++) {
+			if (movieList.get(i).getMovieId() == movieId)
+				return true;
+		}
+		return false;
+	}
+	
 	/*	public void setMovieList(ArrayList<Movie> newMovieList) {
 		movieList = newMovieList;
 	}*/
