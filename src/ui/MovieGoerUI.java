@@ -426,7 +426,7 @@ public class MovieGoerUI {
 
 			// Ask for payment
 			double price = BookingController.getInstance().calculatePrice(type, movieScreeningID);
-			System.out.printf("Please make payment of SGD %.2f\n (inclusive of 7% GST)", price);
+			System.out.printf("Please make payment of SGD %.2f (inclusive of %s)\n ", price, "7% GST");
 			System.out.print("Enter anything to pay :");
 			sc.nextLine(); sc.nextLine();
 			BookingController.getInstance().addBooking(movieGoer.getName(),movieGoer.getMobileNumber(),
