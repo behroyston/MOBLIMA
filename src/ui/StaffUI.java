@@ -134,7 +134,7 @@ public class StaffUI {
 	 */
 	private void createMovieListing(){
 		System.out.println("-----------------CREATE MOVIE LISTINGS-----------------");
-		System.out.println("Add new Movie Listing: \n");
+		System.out.println("Add new Movie Listing: ");
 		createOrUpdateMovieListing(true);
 	}
 
@@ -143,7 +143,7 @@ public class StaffUI {
 	 */
 	private void updateMovieListing(){
 		System.out.println("-----------------EDIT MOVIE LISTINGS-----------------");
-		System.out.println("Update Existing Movie Listing: \n");
+		System.out.println("Update Existing Movie Listing: ");
 		createOrUpdateMovieListing(false);
 	}
 	
@@ -204,7 +204,7 @@ public class StaffUI {
 	 */
 	private void removeMovieListing() {
 		System.out.println("-----------------EDIT MOVIE LISTINGS-----------------");
-		System.out.println("Remove Existing Movie Listing: \n");
+		System.out.println("Remove Existing Movie Listing: ");
 		System.out.println("Enter Movie ID: ");
 		int newMID = sc.nextInt();
 		Movie movie = MovieController.getInstance().removeMovie(newMID);
@@ -250,7 +250,7 @@ public class StaffUI {
 	 */
 	private void createCinemaShowtimes(){
 		System.out.println("-----------------CREATE CINEMA SHOWTIMES-----------------");
-		System.out.println("Add New Showtime:\n");
+		System.out.println("Add New Showtime:");
 		createOrUpdateCinemaShowtimes(true);
 	}
 	
@@ -259,7 +259,7 @@ public class StaffUI {
 	 */
 	private void updateCinemaShowtimes(){
 		System.out.println("-----------------EDIT CINEMA SHOWTIMES-----------------");
-		System.out.println("Edit New Showtime:\n");
+		System.out.println("Edit New Showtime:");
 		createOrUpdateCinemaShowtimes(false);
 
 	}
@@ -297,19 +297,18 @@ public class StaffUI {
 			movieClassType = MovieClassType.CLASS2D;
 			break;
 		}
-		System.out.println("Movie Start Time:\n");
-		System.out.println("Enter Year of screening: ");
-		int newYear = sc.nextInt();
-		System.out.println("Enter Month of screening: ");
-		int newMonth = sc.nextInt();
-		System.out.println("Enter Day of screening: ");
-		int newDay = sc.nextInt();
-		System.out.println("Enter Hour of Screening: ");
-		int newHour = sc.nextInt();
-		System.out.println("Enter Minute of Screening: ");
-		int newMin = sc.nextInt();
+		System.out.println("Movie Start Time:");
 		Calendar calendar = Calendar.getInstance();
-		calendar.set(newYear, newMonth - 1, newDay, newHour,newMin, 0);
+		System.out.print("Enter the date and time in yyyy-mm-dd HH.mm: ");
+		sc.nextLine(); // Clear buffer
+		String dateStr = sc.nextLine();
+		try {
+			Date date = new SimpleDateFormat("yyyy-MM-dd HH.mm").parse(dateStr);
+			calendar.setTime(date);
+		} catch (ParseException e) {
+			System.out.println("Invalid input!");
+		}
+
 
 		if (create)
 			MovieScreeningController.getInstance().addMovieScreening(movieScreeningID, newCID, newMID, calendar, movieClassType);
@@ -323,7 +322,7 @@ public class StaffUI {
 	 */
 	private void removeCinemaShowtimes() {
 		System.out.println("-----------------EDIT CINEMA SHOWTIMES-----------------");
-		System.out.println("Remove Existing Showtime:\n");
+		System.out.println("Remove Existing Showtime:");
 		System.out.println("List of exisiting screenings: \n");
 		System.out.println(MovieScreeningController.getInstance().getMovieScreenings());
 		System.out.println("Enter Movie Screening ID of Screening to Update: ");
