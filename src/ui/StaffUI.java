@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
+import java.util.InputMismatchException;
 /**
  * A user interface for Staff to interact and configure settings in MOBLIMA.
  * @author Amos
@@ -36,7 +37,7 @@ public class StaffUI {
 	private StaffUI() {}
 
 	/**
-	 * Central interface that display all the options avaliable to the staff.
+	 * Central interface that display all the options available to the staff.
 	 * Will ask the Staff to login first before proceeding.
 	 */
 	public void display() {
@@ -155,9 +156,25 @@ public class StaffUI {
 	private void createOrUpdateMovieListing(boolean create) {
 		System.out.println("List of Movie Listings: \n");
 		MovieController.getInstance().printMovieNames();
-		System.out.println("Enter Movie ID: ");
-		int newMID = sc.nextInt();
-		// remove the garbage \n char
+		int newMID = -1;
+		//check for invalid/clashing input
+		while(true){
+			try {
+				System.out.println("Enter Movie ID: ");
+				newMID = sc.nextInt();
+				break;
+			} catch(InputMismatchException e) {
+				System.out.println("Invalid input!");
+				// clear buffer
+				sc.nextLine();
+				continue;
+				}
+		}
+		if (MovieController.getInstance().checkMovieIDClash(newMID)) {
+			System.out.println("Error! This movieID already exists!");
+			createOrUpdateMovieListing(create);
+		}
+		// clear buffer
 		sc.nextLine();
 		System.out.println("Enter Movie Name: ");
 		String newName = sc.nextLine();
@@ -275,9 +292,26 @@ public class StaffUI {
 		MovieScreeningController.getInstance().printMovieScreenings();
 		int movieScreeningID = -1;
 		if (!create) {
-			System.out.println("Enter the movie screening ID: ");
-			movieScreeningID = sc.nextInt();
+			//check for invalid moviescreeningID
+			while(true){
+				try {
+					System.out.println("Enter the movie screening ID: ");
+					movieScreeningID = sc.nextInt();
+					break;
+				}catch(InputMismatchException e){
+					System.out.println("Invalid input!");
+					// clear buffer
+					sc.nextLine();
+					continue;
+				}
+			}
+			if (MovieScreeningController.getInstance().checkMovieScreeningIDClash(movieScreeningID)) {
+				System.out.println("Error! This movie screening ID already exists!");
+				createOrUpdateCinemaShowtimes(create);
+			}
 		}
+		// clear buffer
+		sc.nextLine();
 		System.out.println("Enter Cinema ID: ");
 		int newCID = sc.nextInt();
 		System.out.println("Enter Movie ID: ");
@@ -324,10 +358,23 @@ public class StaffUI {
 		System.out.println("-----------------EDIT CINEMA SHOWTIMES-----------------");
 		System.out.println("Remove Existing Showtime:");
 		System.out.println("List of exisiting screenings: \n");
-		System.out.println(MovieScreeningController.getInstance().getMovieScreenings());
-		System.out.println("Enter Movie Screening ID of Screening to Update: ");
-		int newSID = sc.nextInt();
-
+		MovieScreeningController.getInstance().printMovieScreenings();
+		int newSID = -1;
+		while(true) {
+			try {
+				System.out.println("Enter Movie Screening ID of Screening to Update: ");
+				newSID = sc.nextInt();
+				break;
+			} catch(InputMismatchException e) {
+				System.out.println("Invalid input!");
+				sc.nextLine();
+				continue;
+			}
+		}
+		if (!MovieScreeningController.getInstance().checkMovieScreeningIDClash(newSID)) {
+			System.out.println("Invalid Movie Screening ID!");
+			removeCinemaShowtimes();
+		}
 		MovieScreeningController.getInstance().removeMovieScreening(newSID);
 	}
 	
