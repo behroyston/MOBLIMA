@@ -8,22 +8,43 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-
+/**
+ * A controller to perform storing and retrieval of Movie to/from database.
+ * Also validates changes before committing any changes to database.
+ * @author Amos
+ * @version 1.0
+ * @since 2017-11-06
+ */
 public class MovieGoerController extends DatabaseController{
-	//Attributes
+	/**
+	 * The sub-directory of the storage of Bookings.
+	 */
 	private String DIR = "person/";
-
+	
+	/**
+	 * List of the moviegoers.
+	 */
 	private ArrayList<MovieGoer> movieGoerList;
 
+	/**
+	 * Instance of the MovieGoer controller.
+	 */
 	private static MovieGoerController instance = null;
 
-	//Class constructor
+	/**
+	 * Creates a new MovieGoer Controller.
+	 * Also initialize the list of moviegoers and read from database.
+	 */
 	private MovieGoerController() {
 		movieGoerList = new ArrayList<>();
 		readDB();
 	}
 
-	@Override
+	/**
+	 * Retrieve the moviegoers from database.
+	 * The order is as follows: MovieGoer Name, Mobile Number, Password, Email, CustomerID, age
+	 * These variables are parsed into the MovieGoer objects and stored when the MovieGoer Controller is initalized.
+	 */
 	protected void readDB() {
 		movieGoerList.clear();
 		if (checkDirectoryExist(BASEDIR + DIR)) {
@@ -34,21 +55,21 @@ public class MovieGoerController extends DatabaseController{
 						StringTokenizer aStr;
 						for (String line : text) {
 							aStr = new StringTokenizer(line, DELIMITER);
-							String name = aStr.nextToken();
-							String mobileNumber = (aStr.nextToken());
-							String password = aStr.nextToken();
-							String email = aStr.nextToken();
-							int cusID = Integer.parseInt(aStr.nextToken());
-							int age = Integer.parseInt(aStr.nextToken());
+							String name = aStr.nextToken();						// Name
+							String mobileNumber = (aStr.nextToken());			// Mobile Number
+							String password = aStr.nextToken();					// Password
+							String email = aStr.nextToken();					// Email
+							int cusID = Integer.parseInt(aStr.nextToken());		// Customer ID
+							int age = Integer.parseInt(aStr.nextToken());		// Age
 							MovieGoer movieGoer = new MovieGoer(password, name, mobileNumber, email, cusID, age);
 							movieGoerList.add(movieGoer);
 						}
 					}
 				}
 			}
-			catch (IOException io)
+			catch (IOException | NumberFormatException ex)
 			{
-				System.out.println("Error! Unable to retrieve MovieGoer data from file. The data may be corrupted.");
+				System.out.println("Error! Unable to retrieve MovieGoer model from file. The data may be corrupted.");
 			}
 		}
 		else
@@ -57,7 +78,12 @@ public class MovieGoerController extends DatabaseController{
 		}
 
 	}
-
+	
+	/**
+	 * Save the MovieGoer model into database. Each line in the moviegoer.dat file is a booking object.
+	 * The order is as follows: MovieGoer Name, Mobile Number, Password, Email, CustomerID, age
+	 * These will be appended into the moviegoers.dat file in sequence.
+	 */
 	protected void writeDB() {
 		List<String> text = new ArrayList<>();
 		StringBuilder str = new StringBuilder();
@@ -94,7 +120,17 @@ public class MovieGoerController extends DatabaseController{
 			System.out.println("Error! Directory cannot be found!");
 		}
 	}
-
+	
+	/**
+	 * Add a moviegoer into database. It will also checks if the moviegoer account already exists
+	 * in the database by its email address.
+	 * @param password		Password of the moviegoer.
+	 * @param name			Name of the moviegoer.
+	 * @param mobileNumber	Mobile number of the moviegoer.
+	 * @param email			Email address of the moviegoer.
+	 * @param age			Age of the moviegoer.
+	 * @return				True if it successfully added. False otherwise.
+	 */
 	public boolean addMovieGoer(String password, String name, String mobileNumber, String email, int age){
 		int cusID;
 		if (movieGoerList.size() == 0)
@@ -110,6 +146,11 @@ public class MovieGoerController extends DatabaseController{
 		return true;
 	}
 
+	/**
+	 * Get the MovieGoer object by its email address.
+	 * @param email	Email of the moviegoer.
+	 * @return		MovieGoer object it the account exists in database. null object otherwise.
+	 */
 	public MovieGoer getMovieGoerByEmail(String email){
 		for (MovieGoer movieGoer : movieGoerList)
 			if (email.equalsIgnoreCase(movieGoer.getEmail()))
@@ -117,6 +158,12 @@ public class MovieGoerController extends DatabaseController{
 		return null;
 	}
 
+	/**
+	 * Validate the account credentials of a moviegoer.
+	 * @param email		Email of the moviegoer.
+	 * @param password	Password of the moviegoer.
+	 * @return			MovieGoer object if the account exists and the credentials are correct. null object otherwise.
+	 */
 	public MovieGoer validateCustomer(String email, String password){
 		MovieGoer movieGoer = getMovieGoerByEmail(email);
 		if (movieGoer != null){
@@ -126,7 +173,11 @@ public class MovieGoerController extends DatabaseController{
 		return null;
 	}
 
-	//static 'instance' method	
+	/**
+	 * Gets the channel reference of the MovieGoerController.
+	 * Creates the channel reference if it do not exists.
+	 * @return Instance of the MovieGoerController.
+	 */
 	public static MovieGoerController getInstance(){
 		if(instance == null) {
 			instance = new MovieGoerController();
@@ -134,13 +185,11 @@ public class MovieGoerController extends DatabaseController{
 		return instance;
 	}
 
-	//get private arraylist for login
+	/**
+	 * Gets the list of moviegoers from database.
+	 * @return	List of MovieGoers.
+	 */
 	public ArrayList<MovieGoer> getMovieGoerList(){
 		return movieGoerList;
-	}
-
-
-	public void setMovieGoerList(ArrayList<MovieGoer> arrList){
-		movieGoerList = arrList;
 	}
 }

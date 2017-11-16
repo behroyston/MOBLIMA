@@ -4,59 +4,59 @@ import controller.StaffController;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-
+/**
+ * Represents a Staff and its special attributes.
+ * @author Amos
+ * @version 1.0
+ * @since 2017-11-06
+ */
 public class Staff extends Person{
-
-	//Attribute(s)
+	/**
+	 * Unique identifier of the Staff.
+	 */
 	private int staffID;
-	
-	Scanner sc = new Scanner(System.in);
-	
-	//class constructor
+
+
+	/**
+	 * Creates a Staff account with its attributes.
+	 * @param password		Password of the account.
+	 * @param name			Name of the staff.
+	 * @param mobileNumber	Mobile number of the staff.
+	 * @param email			Email of the staff.
+	 * @param staffID		StaffID of the staff.
+	 */
 	public Staff(String password, String name, String mobileNumber, String email, int staffID) {
 		super(password, name, mobileNumber, email);//abstract
 		this.staffID = staffID;
 	}
-	
-	//access private ID
+
+	/**
+	 * Gets the unique identifier of the staff.
+	 * @return	StaffID of the staff.
+	 */
 	public int getStaffID() {
 		return this.staffID;
 	}
-	
-	//mutate private ID
-	public void setStaffID(int staffID) {
-		this.staffID = staffID;
-	}
-	
-	//login(abstract)
-	public boolean login() {
-		//Logic: ask user for email and pw; check against arraylist iteratively; return TRUE/FALSE
-		System.out.println("Please enter your email address: ");
-		String email = sc.next();
-		System.out.println("Please enter your password: ");
-		String password = sc.next();
-		
-		ArrayList<Staff> staffList = StaffController.getInstance().getStaffList();
-		
-		for (int i=0; i < staffList.size(); i++) {
-			if (staffList.get(i).getEmail() == email) {
-				if (staffList.get(i).getPassword() == password) {
-					return true;
-				}
-			}
-		}
-		
-		return false;
+
+	/**
+	 * Validate the staff account.
+	 * @param email		Email of the staff.
+	 * @param password Password of the staff.
+	 * @return 			true if success. false is failed to authenticate.
+	 */
+	@Override
+	public boolean validateIdentity(String email, String password) {
+		// same as MovieGoer
+		return email.equals(super.email) && password.equals(super.password);
 	}
 
-    @Override
-    public boolean validateIdentity(String email, String password) {
-	    // same as MovieGoer
-        return email.equals(super.email) && password.equals(super.password);
-    }
-
-    public void showStaffInfo(){
-	    System.out.println(this.getStaffID() + "\n" + this.getName() +"\n" + this.getPassword() + "\n" + this.getEmail()
-        + "\n" + this.getMobileNumber());
-    }
+	/**
+	 * Print the staff details
+	 */
+	public void showStaffInfo(){
+		System.out.println("Email Address: " + email);
+		System.out.println("Mobile Number: " + mobileNumber);
+		System.out.println("Name: " + name);
+		System.out.println("StaffID: " + staffID);
+	}
 }

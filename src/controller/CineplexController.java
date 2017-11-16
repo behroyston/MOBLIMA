@@ -12,7 +12,7 @@ import java.util.StringTokenizer;
 import java.io.IOException;
 
 /**
- * A controller to perform storing and retrieval of model.Cineplex model to/from database.
+ * A controller to perform storing and retrieval of Cineplex model to/from database.
  * Also validates changes before committing any changes to database.
  * @author Wong Jing Lun
  * @version 1.0
@@ -20,12 +20,12 @@ import java.io.IOException;
  */
 public class CineplexController extends DatabaseController {
 	/**
-	 * The sub-directory of model.Cineplex Controller.
+	 * The sub-directory of Cineplex Controller.
 	 */
 	private final String DIR = "cineplex/";
 
 	/**
-	 * Instance of the cineplex controller.
+	 * Instance of the cineplex database controller.
 	 */
 	private static CineplexController instance = null;
 
@@ -35,8 +35,8 @@ public class CineplexController extends DatabaseController {
 	private ArrayList<Cineplex> cineplexList;
 
 	/**
-	 * Creates a new model.Cineplex Controller.
-	 * Also initalise the list of cineplex.
+	 * Creates a new Cineplex Controller.
+	 * Also initialize the list of cineplex.
 	 */
 	private CineplexController(){
 		cineplexList = new ArrayList<>();
@@ -53,8 +53,8 @@ public class CineplexController extends DatabaseController {
 
 	/**
 	 * Find the cinema with the corresponding cinemaID from all the cineplex
-	 * @param cinemaID	model.Cinema ID of the cinema to find
-	 * @return			model.Cinema corresponding to the cinemaID if it exists. Returns null if cannot find such cinema.
+	 * @param cinemaID	Cinema ID of the cinema to find
+	 * @return			Cinema corresponding to the cinemaID if it exists. Returns null if cannot find such cinema.
 	 */
 	public Cinema getCinema(int cinemaID){
 		for (Cineplex cineplex : cineplexList)
@@ -73,7 +73,10 @@ public class CineplexController extends DatabaseController {
 	}
 	
 	/**
-	 * Retrieve the model.Cineplex model from database.
+	 * Retrieve the Cineplex model from database.
+	 * The order is as follows: Cineplex Name , Location of Cineplex, List of Cinema whichs includes CinemaID, 
+	 * Cinema Classtype, Seats Layout
+	 * These variables are parsed into the Cineplex objects and stored when the Cineplex Controller is initalized.
 	 */
 	@Override
 	protected void readDB() {
@@ -94,7 +97,7 @@ public class CineplexController extends DatabaseController {
 					for (String line : text.subList(1, text.size())){
 						aStr = new StringTokenizer(line, DELIMITER);
 						int cinemaID = Integer.parseInt(aStr.nextToken());	// CinemaID
-						String classType = aStr.nextToken();				// Type of model.Cinema
+						String classType = aStr.nextToken();				// Type of Cinema
 						CinemaClassType cinemaClassType = CinemaClassType.valueOf(classType);
 
 						// model.Seat Layout
@@ -113,8 +116,8 @@ public class CineplexController extends DatabaseController {
 					cineplexList.add(new Cineplex(cineplexName, cineplexLocation, cinemaList));
 				}
 			}
-			catch (Exception ex){
-				System.out.println("Error! Unable to retrieve Cineplex data from file. The data may be corrupted.");
+			catch (IOException | NumberFormatException ex){
+				System.out.println("Error! Unable to retrieve Cineplex model from file. The data may be corrupted.");
 			}
 
 		} else {
@@ -122,9 +125,10 @@ public class CineplexController extends DatabaseController {
 		}
 	}
 
-	/**
-	 * Save the model.Cineplex model into database.
-	 * Each cineplex will be divided into individual file.
+	/** Save the Cineplex model into database. Each file in the directory is a cineplex object.
+	 *The order is as follows: Cineplex Name , Location of Cineplex, List of Cinema whichs includes CinemaID, 
+	 * Cinema Classtype, Seats Layout
+	 * The first line in the file is the cineplex attributes. Subsequent lines are the cineplex's cinemas attributes.
 	 */
 	@Override
 	protected void writeDB() {
@@ -177,90 +181,13 @@ public class CineplexController extends DatabaseController {
 	}
 
 	/**
-	 * Gets the channel reference of the controller.CineplexController.
+	 * Gets the channel reference of the CineplexController.
 	 * Creates the channel reference if it do not exists.
-	 * @return Instance of the model.Cineplex Controller
+	 * @return Instance of Cineplex Controller.
 	 */
 	public static CineplexController getInstance(){
 		if (instance == null)
 			instance = new CineplexController();
 		return instance;
 	}
-
-	// Below are the old code pending removal
-
-	// Temporarily for testing purpose - remove after no use
-	public void setCineplexList(ArrayList<Cineplex> cineplexList){
-		this.cineplexList = cineplexList;
-	}
-
-	/**
-	 * Adds a new movie screening to a specified model.Cineplex's model.Cinema.
-	 * Commits the change to database only if it is successfuly added.
-	 * @param cineplexID	ID of the cineplex to add new movie screening.
-	 * @param cinemaID		ID of the cinema to add new movie screening.
-	 * @param movieID		ID of the corresponding movie of the movie screening.
-	 * @param movieType		model.Movie type of the movie being screened.
-	 * @param startTime		Starting time of the screening.
-	 * @param endTime		Ending time of the screening.
-	 */
-	/*public void addMovieScreening(int cineplexID, int cinemaID, int movieID, String movieType, Calendar startTime, Calendar endTime){
-		if (cineplexID >= cineplexList.size() || cineplexID < 0){
-			System.out.println("Error! Invalid model.Cineplex!");
-			return;
-		}
-		for (model.Cinema cinema : cineplexList.get(cineplexID).getCinemaList())
-			if (cinema.getCinemaID() == cinemaID)
-				if(cinema.addMovieScreening(startTime, endTime, movieType, movieID)){
-					writeDB();
-					return;
-				}
-		System.out.println("Error! Failed to add movie screening!");
-	}*.
-
-	/**
-	 * Update a movie screening of a specified model.Cineplex's model.Cinema to a new value.
-	 * Commits the change to database only if it is successfully updated.
-	 * @param cineplexID	ID of the cineplex to change movie screening.
-	 * @param cinemaID		ID of the cinema to change movie screening.
-	 * @param screeningID	ID of movie screening to update.
-	 * @param movieID		ID of the new movie to be screened.
-	 * @param movieType		model.Movie type of the new movie to be screened.
-	 * @param startTime		New starting time of the screening.
-	 * @param endTime		Old starting time of the screening.
-	 */
-	/*public void updateMovieScreening(int cineplexID, int cinemaID, int screeningID, int movieID, String movieType, Calendar startTime, Calendar endTime){
-		if (cineplexID >= cineplexList.size() || cineplexID < 0){
-			System.out.println("Error! Invalid model.Cineplex!");
-			return;
-		}
-		for (model.Cinema cinema : cineplexList.get(cineplexID).getCinemaList())
-			if (cinema.getCinemaID() == cinemaID)
-				if (cinema.updateMovieScreening(screeningID, startTime, endTime, movieType, movieID)){
-					writeDB();
-					return;
-				}
-		System.out.println("Error! Failed to update movie screening!");
-	}*/
-
-	/**
-	 * Remove a movie screening of a specified model.Cineplex's model.Cinema.
-	 * @param cineplexID	ID of the cineplex to remove movie screening from.
-	 * @param cinemaID		ID of the cinema to remove movie screening from.
-	 * @param screeningID	ID of the movie screening to be removed.
-	 */
-	/*public void removeMovieScreening(int cineplexID, int cinemaID, int screeningID){
-		if (cineplexID >= cineplexList.size() || cineplexID < 0){
-			System.out.println("Error! Invalid model.Cineplex!");
-			return;
-		}
-		for (model.Cinema cinema : cineplexList.get(cineplexID).getCinemaList())
-			if (cinema.getCinemaID() == cinemaID)
-				if(cinema.removeMovieScreening(screeningID)){
-					writeDB();
-					return;
-				}
-		System.out.println("Error! Failed to add movie screening!");
-	}*/
-
 }

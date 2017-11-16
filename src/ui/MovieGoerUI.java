@@ -274,11 +274,10 @@ public class MovieGoerUI {
 		int movieID = movieIDs.get(choice-1);
 		System.out.print("Enter your rating: ");
 		double rating = sc.nextDouble();
-		movieController.addMovieRating(movieID, rating);
 		System.out.print("Enter your review: ");
 		sc.nextLine(); 			// Clear buffer
 		String review = sc.nextLine();
-		movieController.addMovieReview(movieID, review);
+		movieController.addMovieReviewRating(movieID, review, rating);
 	}
 
 	public static MovieGoerUI getInstance() {

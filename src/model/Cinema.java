@@ -1,7 +1,7 @@
 package model;
 
 /**
- * Represents a model.Cinema in a model.Cineplex.
+ * Represents a Cinema in a Cineplex.
  * A cinema contains seats and have a defined schedule of screenings.
  * @author Wong Jing Lun
  * @version 1.0
@@ -20,22 +20,16 @@ public class Cinema{
 
 
 	/**
-	 * model.Seat layout of this cinema.
+	 * Seat layout of this cinema.
 	 * Entries are 1 for a seat and 0 for a space.
 	 */
 	private char[][] seatLayout = new char[8][15];
 	
 	/**
-	 * The list of seats for this cinema.
-	 */
-	//private ArrayList<model.Seat> seats;
-	
-	/**
-	 * Creates a new model.Cinema with its given ID, classType and seats.
-	 * Also initalise the movieScreenings.
-	 * @param cinemaID model.Cinema ID corresponding to this cinema.
-	 * @param cinemaClassType Class of this cinema.
-	 * @param seatLayout
+	 * Creates a new Cinema with its given ID, classType and seat layout.
+	 * @param cinemaID 			Cinema ID corresponding to this cinema.
+	 * @param cinemaClassType 	Class of this cinema.
+	 * @param seatLayout		Seat Layout of the cinema.
 	 */
 	public Cinema(int cinemaID, CinemaClassType cinemaClassType, char[][] seatLayout){
 		this.cinemaID = cinemaID;
@@ -46,14 +40,13 @@ public class Cinema{
 	/**
 	 * Print this cinema attributes
 	 */
-	public void printCineplexInfo(){
+	public void printCinemaInfo(){
 		System.out.println("Cinema " + cinemaID + "(Class Type: " + cinemaClassType + ")");
 	}
 	
-		
 	/**
-	 * Gets the model.Cinema ID of this cinema.
-	 * @return model.Cinema ID of this cinema.
+	 * Gets the Cinema ID of this cinema.
+	 * @return Cinema ID of this cinema.
 	 */
 	public int getCinemaID(){
 		return cinemaID;

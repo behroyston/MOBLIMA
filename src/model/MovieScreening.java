@@ -46,15 +46,15 @@ public class MovieScreening {
     }
 
     public MovieScreening(int movieScreeningID, Calendar startTime, Calendar endTime, MovieClassType movieType,
-                          int cinemaID, int movieID, Seat[][] seats){
+                          int cinemaID, int movieID, Seat[][] seats, boolean isExpired){
         this.movieScreeningID = movieScreeningID;
         this.startTime = startTime;
         this.endTime = endTime;
         this.cinemaID = cinemaID;
         this.movieClassType = movieType;
         this.movieID = movieID;
-        isExpired = false;
         this.seats = seats;
+        this.isExpired = isExpired;
     }
 
     public MovieClassType getMovieClassType() {

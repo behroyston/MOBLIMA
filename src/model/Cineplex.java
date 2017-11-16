@@ -2,7 +2,7 @@ package model;
 
 import java.util.ArrayList;
 /**
- * Represents a model.Cineplex which contains at least 3 Cinemas.
+ * Represents a Cineplex which contains at least 3 Cinemas.
  * @author Wong Jing Lun
  * @version 1.0
  * @since 2017-11-06

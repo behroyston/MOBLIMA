@@ -18,7 +18,7 @@ import java.util.List;
  */
 public abstract class DatabaseController {
 	/**
-	 * Delimiter to seperate model in the database
+	 * Delimiter to separate model in the database
 	 */
 	protected static final String DELIMITER = ";";
 	
@@ -32,6 +32,10 @@ public abstract class DatabaseController {
 	 */
 	private static List<String> data;
 
+	/**
+	 * Creates a new Database Controller.
+	 * Also initialize the buffer data list for retrieval.
+	 */
 	public DatabaseController(){
 		data = new ArrayList<>();
 	}
@@ -61,6 +65,12 @@ public abstract class DatabaseController {
 		return f.exists();
 	}
 	
+	/**
+	 * Gets the list of files in the database directory.
+	 * It will excludes the files with special properties such as those starting with a dot. 
+	 * @param folderName	Name of the directory path containing the files.
+	 * @return				List of files in the directory.
+	 */
 	public File[] getListofFiles(String folderName){
 		File folder = new File(folderName);
 		File[] listOfFiles = folder.listFiles();

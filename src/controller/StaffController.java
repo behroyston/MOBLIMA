@@ -9,24 +9,44 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
+/**
+ * A controller to perform storing and retrieval of Staff to/from database.
+ * Also validates changes before committing any changes to database.
+ * @author Amos
+ * @version 1.0
+ * @since 2017-11-06
+ */
 public class StaffController extends DatabaseController{
 
-	
-	//Attributes
+	/**
+	 * The sub-directory of the storage of Bookings.
+	 */
 	private String DIR = "person/";
 	
+	/**
+	 * List of the staffs.
+	 */
 	private ArrayList<Staff> staffList;
 	
+	/**
+	 * Instance of the Staff controller.
+	 */
 	private static StaffController instance = null;
 	
-	Scanner sc = new Scanner(System.in);
-	
-	//Class constructor
+	/**
+	 * Creates a new Staff Controller.
+	 * Also initialize the list of staffs and read from database.
+	 */
 	private StaffController() {
 	    staffList = new ArrayList<>();
 	    readDB();
 	}
 
+	/**
+	 * Retrieve the staffs from database.
+	 * The order is as follows: Staff Name, Mobile Number, Password, Email, StaffID
+	 * These variables are parsed into the MovieGoer objects and stored when the MovieGoer Controller is initalized.
+	 */
     @Override
     protected void readDB() {
         staffList.clear();
@@ -53,9 +73,9 @@ public class StaffController extends DatabaseController{
                 }
 
             }
-            catch (IOException io)
+            catch (IOException | NumberFormatException ex)
             {
-                System.out.println("Error! Unable to retrieve model from file.");
+                System.out.println("Error! Unable to retrieve Staff model from file.");
             }
         }
         else
@@ -64,7 +84,12 @@ public class StaffController extends DatabaseController{
         }
 
     }
-
+    
+    /**
+	 * Save the Staff model into database. Each line in the Staff.dat file is a booking object.
+	 * The order is as follows: Staff Name, Mobile Number, Password, Email, StaffID
+	 * These will be appended into the Staff.dat file in sequence.
+	 */
     @Override
     protected void writeDB() {
 
@@ -99,7 +124,36 @@ public class StaffController extends DatabaseController{
         }
     }
 
-    //static 'instance' method
+    /**
+	 * Validate the account credentials of a staff.
+	 * @param email		Email of the staff.
+	 * @param password	Password of the staff.
+	 * @return			true if the account exists and the credentials are correct. false otherwise.
+	 */
+    public boolean validateStaff(String email, String password){
+        Staff staff = getStaffByEmail(email);
+        if (staff != null)
+            return staff.validateIdentity(email, password);
+        return false;
+    }
+    
+    /**
+	 * Get the Staff object by its email address.
+	 * @param email	Email of the staff.
+	 * @return		Staff object it the account exists in database. null object otherwise.
+	 */
+    public Staff getStaffByEmail(String email){
+        for (Staff staff : staffList)
+            if (email.equalsIgnoreCase(staff.getEmail()))
+                return staff;
+        return null;
+    }
+    
+    /**
+	 * Gets the channel reference of the StaffController.
+	 * Creates the channel reference if it do not exists.
+	 * @return Instance of the StaffController.
+	 */
 	public static StaffController getInstance() {
 		if(instance == null) {
 			instance = new StaffController();
@@ -107,69 +161,20 @@ public class StaffController extends DatabaseController{
 		return instance;
 	}
 	
-	//add staff to DB
-//	public void addStaff() {
-//		int newID = 0;
-//		String newEmail = null;
-//		String newNum;
-//		String newName = null;
-//		String newPass = null;
-//
-//
-//		//Get and set details
-//		Staff newStaff = new Staff(newPass, newName, newNum, newEmail, newID);
-//		System.out.println("Enter new Staff ID: ");
-//		newID = sc.nextInt();
-//		newStaff.setStaffID(newID);
-//
-//		System.out.println("Enter new Staff Email: ");
-//		newEmail = sc.next();
-//		newStaff.setEmail(newEmail);
-//
-//		System.out.println("Enter new Staff Mobile Number: ");
-//		newNum = sc.next();
-//		newStaff.setMobleNumber(newNum);
-//
-//		System.out.println("Enter new Staff Name: ");
-//		newName = sc.next();
-//		newStaff.setName(newName);
-//
-//		System.out.println("Enter new Staff Password: ");
-//		newPass = sc.next();
-//		newStaff.setPassword(newPass);
-//
-//		//add to array
-//		staffList.add(newStaff);
-//
-//		//add to DB - to be added
-//	}
-	
-	//get private arraylist for login
+    /**
+	 * Gets the list of staffs from database.
+	 * @return	List of Staffs.
+	 */
 	public ArrayList<Staff> getStaffList(){
         return staffList;
     }
-
-    public void setStaffList(ArrayList<Staff> staffList) {
-        this.staffList = staffList;
-    }
-
+    
+    /**
+     * Print out all the staff info.
+     */
     public void printStaffList(){
 	    for (int i = 0; i < staffList.size(); i ++){
 	        staffList.get(i).showStaffInfo();
         }
-    }
-
-    public boolean validateStaff(String email, String password){
-        Staff staff = getStaffByEmail(email);
-        if (staff != null)
-            return staff.validateIdentity(email, password);
-        return false;
-    }
-
-    public Staff getStaffByEmail(String email){
-        for (Staff staff : staffList)
-            if (email.equalsIgnoreCase(staff.getEmail()))
-                return staff;
-        return null;
     }
 }

@@ -1,7 +1,9 @@
 package controller;
 
+import model.Movie;
 import model.MovieClassType;
 import model.MovieScreening;
+import model.MovieShowingStatus;
 import model.Seat;
 
 import java.io.File;
@@ -12,26 +14,40 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 /**
- *
+ * A controller to perform storing and retrieval of MovieScreening to/from database.
+ * Also validates changes before committing any changes to database.
+ * @author Royston
+ * @version 1.0
+ * @since 2017-11-06
  */
 public class MovieScreeningController extends DatabaseController {
-
+	/**
+	 * The sub-directory of the storage of Movie Screenings.
+	 */
     private String DIR = "moviescreening/";
+    
+	/**
+	 * Instance of the MovieScreening controller.
+	 */
     private static MovieScreeningController instance = null;
-    private ArrayList<MovieScreening> movieScreenings;
-
+    
+	/**
+	 * List of the Movie Screenings.
+	 */
+    private static ArrayList<MovieScreening> movieScreenings;
+    
+	/**
+	 * Creates a new MovieScreening Controller.
+	 * Also initialize the list of movie screenings and read from database.
+	 */
     private MovieScreeningController(){
         movieScreenings = new ArrayList<>();
         readDB();
     }
 
-    public static MovieScreeningController getInstance() {
-        if (instance == null)
-            instance = new MovieScreeningController();
-        return instance;
-    }
-
-    /** Summary: Text in order:  int movieScreening_ID, int cinemaID, int movieID, Calendar startTime, Calendar endTime ,
+    /** 
+     * Retrieve the movie screenings from database.
+     * The order is as follows:  int movieScreening_ID, int cinemaID, int movieID, Calendar startTime, Calendar endTime ,
      * String movieType, isExpired, Seat[][] seats;
      * These variables are parsed into the movie screening objects and stored when the MovieScreening Controller is
      * initalized.
@@ -78,7 +94,7 @@ public class MovieScreeningController extends DatabaseController {
                             }
 
                             movieScreening = new MovieScreening(movieScreeningID,startTime,cal,movieType,cinemaID,movieID,
-                                    mSeats);
+                                    mSeats, isExpired);
                             movieScreenings.add(movieScreening);
                         }
                     }
@@ -94,7 +110,8 @@ public class MovieScreeningController extends DatabaseController {
     }
 
 
-    /** Each line in the Moviescreenings.dat is a moviescreening object.
+    /** 
+     *  Save the MovieScreening model into database. Each line in the Moviescreenings.dat file is a moviescreening object.
      * Summary: Text in order:  int movieScreening_ID, int cinemaID, int movieID, Calendar startTime, Calendar endTime ,
      * String movieType, isExpired, Seat[][] seats;
      * These will be appended into the MovieScreenings.dat file in sequence.
@@ -153,17 +170,23 @@ public class MovieScreeningController extends DatabaseController {
         }
     }
 
+    /**
+     * Get list of the movie screenings.
+     * @return	List of the movie screenings.
+     */
     public ArrayList<MovieScreening> getMovieScreenings(){
         return movieScreenings;
     }
 
     /**
-     * Returns true if the new movieScreening is added successfully.
-     *
-     * @param cinemaID an absolute ID which identifies the unique cinema.
-     * @param movieID an absolute ID which identifies the unique movie.
-     * @param startTime the starting time of the movie
-     * @return
+     * Add a movie screening to a cinema. It will validates if the screening clashes with other 
+     * screenings in the same cinema.
+     * @param movieScreeningID	an absolute ID which identifies the unique movie screening.
+     * @param cinemaID			an absolute ID which identifies the unique cinema.
+     * @param movieID			an absolute ID which identifies the unique movie.
+     * @param startTime			the starting time of the movie.
+     * @param movieType			Movie type of screening (2D or 3D)
+     * @return					true of the new movie screening is added successfully. false otherwise.
      */
     public boolean addMovieScreening(int movieScreeningID, int cinemaID, int movieID, Calendar startTime, MovieClassType movieType)
     {
@@ -174,16 +197,8 @@ public class MovieScreeningController extends DatabaseController {
         for (int i = 0; i < movieScreenings.size(); i ++){
             MovieScreening movieScreening = movieScreenings.get(i);
             if (movieScreening.getCinemaID() == cinemaID){
-            	// Consider changing this. We only accept the add IF
-            	// 1) the start time is after ALL of the endTime OR
-            	// 2) the end time is before ALL of the startTime
-                /*if (!(((startTime.compareTo(movieScreening.getStartTime())== 1) && ((endTime.compareTo(movieScreening.getEndTime())) == 1)) ||
-                        (((startTime.compareTo(movieScreening.getStartTime())) == -1) && ((endTime.compareTo(movieScreening.getEndTime())) == -1)))) {
-                    System.out.println("This moviescreening's timing clashes with another moviescreening's timing!");
-                    return false;
-                }*/
-            	// Take negation, so if there exists one existing movieScreening such that the new start time is before or equal to this movie screening
-            	// end time AND the new end time is after or equal to this movie screening's start time
+            	// If there exists one existing movieScreening such that the new start time is before or equal to this movie screening
+            	// end time AND the new end time is after or equal to this movie screening's start time means there is a time clash
                 if (!startTime.after(movieScreening.getEndTime()) && !endTime.before(movieScreening.getStartTime())){
                 	System.out.println("This moviescreening's timing clashes with another moviescreening's timing!");
                     return false;
@@ -202,12 +217,14 @@ public class MovieScreeningController extends DatabaseController {
     }
 
     /**
-     * update the movieScreening given the new CinemaID, movieID and startTime
-     * @param movieScreeningID the unique movieScreeningID to be updated.
-     * @param newCinemaID an absolute ID which identifies the unique cinema.
-     * @param newMovieID an absolute ID which identifies the unique movie.
-     * @param newStartTime the new starting time of the movie
-     * @return
+     * Update the movieScreening given the new CinemaID, movieID and new starting time and movieType.
+     * It will validate if the change is acceptable before committing the change (such as no time clash).
+     * @param movieScreeningID 	the unique movieScreeningID to be updated.
+     * @param newCinemaID 		an absolute ID which identifies the unique cinema.
+     * @param newMovieID 		an absolute ID which identifies the unique movie.
+     * @param newStartTime 		the new starting time of the movie
+     * @param movieType			Movie type of screening (2D or 3D)
+     * @return					true of the movie screening is updated successfully. false otherwise.
      */
     public boolean updateMovieScreening(int movieScreeningID, int newCinemaID, int newMovieID, Calendar newStartTime,
                                         MovieClassType movieType)
@@ -225,10 +242,9 @@ public class MovieScreeningController extends DatabaseController {
     }
 
     /**
-     * removes the movieScreening based on its unique ID.
-     * if movieScreening is not found, return null object
-     * @param movieScreeningID
-     * @return
+     * Removes the movieScreening based on its unique ID. It will validate it the movie object exists in the database.
+     * @param movieScreeningID	the unique movieScreeningID to be removed.
+     * @return					MovieScreening object of the movie screening if it is successfully removed. null object otherwise.
      */
     public MovieScreening removeMovieScreening(int movieScreeningID){
         for (int i = 0; i < movieScreenings.size(); i++)
@@ -243,22 +259,32 @@ public class MovieScreeningController extends DatabaseController {
     }
 
     /**
-     * check through all the movieScreenings to update if currentTime > endTime.
-     * if yes, set isExpired = true.
-     * @return
+     * Check through all the movieScreenings to update if currentTime > startTime and if the movie has reached end of showing.
+     * If yes, set isExpired = true.
      */
-    public void updateExpiry(){}
-
-    public void setMovieScreenings(ArrayList<MovieScreening> movieScreenings) {
-        this.movieScreenings = movieScreenings;
+    private static void updateExpiry(){
+    	for (MovieScreening movieScreening : movieScreenings){
+    		Movie movie = MovieController.getInstance().getMovie(movieScreening.getMovieID());
+    		if (Calendar.getInstance().after(movieScreening.getStartTime()) || movie.getStatus() == MovieShowingStatus.END_OF_SHOWING)
+    			movieScreening.setExpired(true);
+    	}
     }
 
+    /**
+     * Print all the movie screenings info.
+     */
     public void printMovieScreenings(){
         for (int i = 0; i < movieScreenings.size(); i ++){
-            movieScreenings.get(i).printMovieScreeningInfo();
+        	if (!movieScreenings.get(i).getIsExpired())
+        		movieScreenings.get(i).printMovieScreeningInfo();
         }
     }
     
+    /**
+     * Get the movie screening by its screening ID
+     * @param screeningID	the unique screeningID of the movie screening.
+     * @return				Movie screening object if it exists. null object if it cannot be found.
+     */
     public MovieScreening getMovieScreeningByScreeningID(int screeningID){
     	for (MovieScreening movieScreening : movieScreenings)
     		if (movieScreening.getMovieScreeningID() == screeningID)
@@ -266,6 +292,11 @@ public class MovieScreeningController extends DatabaseController {
     	return null;
     }
 
+    /**
+     * Find all movie screenings of a movie.
+     * @param movieID	the unique movieID of the movie.
+     * @return			List of movie screenings of the movie.
+     */
     public ArrayList<MovieScreening> getMovieScreeningsByMovieID(int movieID){
         ArrayList<MovieScreening> movieScreeningList = new ArrayList<>();
         for (int i = 0; i < this.movieScreenings.size(); i++) {
@@ -279,12 +310,11 @@ public class MovieScreeningController extends DatabaseController {
     }
 
     /**
-     * check if the seat for the particular moviescreening can be set,
-     * if yes, return true, else return false;
-     * @param movieScreeningID
-     * @param verticalIndex
-     * @param horizontalIndex
-     * @return
+     * Set a set for particular Moviescreening to booked. It will check if it is indeed bookable.
+     * @param movieScreeningID	the unique movieScreeningID to be set the seat.
+     * @param verticalIndex		the index of the seat in Y-axis
+     * @param horizontalIndex	the index of the seat in X-axis
+     * @return					true if it is set successfully to booked. false otherwise.
      */
     public boolean setSeatSelected(int movieScreeningID, int verticalIndex, int horizontalIndex){
         Seat[][] movieScreeningSeats = getMovieScreeningByScreeningID(movieScreeningID).getSeats();
@@ -299,5 +329,19 @@ public class MovieScreeningController extends DatabaseController {
         }
     }
 
+    /**
+	 * Gets the channel reference of the MovieScreeningController.
+	 * Creates the channel reference if it do not exists.
+	 * @return Instance of the MovieScreeningController.
+	 */
+    public static MovieScreeningController getInstance() {
+        if (instance == null)
+            instance = new MovieScreeningController();
+    	updateExpiry();
+        return instance;
+    }
 
+    /*public void setMovieScreenings(ArrayList<MovieScreening> movieScreenings) {
+        this.movieScreenings = movieScreenings;
+    }*/
 }

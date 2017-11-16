@@ -13,36 +13,50 @@ import java.util.List;
 import java.util.StringTokenizer;
 import java.util.Collections;
 
+/**
+ * A controller to perform storing and retrieval of Movie to/from database.
+ * Also validates changes before committing any changes to database.
+ * @author Meiru
+ * @version 1.0
+ * @since 2017-11-06
+ */
 public class MovieController extends DatabaseController{
-
+	/**
+	 * The sub-directory of the storage of Bookings.
+	 */
 	private String DIR = "movie/";
 
-	private String NIL = "nil";
 	/**
-	 * the instance of this database, default is NULL
+	 * Constant to denote the non-entry.
 	 */
-	private static MovieController instance = null;
+	private final String NIL = "nil";
 
+	/**
+	 * List of the movies.
+	 */
 	private static ArrayList<Movie> movieList;
 
 	/**
-	 * controller.MovieController can only be created itself
+	 * Instance of the movie controller.
+	 */
+	private static MovieController instance = null;
+
+
+	/**
+	 * Creates a new Movie Controller.
+	 * Also initialize the list of movies and read from database.
 	 */
 	private MovieController() {
 		movieList = new ArrayList<>();
 		readDB();
 	}
-	/**
-	 * create new database if there's no database
-	 * @return controller.MovieController
-	 */
-	public static MovieController getInstance() {
-		if (instance == null)
-			instance = new MovieController();
-		checkAllMovies();
-		return instance;
-	}
 
+	/**
+	 * Retrieve the movies from database.
+	 * The order is as follows: MovieID, Movie Name, Showing Status, Synopsis, Directory, Cast, Overall rating, Bookable, Ticket Sales, 
+	 * Duration, End Date of Showing, Reviews, Ratings.
+	 * These variables are parsed into the Movie objects and stored when the Movie Controller is initalized.
+	 */
 	@Override
 	protected void readDB() {
 		movieList.clear();
@@ -104,8 +118,8 @@ public class MovieController extends DatabaseController{
 					}
 				}
 
-			} catch (IOException io) {
-				System.out.println("Error! Unable to retrieve model from file.");
+			} catch (IOException | NumberFormatException ex) {
+				System.out.println("Error! Unable to retrieve Movie model from file.");
 			}
 		}
 
@@ -116,6 +130,11 @@ public class MovieController extends DatabaseController{
 
 	}
 
+	/** Save the Movie model into database. Each line in the Movie.dat file is a booking object.
+	 * The order is as follows: MovieID, Movie Name, Showing Status, Synopsis, Directory, Cast, Overall rating, Bookable, Ticket Sales, 
+	 * Duration, End Date of Showing, Reviews, Ratings.
+	 * These will be appended into the Movie.dat file in sequence.
+	 */
 	@Override
 	protected void writeDB() {
 		List<String> text = new ArrayList<>();
@@ -187,6 +206,11 @@ public class MovieController extends DatabaseController{
 		}
 	}
 
+	/**
+	 * Check if the input is double.
+	 * @param value	Value to check.
+	 * @return		True if it is double. False otherwise.
+	 */
 	private boolean isDouble(String value) {
 		try {
 			Double.parseDouble(value);
@@ -196,11 +220,18 @@ public class MovieController extends DatabaseController{
 		}
 	}
 
-
+	/**
+	 * Get the list of all the movies.
+	 * @return	List of all movies.
+	 */
 	public ArrayList<Movie> getMovieList(){
 		return movieList;
 	}
-	
+
+	/**
+	 * Get the list of all movies that is available for booking (Preview or Now Showing).
+	 * @return	List of the bookable movies.
+	 */
 	public ArrayList<Movie> getShowingMovieList(){
 		ArrayList<Movie> showingMovies = new ArrayList<>(movieList);
 		for (int i = showingMovies.size() - 1 ; i >= 0; i--)
@@ -208,36 +239,46 @@ public class MovieController extends DatabaseController{
 				showingMovies.remove(i);
 		return showingMovies;
 	}
-	
 
 	/**
-	 * add model.Movie into the movieList after staff has key in all the details required by the StaffUI.
-	 * @param movieId
-	 * @param movieName
-	 * @param synopsis
-	 * @param director
-	 * @param cast
+	 * Add Movie into the database after staff has key in all the details required by the StaffUI.
+	 * @param movieId	MovieID of the movie.
+	 * @param movieName	Name of the movie.
+	 * @param synopsis	Synopsis of the movie.
+	 * @param director	Director of the movie.
+	 * @param cast		Cast of the movie.
+	 * @param status	Showing Status of the movie.
+	 * @param duration	Duration of the movie.
 	 */
 	public void addMovie(int movieId, String movieName, String synopsis, String director, String cast, MovieShowingStatus status, int duration){
 		Movie newMovie = new Movie(movieId, movieName, synopsis, director, cast, status, duration);
 		movieList.add(newMovie);
 		writeDB();
 	}
-	
+
+	/**
+	 * Modify an existing movie in the database. It will validate if the movie exists before committing the change.
+	 * @param movieId		MovieID of the movie to change.
+	 * @param newMovieName	New Movie Name of the movie.
+	 * @param newSynopsis	New Synopsis of the movie.
+	 * @param newdirector	New Director name of the movie.
+	 * @param newCast		New cast of the movie.
+	 * @param newStatus		New Showing status of the movie.
+	 * @param duration		Duration of the movie.
+	 */
 	public void updateMovie(int movieId, String newMovieName, String newSynopsis, String newdirector, String newCast, MovieShowingStatus newStatus, int duration){
 		Movie oldMovie = removeMovie(movieId);
 		if (oldMovie != null)
 			addMovie(movieId, newMovieName, newSynopsis, newdirector, newCast, newStatus, duration);
 		writeDB();
 	}
-	
-	
+
+
 	/**
-         * removes the movie based on its unique ID.
-         * if movie is not found, return null object
-         * @param movieId
-         * @return
-         */
+	 * Removes the movie based on its unique MovieID. It will validate if the movie exists in the database.
+	 * @param movieId	MovieID of the movie to remove.
+	 * @return			Removed Movie object if it exists. null object if movie is not found.
+	 */
 	public Movie removeMovie(int movieId){
 		for (int i = 0; i < movieList.size(); i++)
 		{
@@ -252,9 +293,9 @@ public class MovieController extends DatabaseController{
 
 
 	/**
-	 * get the model.Movie using movieId
-	 * @param movieId
-	 * @return model.Movie
+	 * Get the Movie using its MovieID.
+	 * @param movieId		MovieID of the movie to retrieve.
+	 * @return Movie		Movie object if it exists. null object if it is not found.
 	 */
 	public Movie getMovie(int movieId){
 		for (Movie movie : movieList)
@@ -263,20 +304,31 @@ public class MovieController extends DatabaseController{
 		return null;
 	}
 
-	// Add this to class diagram
+	/**
+	 * Find a movie that is currently available for booking by its name.
+	 * @param movieName	Movie Name of the movie.
+	 * @return			Movie object if it exists. null object if it is not found.
+	 */
 	public Movie getShowingMovieByName(String movieName){
 		for (Movie movie : movieList)
 			if (movie.getMovieName().equalsIgnoreCase(movieName) && movie.isShowing())
 				return movie;
 		return null;
 	}
-	
+
+	/**
+	 * Update a movie for its end of showing date.
+	 * @param movieID			Movie ID of the movie.
+	 * @param showingEndDate	End date of the movie.
+	 */
 	public void updateMovieEndOfShowing(int movieID, Calendar showingEndDate){
 		getMovie(movieID).setShowingEndDate(showingEndDate);
 		writeDB();
 	}
-	
-	// Add this to class diagram
+
+	/**
+	 * Prints out the top 5 movies that are available for booking by sales.
+	 */
 	public void printTopFiveBySales(){
 		ArrayList<Movie> sortedMovieList = new ArrayList<>(getShowingMovieList());
 		Collections.sort(sortedMovieList, new MovieSalesComparator());
@@ -288,8 +340,10 @@ public class MovieController extends DatabaseController{
 					" (Ticket Sales - $" + movie.getTicketSales() + ")");
 		}
 	}
-	
-	// Add this to class diagram
+
+	/**
+	 * Prints out the top 5 movies that are available for booking by ratings.
+	 */
 	public void printTopFiveByRatings(){
 		ArrayList<Movie> sortedMovieList = new ArrayList<>(getShowingMovieList());
 		Collections.sort(sortedMovieList, new MovieRatingsComparator());
@@ -301,42 +355,71 @@ public class MovieController extends DatabaseController{
 					" (Overall Rating - " + movie.getAvg_rating() + "/5)");
 		}
 	}
-	
+
+	/**
+	 * Update a movie sales.
+	 * @param movieID	MovieID of the movie.
+	 * @param sales		Sales to add to a movie.
+	 */
 	public void updateMovieSales(int movieID, double sales){
 		getMovie(movieID).addTicketSales(sales);
 		writeDB();
 	}
-	
-	public void addMovieReview(int movieID, String review){
-		getMovie(movieID).addReview(review);
+
+	/**
+	 * Add a review and rating to a movie.
+	 * @param movieID	MovieID of the movie.
+	 * @param review	Review to add to a movie.
+	 * @param rating	Rating to add to a movie.
+	 */
+	public void addMovieReviewRating(int movieID, String review, double rating){
+		Movie movie = getMovie(movieID);
+		movie.addReview(review);
+		movie.addRating(rating);
 		writeDB();
-	}
-	
-	public void addMovieRating(int movieID, double rating){
-		getMovie(movieID).addRating(rating);
-		writeDB();
-	}
-	
-	public void setMovieList(ArrayList<Movie> newMovieList) {
-		movieList = newMovieList;
 	}
 
+	/** 
+	 * Update all movies if it is bookable.
+	 */
 	private static void checkAllMovies(){
 		for (Movie movie : movieList)
 			movie.checkIfBookable();
 	}
 	
+	/**
+	 * Prints out all the movie names and showing status.
+	 */
 	public void printMovieLists(){
 		System.out.println("Size of movie: " + movieList.size());
 		for (int i = 0; i < movieList.size();i++){
 			movieList.get(i).printInfo();
 		}
 	}
-
+	
+	/**
+	 * Print out all the movies and their information.
+	 */
 	public void printMovieNames() {
 		for (int i = 0; i < movieList.size(); i++) {
 			if (movieList.get(i).getStatus() != MovieShowingStatus.END_OF_SHOWING)
 				System.out.println((i + 1) + ") " + movieList.get(i).getMovieName() + " - " + movieList.get(i).getStatus());
 		}
 	}
+
+	/**
+	 * Gets the channel reference of the MovieController.
+	 * Creates the channel reference if it do not exists.
+	 * @return Instance of the Movie Controller.
+	 */
+	public static MovieController getInstance() {
+		if (instance == null)
+			instance = new MovieController();
+		checkAllMovies();
+		return instance;
+	}
+	
+	/*	public void setMovieList(ArrayList<Movie> newMovieList) {
+		movieList = newMovieList;
+	}*/
 }
