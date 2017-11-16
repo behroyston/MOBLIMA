@@ -341,6 +341,19 @@ public class MovieScreeningController extends DatabaseController {
         return instance;
     }
 
+	/**
+	 * Checks for movieScreeningID clashes prior to creation of new movie screening.
+	 * @param movieScreeningID	Movie Screening ID of the movie.
+	 * @return true/false for clash
+	 */
+	public boolean checkMovieScreeningIDClash(int movieScreeningID) {
+		for (int i = 0; i < movieScreenings.size(); i++) {
+			if (movieScreenings.get(i).getMovieScreeningID() == movieScreeningID)
+				return true;
+		}
+		return false;
+	}
+	
     /*public void setMovieScreenings(ArrayList<MovieScreening> movieScreenings) {
         this.movieScreenings = movieScreenings;
     }*/
