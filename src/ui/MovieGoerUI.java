@@ -234,7 +234,7 @@ public class MovieGoerUI {
 	}
 
 	/**
-	 * Interact with the user to display the movie screenings for booking.
+	 * Interact with the user to display the movie screenings that are available for booking.
 	 * @param movieID	MovieID of the movie selected by moviegoer.
 	 */
 	private void listTimings(int movieID){
@@ -251,19 +251,29 @@ public class MovieGoerUI {
 				System.out.println("Invalid input! Please re-enter...");
 		}
 		CineplexController cineplexController = CineplexController.getInstance();
-		System.out.println("MovieScreenings:");
-		for (int i = 0; i< movieScreenings.size(); i++)
-		{
-			int cinemaID = movieScreenings.get(i).getCinemaID();
-			System.out.print((i+1) + ") ");
-			System.out.print(movieScreenings.get(i).getStartDateTime() + " at " +
-					cineplexController.getCineplexByCinemaID(cinemaID).getName());
-			System.out.println(" - Cinema "+ cineplexController.getCinema(cinemaID).getCinemaID());
-		}
-		System.out.println("Enter the Movie Screening Number if you want to book seats!");
 
-		int selection = sc.nextInt();
-		showSeatsAvailability(movieScreenings.get(selection-1).getMovieScreeningID());
+		// Get list of moviescreening that is bookable
+		ArrayList<MovieScreening> bookableScreenings = new ArrayList<>();
+		for (MovieScreening movieScreening : movieScreenings)
+			if (!movieScreening.getIsExpired())
+				bookableScreenings.add(movieScreening);
+
+		if (bookableScreenings.size() == 0)
+			System.out.println("There is no more screenings for this movie!");
+		else{
+			System.out.println("MovieScreenings:");
+			for (int i = 0; i < bookableScreenings.size(); i++){
+				int cinemaID = bookableScreenings.get(i).getCinemaID();
+				System.out.print((i+1) + ") ");
+				System.out.print(bookableScreenings.get(i).getStartDateTime() + " at " +
+						cineplexController.getCineplexByCinemaID(cinemaID).getName());
+				System.out.println(" - Cinema "+ cineplexController.getCinema(cinemaID).getCinemaID());
+			}
+			System.out.println("Enter the Movie Screening Number if you want to book seats!");
+
+			int selection = sc.nextInt();
+			showSeatsAvailability(bookableScreenings.get(selection-1).getMovieScreeningID());
+		}
 	}
 
 	/**
@@ -450,7 +460,7 @@ public class MovieGoerUI {
 			movieScreening.getStartDateTime();
 		}
 	}
-	
+
 	/**
 	 * Gets the channel reference of the MovieGoerUI.
 	 * Creates the channel reference if it do not exists.

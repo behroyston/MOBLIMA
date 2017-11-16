@@ -4,6 +4,10 @@ import ui.StaffUI;
 import java.util.Scanner;
 
 public class Main {
+	/**
+	 * Main method to execute program
+	 * @param args
+	 */
     public static void main(String[] args) {
         MovieGoerUI mMovieGoerUI = MovieGoerUI.getInstance();
         StaffUI mStaffUI = StaffUI.getInstance();
