@@ -170,9 +170,11 @@ public class StaffUI {
 				continue;
 				}
 		}
-		if (MovieController.getInstance().checkMovieIDClash(newMID)) {
-			System.out.println("Error! This movieID already exists!");
-			createOrUpdateMovieListing(create);
+		if(create) {
+			if (MovieController.getInstance().checkMovieIDClash(newMID)) {
+				System.out.println("Error! This movieID already exists!");
+				createOrUpdateMovieListing(create);
+			}
 		}
 		// clear buffer
 		sc.nextLine();
