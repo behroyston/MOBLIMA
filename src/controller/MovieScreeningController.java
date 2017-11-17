@@ -299,8 +299,7 @@ public class MovieScreeningController extends DatabaseController {
      */
     public ArrayList<MovieScreening> getMovieScreeningsByMovieID(int movieID){
         ArrayList<MovieScreening> movieScreeningList = new ArrayList<>();
-        for (int i = 0; i < this.movieScreenings.size(); i++) {
-            MovieScreening movieScreening = movieScreenings.get(i);
+        for (MovieScreening movieScreening : movieScreenings) {
             if (movieID == movieScreening.getMovieID())
             {
                 movieScreeningList.add(movieScreening);
