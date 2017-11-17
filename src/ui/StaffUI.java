@@ -170,9 +170,11 @@ public class StaffUI {
 				continue;
 				}
 		}
-		if (MovieController.getInstance().checkMovieIDClash(newMID)) {
-			System.out.println("Error! This movieID already exists!");
-			createOrUpdateMovieListing(create);
+		if(create) {
+			if (MovieController.getInstance().checkMovieIDClash(newMID)) {
+				System.out.println("Error! This movieID already exists!");
+				createOrUpdateMovieListing(create);
+			}
 		}
 		// clear buffer
 		sc.nextLine();
@@ -186,6 +188,7 @@ public class StaffUI {
 		String newCast = sc.nextLine();
 		System.out.println("Enter Duration of Movie (in mins): ");
 		int duration = sc.nextInt();
+		sc.nextLine();
 
 		System.out.println("Enter Movie Showing Status: \n" +
 				"1) Coming Soon\n" + "2) Preview\n" + "3) Now Showing\n" + "4) End of Showing" );
@@ -304,10 +307,6 @@ public class StaffUI {
 					sc.nextLine();
 					continue;
 				}
-			}
-			if (MovieScreeningController.getInstance().checkMovieScreeningIDClash(movieScreeningID)) {
-				System.out.println("Error! This movie screening ID already exists!");
-				createOrUpdateCinemaShowtimes(create);
 			}
 		}
 		// clear buffer
