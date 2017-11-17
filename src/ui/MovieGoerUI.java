@@ -372,6 +372,7 @@ public class MovieGoerUI {
 		System.out.println();
 		movieScreening.printMovieScreeningSeatsInfo();
 		System.out.println("\t<<<SCREEN>>>\t");
+		System.out.println("O - Available Seat\tX - Unavailable Seat");
 		movieScreening.printMovieScreeningInfo();
 		System.out.println("Cinema Class Type: " + CineplexController.getInstance().getCinema(movieScreening.getCinemaID()).getCinemaClassType());
 
