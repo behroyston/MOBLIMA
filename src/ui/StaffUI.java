@@ -188,6 +188,7 @@ public class StaffUI {
 		String newCast = sc.nextLine();
 		System.out.println("Enter Duration of Movie (in mins): ");
 		int duration = sc.nextInt();
+		sc.nextLine();
 
 		System.out.println("Enter Movie Showing Status: \n" +
 				"1) Coming Soon\n" + "2) Preview\n" + "3) Now Showing\n" + "4) End of Showing" );
