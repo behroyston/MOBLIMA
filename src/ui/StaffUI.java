@@ -308,10 +308,6 @@ public class StaffUI {
 					continue;
 				}
 			}
-			if (MovieScreeningController.getInstance().checkMovieScreeningIDClash(movieScreeningID)) {
-				System.out.println("Error! This movie screening ID already exists!");
-				createOrUpdateCinemaShowtimes(create);
-			}
 		}
 		// clear buffer
 		sc.nextLine();
