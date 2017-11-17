@@ -373,6 +373,7 @@ public class MovieGoerUI {
 		movieScreening.printMovieScreeningSeatsInfo();
 		System.out.println("\t<<<SCREEN>>>\t");
 		movieScreening.printMovieScreeningInfo();
+		System.out.println("Cinema Class Type: " + CineplexController.getInstance().getCinema(movieScreening.getCinemaID()).getCinemaClassType());
 
 		System.out.println("1. Book Seat\n2. Go Back to Main Menu");
 		int choice = checkIfInt(2);
