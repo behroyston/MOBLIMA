@@ -421,7 +421,7 @@ public class MovieController extends DatabaseController{
 	
 	/**
 	 * Checks for movieID clashes prior to creation of new movie listing.
-	 * @param movieID	MovieID of the movie.
+	 * @param movieId movieID of the movie.
 	 * @return true/false for clash
 	 */
 	public boolean checkMovieIDClash(int movieId) {

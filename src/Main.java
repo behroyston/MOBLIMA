@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Main {
 	/**
 	 * Main method to execute program
-	 * @param args
+	 * @param args args
 	 */
     public static void main(String[] args) {
         MovieGoerUI mMovieGoerUI = MovieGoerUI.getInstance();

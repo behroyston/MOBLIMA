@@ -1,10 +1,9 @@
 package model;
 
 import java.io.*;
-import java.util.List;
-import java.util.StringTokenizer;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.StringTokenizer;
 /**
  * Represents a SystemSetting object which stores the settings that can contribute to the ticket price.
  * @author Amos
@@ -108,7 +107,7 @@ public class SystemSettings {
 
 	/**
 	 * Set the 3D surcharge of the movie ticket.
-	 * @param setThreeDExtra	New 3D surcharge of the movie ticket.
+	 * @param threeDExtra New 3D surcharge of the movie ticket.
 	 */
 	public void setThreeDExtra(double threeDExtra) {
 		this.threeDExtra = threeDExtra;

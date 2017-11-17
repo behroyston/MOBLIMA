@@ -259,7 +259,7 @@ public class MovieScreeningController extends DatabaseController {
     }
 
     /**
-     * Check through all the movieScreenings to update if currentTime > startTime and if the movie has reached end of showing.
+     * Check through all the movieScreenings to update if currentTime is after startTime and if the movie has reached end of showing.
      * If yes, set isExpired = true.
      */
     private static void updateExpiry(){
